@@ -1,25 +1,15 @@
 #include "ScreenManager.h"
-#include "Scene.h"
 
-#include <SFML/Graphics.hpp>
-#include <memory>
+void ScreenManager::setScreen(std::unique_ptr<Scene> newScreen) {
+    currentScreen = std::move(newScreen);
+}
 
-class ScreenManager {
-public:
-    void setScreen(std::unique_ptr<Scene> newScreen) {
-        currentScreen = std::move(newScreen);
-    }
+void ScreenManager::update(float dt) {
+    if (currentScreen)
+        currentScreen->update(dt);
+}
 
-    void update(float dt) {
-        if (currentScreen)
-            currentScreen->update(dt);
-    }
-
-    void draw(sf::RenderWindow& window) {
-        if (currentScreen)
-            currentScreen->draw(window);
-    }
-
-private:
-    std::unique_ptr<Scene> currentScreen;
-};
+void ScreenManager::draw(sf::RenderWindow& window) {
+    if (currentScreen)
+        currentScreen->draw(window);
+}

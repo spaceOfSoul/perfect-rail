@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="소스 파일\Scenes">
+      <UniqueIdentifier>{f6262f42-3e0d-449a-8755-75010a71199f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Scenes">
+      <UniqueIdentifier>{11ab87bb-46eb-40eb-bee2-17a7dab938b0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -24,17 +30,17 @@
     <ClCompile Include="Scene.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="MainMenuScene.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="GameScene.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="SongMenuScene.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="ScreenManager.cpp">
       <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenuScene.cpp">
+      <Filter>소스 파일\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScene.cpp">
+      <Filter>소스 파일\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="SongMenuScene.cpp">
+      <Filter>소스 파일\Scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -44,17 +50,17 @@
     <ClInclude Include="Scene.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="MainMenuScene.h">
+    <ClInclude Include="ScreenManager.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="GameScene.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>헤더 파일\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenuScene.h">
+      <Filter>헤더 파일\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="SongMenuScene.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="ScreenManager.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>헤더 파일\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
