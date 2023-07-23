@@ -1,7 +1,9 @@
 #include <SFML/Graphics.hpp>
 #include <stdio.h>
+
 #include "MainMenuScene.h"
 #include "SongMenuScene.h"
+#include "SceneManager.h"
 
 int main()
 {
@@ -10,10 +12,15 @@ int main()
     bool fullscreen = true;
     int screen_num = 0;
 
-    MainMenuScene mainMenu(window.getSize().x, window.getSize().y);
-    SongMenuScene songMenu(window.getSize().x, window.getSize().y);
+    std::map<std::string, Scene*> scenes;
+    scenes["mainMenu"] = new MainMenuScene(window.getSize().x, window.getSize().y);
+    scenes["songMenu"] = new SongMenuScene(window.getSize().x, window.getSize().y);
+
+    SceneManager scene_manager(scenes);
 
     sf::Clock clock;
+
+    scene_manager.setScreen("mainMenu");
 
     while (window.isOpen())
     {
@@ -33,65 +40,8 @@ int main()
                     fullscreen ? sf::Style::Fullscreen : sf::Style::Close);
             }
 
-            if(event.type)
-
-            // 목록 화면 이벤트
-            if (screen_num == 0) {
-                if (event.type == sf::Event::KeyReleased)
-                {
-                    if (event.key.code == sf::Keyboard::Up)
-                    {
-                        mainMenu.MoveUp();
-                    }
-                    else if (event.key.code == sf::Keyboard::Down)
-                    {
-                        mainMenu.MoveDown();
-                    }
-                    else if (event.key.code == sf::Keyboard::Return)
-                    {
-                        int pressedItem = mainMenu.GetPressedItem();
-
-                        if (pressedItem == 0)
-                        {
-                            printf("Play button has been pressed\n");
-                            screen_num = 1;
-                        }
-                        else if (pressedItem == 1)
-                        {
-                            printf("Option button has been pressed\n");
-                        }
-                        else if (pressedItem == 2)
-                        {
-                            window.close();
-                        }
-                    }
-                }
-            }
-            else if(screen_num == 1) {
-                if (event.type == sf::Event::KeyReleased)
-                {
-                    if (event.key.code == sf::Keyboard::Up)
-                    {
-                        songMenu.MoveUp();
-                    }
-                    else if (event.key.code == sf::Keyboard::Down)
-                    {
-                        songMenu.MoveDown();
-                    }
-                    else if (event.key.code == sf::Keyboard::Return)
-                    {
-                        int pressedItem = songMenu.GetPressedItem();
-
-                        printf("pressed %d\n", pressedItem);
-                    }
-                }
-            }
-            // 게임 내의 이벤트
-            // 이벤트 전달 메소드 쓸 예정
-
-
-            // 설정 이벤트
-            // 이벤트 전달 메소드 쓸 예정
+            //Scene handle
+            scene_manager.handleInput(event, window);
         }
 
         float dt = clock.restart().asSeconds(); // deltaTime
@@ -100,12 +50,7 @@ int main()
 
         //Draw the scene
         window.clear();
-        if (screen_num == 0) {
-            mainMenu.draw(window);
-        }
-        else if (screen_num == 1) {
-            songMenu.draw(window);
-        }
+        scene_manager.draw(window);
         window.display();
     }
 

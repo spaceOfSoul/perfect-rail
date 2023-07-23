@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Scene.h"
+#include "signal.h"
 
 #define MAX_OF_ITEM 3
 
@@ -19,6 +20,7 @@ public:
 
     void update(float dt) override;
     void draw(sf::RenderWindow& window) override;
+    Signal handleInput(sf::Event event, sf::RenderWindow &window) override;
 
     void MoveUp();
     void MoveDown();

@@ -17,6 +17,7 @@ public:
 
     void update(float dt) override;
     void draw(sf::RenderWindow& window) override;
+    Signal handleInput(sf::Event event, sf::RenderWindow& window) override;
 
     void MoveUp();
     void MoveDown();

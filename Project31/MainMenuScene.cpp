@@ -1,4 +1,5 @@
 #include "MainMenuScene.h"
+
 #include <stdio.h>
 
 MainMenuScene::MainMenuScene(float width, float height) {
@@ -61,6 +62,39 @@ void MainMenuScene::MoveDown()
 		menu_texts[selectedItemIndex].setFillColor(sf::Color::White);
 		selectedItemIndex++;
 		menu_texts[selectedItemIndex].setFillColor(sf::Color::Red);
+	}
+}
+
+Signal MainMenuScene::handleInput(sf::Event event, sf::RenderWindow &window) {
+	if (event.type == sf::Event::KeyReleased)
+	{
+		if (event.key.code == sf::Keyboard::Up)
+		{
+			MoveUp();
+		}
+		else if (event.key.code == sf::Keyboard::Down)
+		{
+			MoveDown();
+		}
+		else if (event.key.code == sf::Keyboard::Return)
+		{
+			int pressedItem = GetPressedItem();
+
+			if (pressedItem == 0)
+			{
+				printf("Play button has been pressed\n");
+				return Signal::GoToSongMenu;
+				
+			}
+			else if (pressedItem == 1)
+			{
+				printf("Option button has been pressed\n");
+			}
+			else if (pressedItem == 2)
+			{
+				window.close();
+			}
+		}
 	}
 }
 

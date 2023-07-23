@@ -61,6 +61,29 @@ void SongMenuScene::MoveDown()
 	}
 }
 
+Signal SongMenuScene::handleInput(sf::Event event, sf::RenderWindow &window) {
+    if (event.type == sf::Event::KeyReleased)
+    {
+        if (event.key.code == sf::Keyboard::Up)
+        {
+            MoveUp();
+        }
+        else if (event.key.code == sf::Keyboard::Down)
+        {
+            MoveDown();
+        }
+        else if (event.key.code == sf::Keyboard::Return)
+        {
+            int pressedItem = GetPressedItem();
+            if (pressedItem) {
+                return Signal::GoToSongMenu;
+            }
+            printf("pressed %d\n", pressedItem);
+        }
+    }
+    return Signal::None;
+}
+
 void SongMenuScene::update(float dt) {
 	// ±¸ÇöºÎ
 }

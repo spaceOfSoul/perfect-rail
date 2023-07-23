@@ -135,8 +135,6 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenuScene.cpp" />
     <ClCompile Include="parse_data.cpp" />
-    <ClCompile Include="ScreenManager.cpp" />
-    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SongMenuScene.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -144,8 +142,9 @@
     <ClInclude Include="MainMenuScene.h" />
     <ClInclude Include="parse_data.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="ScreenManager.h" />
+    <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="signal.h" />
     <ClInclude Include="SongMenuScene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
