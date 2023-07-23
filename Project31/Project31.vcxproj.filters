@@ -19,6 +19,9 @@
     <Filter Include="헤더 파일\Scenes">
       <UniqueIdentifier>{11ab87bb-46eb-40eb-bee2-17a7dab938b0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\GameObj">
+      <UniqueIdentifier>{055d59ba-b0e3-4a00-8ce1-6a8cdb5495a8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -59,8 +62,11 @@
     <ClInclude Include="SongMenuScene.h">
       <Filter>헤더 파일\Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
     <ClInclude Include="Scene.h">
-      <Filter>소스 파일\Scenes</Filter>
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

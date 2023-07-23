@@ -10,16 +10,18 @@ private:
     sf::Text titleText;
     sf::Text menu_texts[MAX_OF_ITEM];
     sf::RectangleShape startButton;
-    int selectedItemIndex;
+    int selectedItemIndex = 0;
     const int fontSize = 24;
 
 public:
     MainMenuScene(float width, float height);
     ~MainMenuScene();
 
-    void update(float dt);
+    void update(float dt) override;
+    void draw(sf::RenderWindow& window) override;
+
     void MoveUp();
     void MoveDown();
+
     int GetPressedItem() { return selectedItemIndex; }
-    void draw(sf::RenderWindow& window) override;
 };
