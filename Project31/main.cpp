@@ -40,13 +40,13 @@ int main()
                     fullscreen ? sf::Style::Fullscreen : sf::Style::Close);
             }
 
-            //Scene handle
+            // Scene handle
             scene_manager.handleInput(event, window);
         }
 
         float dt = clock.restart().asSeconds(); // deltaTime
         // Update the scene
-
+        scene_manager.update(dt);
 
         //Draw the scene
         window.clear();

@@ -136,6 +136,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenuScene.cpp" />
     <ClCompile Include="parse_data.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SongMenuScene.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -143,7 +144,6 @@
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="MainMenuScene.h" />
     <ClInclude Include="parse_data.h" />
-    <ClInclude Include="resource.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="signal.h" />

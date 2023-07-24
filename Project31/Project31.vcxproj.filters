@@ -13,12 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="소스 파일\Scenes">
-      <UniqueIdentifier>{f6262f42-3e0d-449a-8755-75010a71199f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="헤더 파일\Scenes">
-      <UniqueIdentifier>{11ab87bb-46eb-40eb-bee2-17a7dab938b0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\GameObj">
       <UniqueIdentifier>{055d59ba-b0e3-4a00-8ce1-6a8cdb5495a8}</UniqueIdentifier>
     </Filter>
@@ -31,6 +25,18 @@
     <Filter Include="소스 파일\UI">
       <UniqueIdentifier>{750eb597-7384-4f8e-b8e8-89d62f14e1b7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Scene">
+      <UniqueIdentifier>{f6262f42-3e0d-449a-8755-75010a71199f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Scene">
+      <UniqueIdentifier>{11ab87bb-46eb-40eb-bee2-17a7dab938b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Scene\Scenes">
+      <UniqueIdentifier>{8f45610b-c3a5-413f-a767-6dee7f8c08af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Scene\Scenes">
+      <UniqueIdentifier>{e8cb7d19-bd02-4a78-92a3-e05d47e7be9d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -39,36 +45,24 @@
     <ClCompile Include="parse_data.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="MainMenuScene.cpp">
-      <Filter>소스 파일\Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="GameScene.cpp">
-      <Filter>소스 파일\Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="SongMenuScene.cpp">
-      <Filter>소스 파일\Scenes</Filter>
-    </ClCompile>
     <ClCompile Include="AlbumArt.cpp">
       <Filter>소스 파일\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>소스 파일\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenuScene.cpp">
+      <Filter>소스 파일\Scene\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="SongMenuScene.cpp">
+      <Filter>소스 파일\Scene\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScene.cpp">
+      <Filter>소스 파일\Scene\Scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="parse_data.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneManager.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="GameScene.h">
-      <Filter>헤더 파일\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="MainMenuScene.h">
-      <Filter>헤더 파일\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="SongMenuScene.h">
-      <Filter>헤더 파일\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="resource.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
@@ -79,6 +73,18 @@
     </ClInclude>
     <ClInclude Include="AlbumArt.h">
       <Filter>헤더 파일\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>헤더 파일\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene.h">
+      <Filter>헤더 파일\Scene\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenuScene.h">
+      <Filter>헤더 파일\Scene\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="SongMenuScene.h">
+      <Filter>헤더 파일\Scene\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
