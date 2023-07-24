@@ -3,12 +3,14 @@
 // tmep max num
 #define MAX_NUM 6
 
-SongMenuScene::SongMenuScene(float width, float height):am(AudioManager::Instance()) {
-	if (!font.loadFromFile("fonts\\arial.ttf")) {
-		printf("폰트가 없음.\n");
-	}
+SongMenuScene::SongMenuScene(float width, float height) :am(AudioManager::Instance()) {
+    this->width = width;
+    this->height = height;
+    if (!font.loadFromFile("fonts\\arial.ttf")) {
+        printf("폰트가 없음.\n");
+    }
 
-	std::filesystem::path directoryPath("Songs");
+    std::filesystem::path directoryPath("Songs");
 
     if (std::filesystem::exists(directoryPath) && std::filesystem::is_directory(directoryPath))
     {
@@ -17,67 +19,89 @@ SongMenuScene::SongMenuScene(float width, float height):am(AudioManager::Instanc
         {
             if (std::filesystem::is_directory(entry))
             {
-                sf::Text text;
-                text.setFont(font);
-                text.setString(entry.path().filename().string());
-                text.setPosition(sf::Vector2f(width / 2, height / (MAX_NUM + 1) * (i + 1)));
+                SongInfo songInfo;
+
+                songInfo.songNameStr = entry.path().filename().string();
 
                 for (const auto& subEntry : std::filesystem::directory_iterator(entry.path())) {
-                    if (subEntry.path().filename() == "image.jpg" || subEntry.path().filename() == "image.png") {
-                        songImagePaths.push_back(subEntry.path().string());
-                        break;
+                    if (subEntry.path().filename() == "image.jpg" || subEntry.path().filename() == "image.png") {// 앨범이미지
+                        songInfo.imagePath = subEntry.path().string();
+                    }
+                    else if (subEntry.path().extension() == ".mp3" || subEntry.path().extension() == ".ogg") {//오디오파일 찾기
+                        songInfo.songPath = subEntry.path().string();
+                        am.LoadMusic(songInfo.songNameStr,songInfo.songPath);
                     }
                 }
 
-                if (i == selectedItemIndex) {
-                    text.setFillColor(sf::Color::Red);
-                }else
-                    text.setFillColor(sf::Color::White);
-
-				song_list.push_back(text);
+                songInfos.push_back(songInfo);
                 i++;
             }
         }
     }
-    albumImage = std::make_unique<AlbumArt>(sf::Vector2f(200, 200), sf::Vector2f(100, 100), songImagePaths[selectedItemIndex]);
+
+    if (songInfos.size() > 0) {
+        am.PlayMusic(songInfos[selectedItemIndex].songNameStr);
+    }
+
+    albumImage = std::make_unique<AlbumArt>(sf::Vector2f(200, 200), sf::Vector2f(100, 100), songInfos[selectedItemIndex].imagePath);
 }
+
 
 SongMenuScene::~SongMenuScene() {
 
 }
 
 void SongMenuScene::draw(sf::RenderWindow& window) {
-	for (int i = 0; i < song_list.size(); i++)
-	{
-		window.draw(song_list[i]);
-	}
+    for (int i = 0; i < songInfos.size(); i++)
+    {
+        sf::Text songName;
+        songName.setFont(font);
+        songName.setString(songInfos[i].songNameStr);
+        songName.setPosition(sf::Vector2f(width / 2, height / (MAX_NUM + 1) * (i + 1)));
+
+        if (i == selectedItemIndex) {
+            songName.setFillColor(sf::Color::Red);
+        }
+        else {
+            songName.setFillColor(sf::Color::White);
+        }
+
+        window.draw(songName);
+    }
+
     albumImage->draw(window);
 }
 
 void SongMenuScene::MoveUp()
 {
-	if (selectedItemIndex - 1 >= 0 && selectedItemIndex < song_list.size())
-	{
+    if (selectedItemIndex - 1 >= 0)
+    {
         am.PlaySound("menu_select");
-		song_list[selectedItemIndex].setFillColor(sf::Color::White);
-		selectedItemIndex--;
-        albumImage->setTexturePath(songImagePaths[selectedItemIndex]);
+        selectedItemIndex--;
 
-		song_list[selectedItemIndex].setFillColor(sf::Color::Red);
-	}
+        // Stop the current music and play the selected one
+        am.StopMusic(songInfos[selectedItemIndex + 1].songNameStr);
+        am.PlayMusic(songInfos[selectedItemIndex].songNameStr);
+
+        albumImage->setTexturePath(songInfos[selectedItemIndex].imagePath);
+    }
 }
 
 void SongMenuScene::MoveDown()
 {
-	if (selectedItemIndex + 1 < song_list.size())
-	{
+    if (selectedItemIndex + 1 < songInfos.size())
+    {
         am.PlaySound("menu_select");
-		song_list[selectedItemIndex].setFillColor(sf::Color::White);
-		selectedItemIndex++;
-        albumImage->setTexturePath(songImagePaths[selectedItemIndex]);
-		song_list[selectedItemIndex].setFillColor(sf::Color::Red);
-	}
+        selectedItemIndex++;
+
+        // Stop the current music and play the selected one
+        am.StopMusic(songInfos[selectedItemIndex - 1].songNameStr);
+        am.PlayMusic(songInfos[selectedItemIndex].songNameStr);
+
+        albumImage->setTexturePath(songInfos[selectedItemIndex].imagePath);
+    }
 }
+
 
 Signal SongMenuScene::handleInput(sf::Event event, sf::RenderWindow &window) {
     if (event.type == sf::Event::KeyReleased)

@@ -7,16 +7,24 @@
 #include <vector>
 #include <stdio.h>
 
+struct SongInfo {
+    std::string songNameStr;
+    std::string imagePath;
+    std::string songPath;
+};
+
 class SongMenuScene : public Scene {
 private:
     sf::Font font;
 
     AudioManager& am;
 
-    std::vector<sf::Text> song_list;
-    int selectedItemIndex = 0;
-    std::vector<std::string> songImagePaths;
+    std::vector<SongInfo> songInfos;
     std::unique_ptr<AlbumArt> albumImage;
+    int selectedItemIndex = 0;
+
+    float width;
+    float height;
 
 public:
     SongMenuScene(float width, float height);
@@ -28,6 +36,8 @@ public:
 
     void MoveUp();
     void MoveDown();
+    void MoveRight();
+    void MoveLeft();
 
     int GetPressedItem() { return selectedItemIndex; }
 };

@@ -15,9 +15,10 @@ public:
     void PlaySound(const std::string& soundName);
     void StopSound(const std::string& soundName);
 
-    void LoadMusic(const std::string& path);
+    void LoadMusic(const std::string& musicName, const std::string& path);
     void PlayMusic(const std::string& musicName);
     void StopMusic(const std::string& musicName);
+    void PlaySegmentMusic(const std::string& musicName, sf::Time start, sf::Time end);
 
     void SetSoundVolume(const std::string& soundName, float volume);
     void SetMusicVolume(const std::string& musicName, float volume);
@@ -27,8 +28,10 @@ private:
     std::map<std::string, sf::SoundBuffer> soundBuffers;
     std::map<std::string, std::unique_ptr<sf::Sound>> sounds;
 
-    std::map<std::string, std::unique_ptr<sf::Music>> musics;
+    std::map<std::string, std::string> musics;
 
-    float music_volume = 50.f;
-    float sound_volume = 50.f;
+    std::unique_ptr<sf::Music> currentMusic;
+
+    float music_volume = 30.f;
+    float sound_volume = 30.f;
 };
