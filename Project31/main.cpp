@@ -7,7 +7,9 @@
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Perfect Rail");
+    const unsigned int window_width = 800;
+    const unsigned int window_height = 600;
+    sf::RenderWindow window(sf::VideoMode(window_width, window_height), "Perfect Rail");
 
     bool fullscreen = true;
     int screen_num = 0;
@@ -35,7 +37,7 @@ int main()
             if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F5)
             {
                 fullscreen = !fullscreen;
-                window.create(fullscreen ? sf::VideoMode::getDesktopMode() : sf::VideoMode(800, 600),
+                window.create(fullscreen ? sf::VideoMode::getDesktopMode() : sf::VideoMode(window_width, window_height),
                     "Perfect Rail",
                     fullscreen ? sf::Style::Fullscreen : sf::Style::Close);
             }

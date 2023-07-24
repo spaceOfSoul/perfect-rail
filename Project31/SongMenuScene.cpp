@@ -61,6 +61,7 @@ void SongMenuScene::MoveUp()
 		song_list[selectedItemIndex].setFillColor(sf::Color::White);
 		selectedItemIndex--;
         albumImage->setTexturePath(songImagePaths[selectedItemIndex]);
+
 		song_list[selectedItemIndex].setFillColor(sf::Color::Red);
 	}
 }
