@@ -131,6 +131,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AlbumArt.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenuScene.cpp" />
@@ -138,6 +139,7 @@
     <ClCompile Include="SongMenuScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AlbumArt.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="MainMenuScene.h" />
     <ClInclude Include="parse_data.h" />

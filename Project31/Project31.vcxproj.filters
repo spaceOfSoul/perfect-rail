@@ -22,6 +22,15 @@
     <Filter Include="소스 파일\GameObj">
       <UniqueIdentifier>{055d59ba-b0e3-4a00-8ce1-6a8cdb5495a8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="헤더 파일\UI">
+      <UniqueIdentifier>{4c149f67-aa39-4272-9d49-4669c9a03203}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\GameObj">
+      <UniqueIdentifier>{b943616f-d872-468e-aea7-e1173a8fcb3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\UI">
+      <UniqueIdentifier>{750eb597-7384-4f8e-b8e8-89d62f14e1b7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -38,6 +47,9 @@
     </ClCompile>
     <ClCompile Include="SongMenuScene.cpp">
       <Filter>소스 파일\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="AlbumArt.cpp">
+      <Filter>소스 파일\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -64,6 +76,9 @@
     </ClInclude>
     <ClInclude Include="signal.h">
       <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="AlbumArt.h">
+      <Filter>헤더 파일\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

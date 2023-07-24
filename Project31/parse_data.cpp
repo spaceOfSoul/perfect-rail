@@ -111,7 +111,7 @@ void ReadProperty_General(std::string str)
 // MetaData Section 읽기
 void ReadProperty_MetaData(std::string str)
 {
-	std::istringstream ss(str);
+	std::istringstream ss(str); // 공백에 맞게 문자열을 분할
 	std::string buffer;
 	std::vector<std::string> tokens;
 
@@ -121,7 +121,7 @@ void ReadProperty_MetaData(std::string str)
 		tokens.push_back(buffer);
 	}
 
-	// Process tokens...
+	// 토큰 처리(각 섹션에 맞게 정보를 파싱 )
 	if (tokens[0] == "Title")
 	{
 		M_MetaData.Title = tokens[1];
@@ -178,7 +178,7 @@ void ReadProperty_Difficulty(std::string str)
 		tokens.push_back(buffer);
 	}
 
-	// Process tokens...
+	// 토큰 처리...
 	if (tokens[0] == "HPDrainRate")
 	{
 		M_Difficulty.HPDrainRate = std::stof(tokens[1]);
@@ -211,7 +211,7 @@ void ReadProperty_TimingPoint(std::string str)
 		tokens.push_back(buffer);
 	}
 
-	// Process tokens...
+	// 토큰 처리...
 	if (tokens.size() >= 8)  // Ensure there are enough tokens
 	{
 		TimingPoints[TPoint_array_section].time = std::stoi(tokens[0]);
