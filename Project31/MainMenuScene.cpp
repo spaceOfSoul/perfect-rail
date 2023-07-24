@@ -2,10 +2,12 @@
 
 #include <stdio.h>
 
-MainMenuScene::MainMenuScene(float width, float height) {
+MainMenuScene::MainMenuScene(float width, float height) : am(AudioManager::Instance()) {
     if (!font.loadFromFile("fonts\\arial.ttf")) {
         printf("폰트가 없음\n");
     }
+
+	// render texts
 	titleText.setFont(font);
 	titleText.setString("Main Menu");
 	titleText.setCharacterSize(fontSize);
@@ -49,6 +51,7 @@ void MainMenuScene::MoveUp()
 {
 	if (selectedItemIndex - 1 >= 0)
 	{
+		am.PlaySound("menu_select");
 		menu_texts[selectedItemIndex].setFillColor(sf::Color::White);
 		selectedItemIndex--;
 		menu_texts[selectedItemIndex].setFillColor(sf::Color::Red);
@@ -59,6 +62,7 @@ void MainMenuScene::MoveDown()
 {
 	if (selectedItemIndex + 1 < MAX_OF_ITEM)
 	{
+		am.PlaySound("menu_select");
 		menu_texts[selectedItemIndex].setFillColor(sf::Color::White);
 		selectedItemIndex++;
 		menu_texts[selectedItemIndex].setFillColor(sf::Color::Red);

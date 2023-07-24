@@ -1,6 +1,7 @@
 #pragma once
 #include "Scene.h"
 #include "AlbumArt.h"
+#include "AudioManager.h"
 
 #include <filesystem>
 #include <vector>
@@ -9,6 +10,9 @@
 class SongMenuScene : public Scene {
 private:
     sf::Font font;
+
+    AudioManager& am;
+
     std::vector<sf::Text> song_list;
     int selectedItemIndex = 0;
     std::vector<std::string> songImagePaths;

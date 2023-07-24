@@ -4,6 +4,7 @@
 #include "MainMenuScene.h"
 #include "SongMenuScene.h"
 #include "SceneManager.h"
+#include "AudioManager.h"
 
 int main()
 {
@@ -14,14 +15,28 @@ int main()
     bool fullscreen = true;
     int screen_num = 0;
 
+    //singleton instances
+    AudioManager& am = AudioManager::Instance(); // 오디오 관리자
+
+    // sounds load
+    for (const auto& entry : std::filesystem::directory_iterator("sounds")) {
+        std::string path = entry.path().string();
+
+        // wav 파일이면 로드함.
+        if (entry.path().extension() == ".wav") {
+            am.LoadSound(path);
+        }
+    }
+
+    //맵 목록
     std::map<std::string, Scene*> scenes;
     scenes["mainMenu"] = new MainMenuScene(window.getSize().x, window.getSize().y);
     scenes["songMenu"] = new SongMenuScene(window.getSize().x, window.getSize().y);
 
+    //맵 관리자
     SceneManager scene_manager(scenes);
 
     sf::Clock clock;
-
     scene_manager.setScreen("mainMenu");
 
     while (window.isOpen())

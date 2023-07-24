@@ -3,7 +3,7 @@
 // tmep max num
 #define MAX_NUM 6
 
-SongMenuScene::SongMenuScene(float width, float height) {
+SongMenuScene::SongMenuScene(float width, float height):am(AudioManager::Instance()) {
 	if (!font.loadFromFile("fonts\\arial.ttf")) {
 		printf("폰트가 없음.\n");
 	}
@@ -58,6 +58,7 @@ void SongMenuScene::MoveUp()
 {
 	if (selectedItemIndex - 1 >= 0 && selectedItemIndex < song_list.size())
 	{
+        am.PlaySound("menu_select");
 		song_list[selectedItemIndex].setFillColor(sf::Color::White);
 		selectedItemIndex--;
         albumImage->setTexturePath(songImagePaths[selectedItemIndex]);
@@ -70,6 +71,7 @@ void SongMenuScene::MoveDown()
 {
 	if (selectedItemIndex + 1 < song_list.size())
 	{
+        am.PlaySound("menu_select");
 		song_list[selectedItemIndex].setFillColor(sf::Color::White);
 		selectedItemIndex++;
         albumImage->setTexturePath(songImagePaths[selectedItemIndex]);
