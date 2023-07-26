@@ -2,10 +2,14 @@
 
 SceneManager::SceneManager(std::map<std::string, Scene*> scenes) {
     this->scenes = scenes;
+    this->currentScreen = nullptr;
 }
 
 void SceneManager::setScreen(std::string sceneName) {
+    if (this->currentScreen != nullptr)
+        this->currentScreen->onDeactivate();
     this->currentScreen = scenes[sceneName];
+    this->currentScreen->onActivate();
 }
 
 void SceneManager::handleInput(sf::Event event, sf::RenderWindow& window) {

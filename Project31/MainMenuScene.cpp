@@ -105,3 +105,11 @@ Signal MainMenuScene::handleInput(sf::Event event, sf::RenderWindow &window) {
 void MainMenuScene::update(float dt) {
 	// ±¸ÇöºÎ
 }
+
+void MainMenuScene::onActivate() {
+
+}
+
+void MainMenuScene::onDeactivate() {
+
+}

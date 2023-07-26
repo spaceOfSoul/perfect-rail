@@ -39,10 +39,6 @@ SongMenuScene::SongMenuScene(float width, float height) :am(AudioManager::Instan
         }
     }
 
-    if (songInfos.size() > 0) {
-        am.PlayMusic(songInfos[selectedItemIndex].songNameStr);
-    }
-
     albumImage = std::make_unique<AlbumArt>(sf::Vector2f(200, 200), sf::Vector2f(100, 100), songInfos[selectedItemIndex].imagePath);
 }
 
@@ -128,4 +124,16 @@ Signal SongMenuScene::handleInput(sf::Event event, sf::RenderWindow &window) {
 
 void SongMenuScene::update(float dt) {
 	// ±¸ÇöºÎ
+}
+
+void SongMenuScene::onActivate() {
+    if (songInfos.size() > 0) {
+        am.PlayMusic(songInfos[selectedItemIndex].songNameStr);
+    }
+}
+
+void SongMenuScene::onDeactivate() {
+    if (songInfos.size() > 0) {
+        am.StopMusic(songInfos[selectedItemIndex].songNameStr);
+    }
 }

@@ -10,11 +10,11 @@ class SceneManager {
 public:
     SceneManager(std::map<std::string, Scene*> scenes);
 
-    void setScreen(std::string sceneName);
     void handleInput(sf::Event event, sf::RenderWindow& window);
     void update(float dt);
     void draw(sf::RenderWindow& window);
 
+    void setScreen(const std::string sceneName);
 private:
     Scene* currentScreen;
     std::map<std::string, Scene*> scenes;
