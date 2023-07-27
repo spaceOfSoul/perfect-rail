@@ -1,7 +1,10 @@
 #include "SongMenuScene.h"
 #include <SFML/Audio.hpp>
+#include <algorithm>
 // tmep max num
 #define MAX_NUM 6
+
+std::string difficulties[3] = { "Normal", "Hard", "Expert" };
 
 SongMenuScene::SongMenuScene(float width, float height) :am(AudioManager::Instance()) {
     this->width = width;
@@ -24,12 +27,24 @@ SongMenuScene::SongMenuScene(float width, float height) :am(AudioManager::Instan
                 songInfo.songNameStr = entry.path().filename().string();
 
                 for (const auto& subEntry : std::filesystem::directory_iterator(entry.path())) {
-                    if (subEntry.path().filename() == "image.jpg" || subEntry.path().filename() == "image.png") {// 앨범이미지
+                    // 앨범 이미지 경로 찾기
+                    if (subEntry.path().filename() == "image.jpg" || subEntry.path().filename() == "image.png") {
                         songInfo.imagePath = subEntry.path().string();
                     }
-                    else if (subEntry.path().extension() == ".mp3" || subEntry.path().extension() == ".ogg") {//오디오파일 찾기
+                    // 노래 파일 경로
+                    else if (subEntry.path().extension() == ".mp3" || subEntry.path().extension() == ".ogg") {
                         songInfo.songPath = subEntry.path().string();
                         am.LoadMusic(songInfo.songNameStr,songInfo.songPath);
+                    }
+                    // 채보 파일 경로
+                    else if (subEntry.path().extension() == ".osu") {
+                        // 난이도 존재 유무.
+                        for (int i = 0; i < 3; i++) {
+                            if (subEntry.path().filename().string() == difficulties[i] + ".osu") {
+                                songInfo.difficultiesExist.push_back(i);
+                                break;
+                            }
+                        }
                     }
                 }
 
@@ -48,6 +63,7 @@ SongMenuScene::~SongMenuScene() {
 }
 
 void SongMenuScene::draw(sf::RenderWindow& window) {
+    //곡 목록 표시
     for (int i = 0; i < songInfos.size(); i++)
     {
         sf::Text songName;
@@ -55,7 +71,7 @@ void SongMenuScene::draw(sf::RenderWindow& window) {
         songName.setString(songInfos[i].songNameStr);
         songName.setPosition(sf::Vector2f(width / 2, height / (MAX_NUM + 1) * (i + 1)));
 
-        if (i == selectedItemIndex) {
+        if (i == selectedItemIndex) {// 선택된 곡은 붉은 색으로
             songName.setFillColor(sf::Color::Red);
         }
         else {
@@ -65,6 +81,49 @@ void SongMenuScene::draw(sf::RenderWindow& window) {
         window.draw(songName);
     }
 
+    // 난이도 목록
+    float previousPositionX = 100.f; // 난이도 텍스트 시작점
+
+    for (int i = 0; i < 3; i++)
+    {
+        if (!songInfos[selectedItemIndex].difficultiesExist[i]) continue; // Do not draw if the corresponding .osu file does not exist
+
+        sf::Text difficulty;
+        difficulty.setFont(font);
+        difficulty.setString(difficulties[i]);
+
+        switch (i)
+        {
+        case 0:
+            previousPositionX = 100.f;
+            break;
+        case 1:
+            previousPositionX = 177.f;
+            break;
+        case 2:
+            previousPositionX = 232.f;
+            break;
+        }
+
+        difficulty.setPosition(sf::Vector2f(previousPositionX,300));
+        difficulty.setCharacterSize(20);
+
+        
+
+        if (i == selectedDifficultyIndex) {
+            difficulty.setFillColor(sf::Color::Red);
+        }
+        else {
+            difficulty.setFillColor(sf::Color::White);
+        }
+
+        window.draw(difficulty);
+        //printf("i:%.3f\n", difficulty.getPosition().x);
+        // 텍스트 x 위치 + 텍스트 너비(차지한 공간) + spacing
+        //previousPositionX = difficulty.getPosition().x + difficulty.getLocalBounds().width + spacing;
+    }
+
+    // 앨범 이미지 그리기
     albumImage->draw(window);
 }
 
@@ -98,6 +157,12 @@ void SongMenuScene::MoveDown()
     }
 }
 
+void SongMenuScene::MoveLeft() {
+    selectedDifficultyIndex;
+}
+void SongMenuScene::MoveRight() {
+
+}
 
 Signal SongMenuScene::handleInput(sf::Event event, sf::RenderWindow &window) {
     if (event.type == sf::Event::KeyReleased)

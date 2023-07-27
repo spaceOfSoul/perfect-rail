@@ -11,6 +11,7 @@ struct SongInfo {
     std::string songNameStr;
     std::string imagePath;
     std::string songPath;
+    std::vector<int> difficultiesExist;
 };
 
 class SongMenuScene : public Scene {
@@ -22,6 +23,7 @@ private:
     std::vector<SongInfo> songInfos;
     std::unique_ptr<AlbumArt> albumImage;
     int selectedItemIndex = 0;
+    int selectedDifficultyIndex = 0;
 
     float width;
     float height;

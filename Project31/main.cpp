@@ -3,6 +3,8 @@
 
 #include "MainMenuScene.h"
 #include "SongMenuScene.h"
+#include "GameScene.h"
+
 #include "SceneManager.h"
 #include "AudioManager.h"
 
@@ -32,12 +34,14 @@ int main()
     std::map<std::string, Scene*> scenes;
     scenes["mainMenu"] = new MainMenuScene(window.getSize().x, window.getSize().y);
     scenes["songMenu"] = new SongMenuScene(window.getSize().x, window.getSize().y);
+    scenes["gameScene"] = new GameScene(window.getSize().x, window.getSize().y);
 
     //맵 관리자
     SceneManager scene_manager(scenes);
 
-    sf::Clock clock;
     scene_manager.setScreen("mainMenu");
+
+    sf::Clock clock;
 
     while (window.isOpen())
     {
