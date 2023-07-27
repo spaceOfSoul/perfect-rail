@@ -70,7 +70,7 @@ void MainMenuScene::MoveDown()
 }
 
 Signal MainMenuScene::handleInput(sf::Event event, sf::RenderWindow &window) {
-	if (event.type == sf::Event::KeyReleased)
+	if (event.type == sf::Event::KeyPressed)
 	{
 		if (event.key.code == sf::Keyboard::Up)
 		{

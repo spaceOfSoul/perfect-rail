@@ -8,16 +8,6 @@
 #include <string>
 #include <vector>
 
-General_Set M_General;
-MetaData_Set M_MetaData;
-Difficulty_Set M_Difficulty;
-std::vector<TimingPoint_Set> TimingPoints;
-std::vector<std::vector<int>> NotePoints;
-std::vector<std::vector<int>> ImagePoints;
-int TPoint_array_section;
-int Last_Note_pos;
-int _KEY_COUNT_;
-
 std::string Trim(std::string& str)
 {
 	str.erase(std::remove_if(str.begin(), str.end(), ::isspace), str.end());
@@ -25,7 +15,7 @@ std::string Trim(std::string& str)
 }
 
 // note info
-void note_info(std::string str)
+void note_info(std::string str, SongData& data)
 {
 	// Trim leading/trailing white space
 	str = Trim(str);
@@ -63,15 +53,15 @@ void note_info(std::string str)
 		break;
 	}
 
-	NotePoints[row[2]][key] = 1;     // Add note
-	Last_Note_pos = row[2];          // Update last note position
+	data.NotePoints[row[2]][key] = 1;     // Add note
+	data.Last_Note_pos = row[2];          // Update last note position
 	if (row[3] == 128) {             // Check if it's a long note (0: single note, 128: long note)
 		for (int n = row[2]; n <= row[5]; n++) // Fill until the end of long note : up to row[5]
-			ImagePoints[n][key] = 2;  // Fill long note
+			data.ImagePoints[n][key] = 2;  // Fill long note
 	}
 	else
 	{
-		ImagePoints[row[2]][key] = 1; // Fill single note
+		data.ImagePoints[row[2]][key] = 1; // Fill single note
 	}
 }
 
@@ -80,7 +70,7 @@ void note_info(std::string str)
 // ReadProperty
 // ------------------------------------------------------------------------------------------
 // General Section 읽기
-void ReadProperty_General(std::string str)
+void ReadProperty_General(std::string str, SongData &data)
 {
 	std::istringstream ss(str);
 	std::string buffer;
@@ -96,30 +86,30 @@ void ReadProperty_General(std::string str)
 	{
 		if (tokens[0] == "AudioFilename")
 		{
-			M_General.AudioFilename = tokens[1];
+			data.M_General.AudioFilename = tokens[1];
 		}
 		else if (tokens[0] == "AudioLeadIn")
 		{
-			M_General.AudioLeadIn = std::stoi(tokens[1]);
+			data.M_General.AudioLeadIn = std::stoi(tokens[1]);
 		}
 		else if (tokens[0] == "PreviewTime")
 		{
-			M_General.PreviewTime = std::stoi(tokens[1]);
+			data.M_General.PreviewTime = std::stoi(tokens[1]);
 		}
 		else if (tokens[0] == "Countdown")
 		{
-			M_General.Countdown = std::stoi(tokens[1]);
+			data.M_General.Countdown = std::stoi(tokens[1]);
 		}
 		else if (tokens[0] == "StackLeniency")
 		{
-			M_General.StackLeniency = std::stof(tokens[1]);
+			data.M_General.StackLeniency = std::stof(tokens[1]);
 		}
 	}
 }
 
 
 // MetaData Section 읽기
-void ReadProperty_MetaData(std::string str)
+void ReadProperty_MetaData(std::string str, SongData & data)
 {
 	std::istringstream ss(str); // 공백에 맞게 문자열을 분할
 	std::string buffer;
@@ -134,49 +124,49 @@ void ReadProperty_MetaData(std::string str)
 	// 토큰 처리(각 섹션에 맞게 정보를 파싱 )
 	if (tokens[0] == "Title")
 	{
-		M_MetaData.Title = tokens[1];
+		data.M_MetaData.Title = tokens[1];
 	}
 	else if (tokens[0] == "TitleUnicode")
 	{
-		M_MetaData.TitleUnicode = tokens[1];
+		data.M_MetaData.TitleUnicode = tokens[1];
 	}
 	else if (tokens[0] == "Artist")
 	{
-		M_MetaData.Artist = tokens[1];
+		data.M_MetaData.Artist = tokens[1];
 	}
 	else if (tokens[0] == "ArtistUnicode")
 	{
-		M_MetaData.ArtistUnicode = tokens[1];
+		data.M_MetaData.ArtistUnicode = tokens[1];
 	}
 	else if (tokens[0] == "Creator")
 	{
-		M_MetaData.Creator = tokens[1];
+		data.M_MetaData.Creator = tokens[1];
 	}
 	else if (tokens[0] == "Version")
 	{
-		M_MetaData.Version = tokens[1];
+		data.M_MetaData.Version = tokens[1];
 	}
 	else if (tokens[0] == "Source")
 	{
-		M_MetaData.Source = tokens[1];
+		data.M_MetaData.Source = tokens[1];
 	}
 	else if (tokens[0] == "Tags")
 	{
-		M_MetaData.Tags = tokens[1];
+		data.M_MetaData.Tags = tokens[1];
 	}
 	else if (tokens[0] == "BeatmapID")
 	{
-		M_MetaData.BeatmapID = std::stoi(tokens[1]);
+		data.M_MetaData.BeatmapID = std::stoi(tokens[1]);
 	}
 	else if (tokens[0] == "BeatmapSetID")
 	{
-		M_MetaData.BeatmapSetID = std::stoi(tokens[1]);
+		data.M_MetaData.BeatmapSetID = std::stoi(tokens[1]);
 	}
 }
 
 
 // Difficulty Section 읽기
-void ReadProperty_Difficulty(std::string str)
+void ReadProperty_Difficulty(std::string str, SongData &data)
 {
 	std::istringstream ss(str);
 	std::string buffer;
@@ -191,25 +181,25 @@ void ReadProperty_Difficulty(std::string str)
 	// 토큰 처리...
 	if (tokens[0] == "HPDrainRate")
 	{
-		M_Difficulty.HPDrainRate = std::stof(tokens[1]);
+		data.M_Difficulty.HPDrainRate = std::stof(tokens[1]);
 	}
 	else if (tokens[0] == "CircleSize")
 	{
-		M_Difficulty.CircleSize = std::stof(tokens[1]);
+		data.M_Difficulty.CircleSize = std::stof(tokens[1]);
 	}
 	else if (tokens[0] == "OverallDifficulty")
 	{
-		M_Difficulty.OverallDifficulty = std::stof(tokens[1]);
+		data.M_Difficulty.OverallDifficulty = std::stof(tokens[1]);
 	}
 	else if (tokens[0] == "ApproachRate")
 	{
-		M_Difficulty.ApproachRate = std::stof(tokens[1]);
+		data.M_Difficulty.ApproachRate = std::stof(tokens[1]);
 	}
 }
 
 
 // TimingPoint Section 읽기
-void ReadProperty_TimingPoint(std::string str)
+void ReadProperty_TimingPoint(std::string str, SongData &data)
 {
 	std::istringstream ss(str);
 	std::string buffer;
@@ -224,42 +214,42 @@ void ReadProperty_TimingPoint(std::string str)
 	// 토큰 처리...
 	if (tokens.size() >= 8)  // Ensure there are enough tokens
 	{
-		TimingPoints[TPoint_array_section].time = std::stoi(tokens[0]);
-		TimingPoints[TPoint_array_section].meter = std::stoi(tokens[2]);
-		TimingPoints[TPoint_array_section].Volume = std::stoi(tokens[5]);
-		TimingPoints[TPoint_array_section].uninherited = std::stoi(tokens[6]);
-		TimingPoints[TPoint_array_section].effects = std::stoi(tokens[7]);
-		TimingPoints[TPoint_array_section].beatLength = std::stof(tokens[1]);
+		data.TimingPoints[data.TPoint_array_section].time = std::stoi(tokens[0]);
+		data.TimingPoints[data.TPoint_array_section].meter = std::stoi(tokens[2]);
+		data.TimingPoints[data.TPoint_array_section].Volume = std::stoi(tokens[5]);
+		data.TimingPoints[data.TPoint_array_section].uninherited = std::stoi(tokens[6]);
+		data.TimingPoints[data.TPoint_array_section].effects = std::stoi(tokens[7]);
+		data.TimingPoints[data.TPoint_array_section].beatLength = std::stof(tokens[1]);
 	}
 	else
 	{
 		// Handle error: not enough tokens
 	}
 
-	TPoint_array_section++;
+	data.TPoint_array_section++;
 }
 
 
 
 // ------------------------------------------------------------------------------------------
 // 구역구별
-void ReadLine_Check(std::string str, int section) {
+void ReadLine_Check(std::string str, int section, SongData& data) {
 	switch (section)
 	{
 	case S_GENERAL:
-		ReadProperty_General(str);     // Basic settings
+		ReadProperty_General(str, data);     // Basic settings
 		break;
 	case S_METADATA:
-		ReadProperty_MetaData(str);    // Meta data (title, name, etc.)
+		ReadProperty_MetaData(str, data);    // Meta data (title, name, etc.)
 		break;
 	case S_DIFFICULTY:
-		ReadProperty_Difficulty(str);  // Difficulty settings
+		ReadProperty_Difficulty(str, data);  // Difficulty settings
 		break;
 	case S_TIMINGPOINT:
-		ReadProperty_TimingPoint(str); // Timing settings
+		ReadProperty_TimingPoint(str, data); // Timing settings
 		break;
 	case S_HOBJECT:
-		note_info(str);                // Note settings
+		note_info(str, data);                // Note settings
 		break;
 	default:
 		// pass
@@ -269,7 +259,7 @@ void ReadLine_Check(std::string str, int section) {
 	}
 }
 
-int LoadMapFile(std::string beatmap) // Load map file
+int LoadMapFile(std::string beatmap, SongData& data) // Load map file
 {
 	std::ifstream file(beatmap);
 	if (file.is_open())
@@ -296,7 +286,7 @@ int LoadMapFile(std::string beatmap) // Load map file
 			}
 			else  // Information processing
 			{
-				ReadLine_Check(strTemp, section);
+				ReadLine_Check(strTemp, section, data);
 			}
 		}
 		file.close();

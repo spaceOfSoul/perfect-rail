@@ -23,6 +23,7 @@ public:
 private:
     SongInfo songInfo;
     int difficultyIndex;
+    SongData song_data;
 
     std::string generateFilePath(const SongInfo& songInfo, int difficultyIndex);
 };

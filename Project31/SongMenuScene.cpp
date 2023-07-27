@@ -40,11 +40,12 @@ SongMenuScene::SongMenuScene(float width, float height) :am(AudioManager::Instan
                     else if (subEntry.path().extension() == ".osu") {
                         // 난이도 존재 유무.
                         for (int i = 0; i < 3; i++) {
-                            if (subEntry.path().filename().string() == difficulties[i] + ".osu") {
+                            if (subEntry.path().filename().string().find(difficulties[i]) != std::string::npos) {
                                 songInfo.difficultiesExist.push_back(i);
                                 break;
                             }
                         }
+                        std::sort(songInfo.difficultiesExist.begin(), songInfo.difficultiesExist.end());
                     }
                 }
 
@@ -85,10 +86,8 @@ void SongMenuScene::draw(sf::RenderWindow& window) {
     float spacing = 50.f;  // 각 난이도 텍스트 사이의 공간
     float currentPositionX = 100.f;  // 첫 번째 난이도 텍스트 시작점
 
-    std::vector<int> difficultiesCopy = songInfos[selectedItemIndex].difficultiesExist;
-    std::reverse(difficultiesCopy.begin(), difficultiesCopy.end());
 
-    for (const auto& difficulty : difficultiesCopy) {
+    for (const auto& difficulty : songInfos[selectedItemIndex].difficultiesExist) {
         sf::Text difficultyText;
         difficultyText.setFont(font);
         difficultyText.setString(difficulties[difficulty]);
@@ -108,7 +107,7 @@ void SongMenuScene::draw(sf::RenderWindow& window) {
         difficultyText.setPosition(sf::Vector2f(currentPositionX, 300));
         difficultyText.setCharacterSize(20);
 
-        if (difficulty == selectedDifficultyIndex) {
+        if (difficulty == songInfos[selectedItemIndex].difficultiesExist[selectedDifficultyIndex]) {
             difficultyText.setFillColor(sf::Color::Red);
         }
         else {
@@ -169,7 +168,7 @@ void SongMenuScene::MoveRight() {
 
 
 Signal SongMenuScene::handleInput(sf::Event event, sf::RenderWindow &window) {
-    if (event.type == sf::Event::KeyReleased)
+    if (event.type == sf::Event::KeyPressed)
     {
         if (event.key.code == sf::Keyboard::Up)
         {
