@@ -82,57 +82,55 @@ void SongMenuScene::draw(sf::RenderWindow& window) {
     }
 
     // 난이도 목록
-    float previousPositionX = 100.f; // 난이도 텍스트 시작점
+    float spacing = 50.f;  // 각 난이도 텍스트 사이의 공간
+    float currentPositionX = 100.f;  // 첫 번째 난이도 텍스트 시작점
 
-    for (int i = 0; i < 3; i++)
-    {
-        if (!songInfos[selectedItemIndex].difficultiesExist[i]) continue; // Do not draw if the corresponding .osu file does not exist
+    std::vector<int> difficultiesCopy = songInfos[selectedItemIndex].difficultiesExist;
+    std::reverse(difficultiesCopy.begin(), difficultiesCopy.end());
 
-        sf::Text difficulty;
-        difficulty.setFont(font);
-        difficulty.setString(difficulties[i]);
+    for (const auto& difficulty : difficultiesCopy) {
+        sf::Text difficultyText;
+        difficultyText.setFont(font);
+        difficultyText.setString(difficulties[difficulty]);
 
-        switch (i)
+        switch (difficulty)
         {
         case 0:
-            previousPositionX = 100.f;
+            currentPositionX = 100.f;
             break;
         case 1:
-            previousPositionX = 177.f;
+            currentPositionX = 177.f;
             break;
         case 2:
-            previousPositionX = 232.f;
+            currentPositionX = 232.f;
             break;
         }
+        difficultyText.setPosition(sf::Vector2f(currentPositionX, 300));
+        difficultyText.setCharacterSize(20);
 
-        difficulty.setPosition(sf::Vector2f(previousPositionX,300));
-        difficulty.setCharacterSize(20);
-
-        
-
-        if (i == selectedDifficultyIndex) {
-            difficulty.setFillColor(sf::Color::Red);
+        if (difficulty == selectedDifficultyIndex) {
+            difficultyText.setFillColor(sf::Color::Red);
         }
         else {
-            difficulty.setFillColor(sf::Color::White);
+            difficultyText.setFillColor(sf::Color::White);
         }
 
-        window.draw(difficulty);
-        //printf("i:%.3f\n", difficulty.getPosition().x);
-        // 텍스트 x 위치 + 텍스트 너비(차지한 공간) + spacing
-        //previousPositionX = difficulty.getPosition().x + difficulty.getLocalBounds().width + spacing;
+        window.draw(difficultyText);
+
+        // 다음 난이도 텍스트의 위치를 계산
+        currentPositionX += difficultyText.getLocalBounds().width + spacing;
     }
 
     // 앨범 이미지 그리기
     albumImage->draw(window);
 }
 
-void SongMenuScene::MoveUp()
-{
-    if (selectedItemIndex - 1 >= 0)
-    {
+void SongMenuScene::MoveUp() {
+    if (selectedItemIndex - 1 >= 0) {
+        selectedItemIndex--;  // 먼저 인덱스를 감소
+
         am.PlaySound("menu_select");
-        selectedItemIndex--;
+        selectedDifficultyIndex = 0;
 
         // Stop the current music and play the selected one
         am.StopMusic(songInfos[selectedItemIndex + 1].songNameStr);
@@ -142,12 +140,12 @@ void SongMenuScene::MoveUp()
     }
 }
 
-void SongMenuScene::MoveDown()
-{
-    if (selectedItemIndex + 1 < songInfos.size())
-    {
+void SongMenuScene::MoveDown() {
+    if (selectedItemIndex + 1 < songInfos.size()) {
+        selectedItemIndex++;  // 먼저 인덱스를 증가
+
         am.PlaySound("menu_select");
-        selectedItemIndex++;
+        selectedDifficultyIndex = 0;
 
         // Stop the current music and play the selected one
         am.StopMusic(songInfos[selectedItemIndex - 1].songNameStr);
@@ -158,11 +156,17 @@ void SongMenuScene::MoveDown()
 }
 
 void SongMenuScene::MoveLeft() {
-    selectedDifficultyIndex;
+    if (selectedDifficultyIndex > 0) {
+        selectedDifficultyIndex--;
+    }
 }
-void SongMenuScene::MoveRight() {
 
+void SongMenuScene::MoveRight() {
+    if (selectedDifficultyIndex < songInfos[selectedItemIndex].difficultiesExist.size()-1) {
+        selectedDifficultyIndex++;
+    }
 }
+
 
 Signal SongMenuScene::handleInput(sf::Event event, sf::RenderWindow &window) {
     if (event.type == sf::Event::KeyReleased)
@@ -174,6 +178,12 @@ Signal SongMenuScene::handleInput(sf::Event event, sf::RenderWindow &window) {
         else if (event.key.code == sf::Keyboard::Down)
         {
             MoveDown();
+        }
+        else if (event.key.code == sf::Keyboard::Right) {
+            MoveRight();
+        }
+        else if (event.key.code == sf::Keyboard::Left) {
+            MoveLeft();
         }
         else if (event.key.code == sf::Keyboard::Return)
         {
