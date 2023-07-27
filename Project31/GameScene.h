@@ -1,5 +1,8 @@
 #pragma once
 #include "Scene.h"
+#include "SongMenuScene.h"
+
+#include "parse_data.h"
 
 class GameScene : public Scene {
 public:
@@ -13,5 +16,13 @@ public:
     void onActivate();
     void onDeactivate();
 
+    void setSongInfo(const SongInfo& songInfo, int difficultyIndex);
+
     void reset();
+
+private:
+    SongInfo songInfo;
+    int difficultyIndex;
+
+    std::string generateFilePath(const SongInfo& songInfo, int difficultyIndex);
 };

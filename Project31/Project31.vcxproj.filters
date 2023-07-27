@@ -92,5 +92,8 @@
     <ClInclude Include="AudioManager.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="SongInfo.h">
+      <Filter>헤더 파일\GameObj</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -36,8 +36,9 @@ int main()
     scenes["songMenu"] = new SongMenuScene(window.getSize().x, window.getSize().y);
     scenes["gameScene"] = new GameScene(window.getSize().x, window.getSize().y);
 
-    //맵 관리자
-    SceneManager scene_manager(scenes);
+    // 맵 관리자
+    SceneManager& scene_manager = SceneManager::getInstance();
+    scene_manager.registerScenes(scenes);
 
     scene_manager.setScreen("mainMenu");
 

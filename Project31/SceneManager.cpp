@@ -1,6 +1,7 @@
 #include "SceneManager.h"
+#include "GameScene.h"
 
-SceneManager::SceneManager(std::map<std::string, Scene*> scenes) {
+void SceneManager::registerScenes(std::map<std::string, Scene*> scenes) {
     this->scenes = scenes;
     this->currentScreen = nullptr;
 }
@@ -27,6 +28,7 @@ void SceneManager::handleInput(sf::Event event, sf::RenderWindow& window) {
     case Signal::GoToOptionMenu:
         break;
     case Signal::GoToPlayScene:
+        setScreen("gameScene");
         break;
     case Signal::GoToResult:
         break;
@@ -44,4 +46,9 @@ void SceneManager::update(float dt) {
 
 void SceneManager::draw(sf::RenderWindow& window) {
     currentScreen->draw(window);
+}
+
+void SceneManager::setGameScene(const SongInfo& songInfo, int difficultyIndex) {
+    this->currentPlaySong = songInfo;
+    this->currentDifficultyIndex = difficultyIndex;
 }

@@ -51,15 +51,15 @@ struct TimingPoint_Set {
     int effects;
 };
 
-General_Set M_General;
-MetaData_Set M_MetaData;
-Difficulty_Set M_Difficulty;
-std::vector<TimingPoint_Set> TimingPoints;
-std::vector<std::vector<int>> NotePoints;
-std::vector<std::vector<int>> ImagePoints;
-int TPoint_array_section;
-int Last_Note_pos;
-int _KEY_COUNT_;
+extern General_Set M_General;
+extern MetaData_Set M_MetaData;
+extern Difficulty_Set M_Difficulty;
+extern std::vector<TimingPoint_Set> TimingPoints;
+extern std::vector<std::vector<int>> NotePoints;
+extern std::vector<std::vector<int>> ImagePoints;
+extern int TPoint_array_section;
+extern int Last_Note_pos;
+extern int _KEY_COUNT_;
 
 void note_info(std::string str);
 std::string Trim(std::string& str);

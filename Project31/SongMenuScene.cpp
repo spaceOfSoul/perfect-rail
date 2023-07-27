@@ -187,8 +187,9 @@ Signal SongMenuScene::handleInput(sf::Event event, sf::RenderWindow &window) {
         }
         else if (event.key.code == sf::Keyboard::Return)
         {
-            int pressedItem = GetPressedItem();
-            printf("pressed %d\n", pressedItem);
+            SceneManager& sceneManager = SceneManager::getInstance();
+            sceneManager.setGameScene(songInfos[selectedItemIndex], selectedDifficultyIndex);
+            return Signal::GoToPlayScene;
         }
         else if (event.key.code == sf::Keyboard::Escape) {
             return Signal::GoToMainMenu;

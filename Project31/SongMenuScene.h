@@ -2,17 +2,12 @@
 #include "Scene.h"
 #include "AlbumArt.h"
 #include "AudioManager.h"
+#include "SongInfo.h"
+#include "SceneManager.h"
 
 #include <filesystem>
 #include <vector>
 #include <stdio.h>
-
-struct SongInfo {
-    std::string songNameStr;
-    std::string imagePath;
-    std::string songPath;
-    std::vector<int> difficultiesExist;
-};
 
 class SongMenuScene : public Scene {
 private:

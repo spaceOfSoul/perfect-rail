@@ -149,6 +149,7 @@
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="signal.h" />
+    <ClInclude Include="SongInfo.h" />
     <ClInclude Include="SongMenuScene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

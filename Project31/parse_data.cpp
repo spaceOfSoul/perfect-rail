@@ -8,6 +8,16 @@
 #include <string>
 #include <vector>
 
+General_Set M_General;
+MetaData_Set M_MetaData;
+Difficulty_Set M_Difficulty;
+std::vector<TimingPoint_Set> TimingPoints;
+std::vector<std::vector<int>> NotePoints;
+std::vector<std::vector<int>> ImagePoints;
+int TPoint_array_section;
+int Last_Note_pos;
+int _KEY_COUNT_;
+
 std::string Trim(std::string& str)
 {
 	str.erase(std::remove_if(str.begin(), str.end(), ::isspace), str.end());
