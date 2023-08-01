@@ -53,18 +53,26 @@ void note_info(std::string str, SongData& data)
 		break;
 	}
 
-	data.NotePoints[row[2]][key] = 1;     // Add note
-	data.Last_Note_pos = row[2];          // Update last note position
-	if (row[3] == 128) {             // Check if it's a long note (0: single note, 128: long note)
-		for (int n = row[2]; n <= row[5]; n++) // Fill until the end of long note : up to row[5]
-			data.ImagePoints[n][key] = 2;  // Fill long note
+	// printf("%d %d\n", row[2], key);
+	std::array<int, 4> noteInfo = { 0, 0, 0, 0 };
+	noteInfo[key] = 1;
+	data.NotePoints.push_back({ row[2], noteInfo });     // Add note
+	data.Last_Note_pos = row[2];                       // Update last note position
+	if (row[3] == 128) {                               // Check if it's a long note (0: single note, 128: long note)
+		for (int n = row[2]; n <= row[5]; n++)         // Fill until the end of long note : up to row[5]
+		{
+			std::array<int, 4> imageInfo = { 0, 0, 0, 0 };
+			imageInfo[key] = 2;                        // Fill long note
+			data.ImagePoints.push_back({ n, imageInfo });
+		}
 	}
 	else
 	{
-		data.ImagePoints[row[2]][key] = 1; // Fill single note
+		std::array<int, 4> imageInfo = { 0, 0, 0, 0 };
+		imageInfo[key] = 1;                            // Fill single note
+		data.ImagePoints.push_back({ row[2], imageInfo });
 	}
 }
-
 
 
 // ReadProperty
@@ -121,7 +129,7 @@ void ReadProperty_MetaData(std::string str, SongData & data)
 		tokens.push_back(buffer);
 	}
 
-	// 토큰 처리(각 섹션에 맞게 정보를 파싱 )
+	// 토큰 처리(각 섹션에 맞게 정보를 파싱)
 	if (tokens[0] == "Title")
 	{
 		data.M_MetaData.Title = tokens[1];
@@ -168,6 +176,11 @@ void ReadProperty_MetaData(std::string str, SongData & data)
 // Difficulty Section 읽기
 void ReadProperty_Difficulty(std::string str, SongData &data)
 {
+	if (str.find(':') == std::string::npos)
+	{
+		std::cerr << "Error: invalid format, ':' not found: " << str << std::endl;
+		return;
+	}
 	std::istringstream ss(str);
 	std::string buffer;
 	std::vector<std::string> tokens;
@@ -176,6 +189,12 @@ void ReadProperty_Difficulty(std::string str, SongData &data)
 	{
 		buffer = Trim(buffer);
 		tokens.push_back(buffer);
+	}
+
+	if (tokens.size() != 2)
+	{
+		std::cerr << "Warning: unexpected format: " << str << std::endl;
+		return;
 	}
 
 	// 토큰 처리...
@@ -238,18 +257,25 @@ void ReadLine_Check(std::string str, int section, SongData& data) {
 	{
 	case S_GENERAL:
 		ReadProperty_General(str, data);     // Basic settings
+		printf("general exist\n");
 		break;
 	case S_METADATA:
-		ReadProperty_MetaData(str, data);    // Meta data (title, name, etc.)
+		//ReadProperty_MetaData(str, data);    // Meta data (title, name, etc.)
+		printf("meta exist\n");
 		break;
 	case S_DIFFICULTY:
-		ReadProperty_Difficulty(str, data);  // Difficulty settings
+		//ReadProperty_Difficulty(str, data);  // Difficulty settings
+		printf("difficulty exist\n");
 		break;
 	case S_TIMINGPOINT:
-		ReadProperty_TimingPoint(str, data); // Timing settings
+		//ReadProperty_TimingPoint(str, data); // Timing settings
+		printf("timing exist\n");
 		break;
+	// 위 세개는 파싱하다가 인덱스 에러가 남(out of range)
+	// token 문제인거
 	case S_HOBJECT:
 		note_info(str, data);                // Note settings
+		//printf("note exist\n");
 		break;
 	default:
 		// pass
@@ -265,13 +291,13 @@ int LoadMapFile(std::string beatmap, SongData& data) // Load map file
 	if (file.is_open())
 	{
 		std::unordered_map<std::string, int> sectionMap = {
-			{"[General]\n", S_GENERAL},
-			{"[Editor]\n", S_EDITOR},
-			{"[Metadata]\n", S_METADATA},
-			{"[Difficulty]\n", S_DIFFICULTY},
-			{"[Events]\n", S_EVENTS},
-			{"[TimingPoints]\n", S_TIMINGPOINT},
-			{"[HitObjects]\n", S_HOBJECT}
+			{"[General]", S_GENERAL},
+			{"[Editor]", S_EDITOR},
+			{"[Metadata]", S_METADATA},
+			{"[Difficulty]", S_DIFFICULTY},
+			{"[Events]", S_EVENTS},
+			{"[TimingPoints]", S_TIMINGPOINT},
+			{"[HitObjects]", S_HOBJECT}
 		};
 
 		std::string strTemp;

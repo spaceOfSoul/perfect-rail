@@ -1,7 +1,13 @@
 #include "GameScene.h"
+#include "Note.h"
 
 GameScene::GameScene(float width, float height) {
-
+    for (int i = 0; i < 4; ++i) {
+        keyPushed[i] = false;
+    }
+    if (!font.loadFromFile("fonts\\arial.ttf")) {
+        printf("폰트가 없음!");
+    }
 }
 
 GameScene::~GameScene() {
@@ -23,12 +29,8 @@ void GameScene::onDeactivate() {
 }
 
 void GameScene::draw(sf::RenderWindow& window) {
-    sf::Font font;
-    if (!font.loadFromFile("fonts\\arial.ttf")) {
-        // 에러 처리
-    }
-
     // 레이아웃
+    // 지저분한건 나중에 고치기.
 
     // Plate rectangle
     sf::RectangleShape plate(sf::Vector2f(400, 600));
@@ -41,6 +43,18 @@ void GameScene::draw(sf::RenderWindow& window) {
     notePlace.setFillColor(sf::Color::Black);
     notePlace.setPosition(225, 0);
     window.draw(notePlace);
+
+    // buttons
+    const int start_pos = 255;
+    const int buttonY = 500;
+    const int bt_distance = 80;
+
+    for (int i = 0; i < 4; i++) {
+        buttons[i].setSize(sf::Vector2f(50, 50));
+        buttons[i].setFillColor(sf::Color(128, 128, 128));
+        buttons[i].setPosition(start_pos+ bt_distance*i, buttonY);
+        window.draw(buttons[i]);
+    }
 
     // 콤보, 스코어, 정확도 표시를 위한 텍스트 객체
     sf::Text comboText, scoreText, accurateText;
@@ -119,7 +133,11 @@ void GameScene::setSongInfo(const SongInfo &songInfo, int difficulty) {
 
 	//file path
 	std::string filePath = generateFilePath(songInfo, difficultyIndex);
-	printf("Load %s\n", filePath.c_str());
 
-	LoadMapFile(filePath, song_data);
+    int file_opened = LoadMapFile(filePath, song_data);
+
+    if (!file_opened)
+        printf("%s open failed!\n",filePath.c_str());
+    else
+        printf("Load %s\n", filePath.c_str());
 }

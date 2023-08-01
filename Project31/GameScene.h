@@ -25,5 +25,11 @@ private:
     int difficultyIndex;
     SongData song_data;
 
+    sf::RectangleShape buttons[4];
+    bool keyPushed[4];
+
     std::string generateFilePath(const SongInfo& songInfo, int difficultyIndex);
+
+    //여기부터는 그림 그리는데에 필요한 애들
+    sf::Font font;
 };

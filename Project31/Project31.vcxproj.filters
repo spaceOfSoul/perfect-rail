@@ -13,14 +13,8 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="소스 파일\GameObj">
-      <UniqueIdentifier>{055d59ba-b0e3-4a00-8ce1-6a8cdb5495a8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="헤더 파일\UI">
       <UniqueIdentifier>{4c149f67-aa39-4272-9d49-4669c9a03203}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="헤더 파일\GameObj">
-      <UniqueIdentifier>{b943616f-d872-468e-aea7-e1173a8fcb3e}</UniqueIdentifier>
     </Filter>
     <Filter Include="소스 파일\UI">
       <UniqueIdentifier>{750eb597-7384-4f8e-b8e8-89d62f14e1b7}</UniqueIdentifier>
@@ -37,12 +31,21 @@
     <Filter Include="소스 파일\Scene\Scenes">
       <UniqueIdentifier>{e8cb7d19-bd02-4a78-92a3-e05d47e7be9d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\inGame">
+      <UniqueIdentifier>{055d59ba-b0e3-4a00-8ce1-6a8cdb5495a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\inGame">
+      <UniqueIdentifier>{b943616f-d872-468e-aea7-e1173a8fcb3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\inGame\obj">
+      <UniqueIdentifier>{e2d19bd9-c4c2-4619-bac9-d96b12eeaf5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\inGame\obj">
+      <UniqueIdentifier>{67f14964-5f07-4250-8846-ad032cf90fdb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="parse_data.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="AlbumArt.cpp">
@@ -63,11 +66,11 @@
     <ClCompile Include="AudioManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="parse_data.cpp">
+      <Filter>소스 파일\inGame</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="parse_data.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="signal.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -93,7 +96,16 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="SongInfo.h">
-      <Filter>헤더 파일\GameObj</Filter>
+      <Filter>헤더 파일\inGame</Filter>
+    </ClInclude>
+    <ClInclude Include="parse_data.h">
+      <Filter>헤더 파일\inGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Note.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="ComboText.h">
+      <Filter>헤더 파일\inGame\obj</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
