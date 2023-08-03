@@ -92,3 +92,7 @@ void AudioManager::SetMusicVolume(const std::string& musicName, float volume) {
         currentMusic->setVolume(volume);
     }
 }
+
+sf::Music& AudioManager::getMusic() {
+    return *currentMusic;
+}

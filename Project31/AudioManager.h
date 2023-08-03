@@ -23,6 +23,8 @@ public:
     void SetSoundVolume(const std::string& soundName, float volume);
     void SetMusicVolume(const std::string& musicName, float volume);
 
+    sf::Music& getMusic();
+
 private:
     AudioManager();
     std::map<std::string, sf::SoundBuffer> soundBuffers;
