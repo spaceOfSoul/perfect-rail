@@ -257,19 +257,19 @@ void ReadLine_Check(std::string str, int section, SongData& data) {
 	{
 	case S_GENERAL:
 		ReadProperty_General(str, data);     // Basic settings
-		printf("general exist\n");
+		//printf("general exist\n");
 		break;
 	case S_METADATA:
 		//ReadProperty_MetaData(str, data);    // Meta data (title, name, etc.)
-		printf("meta exist\n");
+		//printf("meta exist\n");
 		break;
 	case S_DIFFICULTY:
 		//ReadProperty_Difficulty(str, data);  // Difficulty settings
-		printf("difficulty exist\n");
+		//printf("difficulty exist\n");
 		break;
 	case S_TIMINGPOINT:
 		//ReadProperty_TimingPoint(str, data); // Timing settings
-		printf("timing exist\n");
+		//printf("timing exist\n");
 		break;
 	// 위 세개는 파싱하다가 인덱스 에러가 남(out of range)
 	// token 문제인거

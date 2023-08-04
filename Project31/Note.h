@@ -5,7 +5,7 @@ class Note : public sf::Drawable {
 public:
     Note(int key, float x, float y, float size, sf::Color color, bool isLong = false)
         : key(key), position(x, y), size(size), isLong(isLong), color(color) {
-        shape.setSize(sf::Vector2f(size, size));
+        shape.setSize(sf::Vector2f(size, 20));
         shape.setFillColor(color);
         shape.setPosition(x, y);
     };
@@ -14,6 +14,15 @@ public:
     sf::Color color;
     float size;
     bool isLong;
+
+    // getter
+    const sf::Vector2f& getPosition() const { return position; }
+
+    //setter
+    void setPosition(const sf::Vector2f& pos) {
+        position = pos;
+        shape.setPosition(pos);
+    }
 
 private:
     sf::RectangleShape shape;

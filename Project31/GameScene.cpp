@@ -1,7 +1,8 @@
 #include "GameScene.h"
 
+
 GameScene::GameScene(float width, float height) : am(AudioManager::Instance()) {
-    for (int i = 0; i < 4; ++i) {
+    for (int i = 0; i < 4; i++) {
         keyPushed[i] = false;
     }
     if (!font.loadFromFile("fonts\\arial.ttf")) {
@@ -16,6 +17,8 @@ GameScene::~GameScene() {
 void GameScene::onActivate() {
 	SceneManager& scene_manager = SceneManager::getInstance();
 	printf("on Activate\n");
+    musicStarted = false;
+    processedIndex = 0;
     initialize();
 	setSongInfo(scene_manager.currentPlaySong, scene_manager.currentDifficultyIndex);
     musicStartClock.restart();
@@ -79,40 +82,55 @@ void GameScene::update(float dt) {
         am.PlayMusic(songInfo.songNameStr);
         musicStarted = true;
     }
-     float musicTime = am.getMusic().getPlayingOffset().asMilliseconds() + 400;
+     float musicTime = am.getMusic().getPlayingOffset().asMilliseconds();
 
 
-     for (const std::pair<int, std::array<int, 4>>& notePoint : song_data.NotePoints) {
-         int time = notePoint.first;
-         const std::array<int, 4>& lanes = notePoint.second;
+     for (int i = processedIndex; i < song_data.NotePoints.size(); ++i) {
+         int time = song_data.NotePoints[i].first;
+         const std::array<int, 4>& lanes = song_data.NotePoints[i].second;
 
-         if (musicTime >= time) {
-             for (int i = 0; i < 4; i++) {
-                 if (lanes[i] > 0) { // 레인 i에서 노트가 있음
-                     bool isLong = (lanes[i] == 2); // 2일 경우 긴 노트
-                     int xPosition = 100 + 100 * i; // x 위치를 레인에 따라 조정
-                     sf::Color color = isLong ? sf::Color::Red : sf::Color::Green; // 색상 설정
-                     float size = 50; // 크기 설정
-                     Note note(i, xPosition, 0, size, color, isLong);
-                     noteInScreen.push_back(note);
-                 }
+         if (musicTime < time) {
+             break; // 시간이 아직 안됐으면 종료
+         }
+
+         for (int j = 0; j < 4; j++) {
+             if (lanes[j] > 0) {
+                 bool isLong = (lanes[j] == 2);
+                 int xPosition = note_startPos + note_distance * j;
+                 sf::Color color = sf::Color::Green;
+                 float size = 70;
+                 Note note(j, xPosition, -10, size, color, isLong);
+                 noteInScreen.push_back(note);
              }
          }
+         processedIndex = i + 1;
      }
 
-     for (Note& note : noteInScreen) {
-         note.position.y += note_speed * dt; // 노트의 Y 위치를 떨어지는 속도와 deltaTime을 고려하여 업데이트
+     for (std::list<Note>::iterator iter = noteInScreen.begin(); iter != noteInScreen.end(); ) {
+         sf::Vector2f pos = iter->getPosition();
+         pos.y += note_speed * dt;
+         iter->setPosition(pos);
+         if (iter->position.y > 600) {
+             iter = noteInScreen.erase(iter);
+         }
+         else {
+             ++iter;
+         }
      }
 }
 
 void GameScene::onDeactivate() {
-
+    noteInScreen.clear();
 }
 
 
 void GameScene::draw(sf::RenderWindow& window) {
     window.draw(plate);
     window.draw(notePlace);
+
+    for (const Note& note : noteInScreen) {
+        window.draw(note);
+    }
 
     for (int i = 0; i < 4; i++) {
         window.draw(buttons[i]);
@@ -133,15 +151,12 @@ void GameScene::draw(sf::RenderWindow& window) {
     window.draw(comboText);
     window.draw(scoreText);
     window.draw(accurateText);
-
-    for (const Note& note : noteInScreen) { // notes는 Note 객체의 컬렉션입니다.
-        window.draw(note);
-    }
 }
 
 Signal GameScene::handleInput(sf::Event event, sf::RenderWindow& window) {
     if (event.type == sf::Event::KeyPressed) {
         if (event.key.code == sf::Keyboard::Escape) {
+            onDeactivate();
             return Signal::GoToSongMenu;
         }
         else if (event.key.code == sf::Keyboard::D) {

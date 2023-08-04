@@ -6,6 +6,7 @@
 #include "Note.h"
 
 #include <SFML/Graphics.hpp>
+#include <list>
 
 class GameScene : public Scene {
 public:
@@ -28,7 +29,7 @@ private:
     AudioManager& am;
     sf::Clock musicStartClock;
 
-    bool musicStarted = false;
+    bool musicStarted;
 
     // 곡 정보
     SongInfo songInfo;
@@ -38,7 +39,7 @@ private:
     std::string generateFilePath(const SongInfo& songInfo, int difficultyIndex);
 
     // notes
-    std::vector<Note> noteInScreen;
+    std::list<Note> noteInScreen;
 
     // UI position and size value
     sf::RectangleShape buttons[4];
@@ -64,8 +65,12 @@ private:
     sf::Vector2f scorePannel_outerSize = sf::Vector2f(100,100);
     sf::Vector2f scorePannel_innerSize = sf::Vector2f(50, 50);
 
-    // note speed
-    float note_speed = 10;
+    // note info
+    int processedIndex = 0;
+
+    float note_speed = 800;
+    int note_startPos = 230;
+    int note_distance = 90;
 
     // 화면 그리기에 필요한 멤버 변수들
     sf::Font font;
