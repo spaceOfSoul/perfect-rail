@@ -107,5 +107,8 @@
     <ClInclude Include="ComboText.h">
       <Filter>헤더 파일\inGame\obj</Filter>
     </ClInclude>
+    <ClInclude Include="NotePlate.h">
+      <Filter>헤더 파일\inGame\obj</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

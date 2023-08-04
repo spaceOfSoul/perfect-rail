@@ -4,6 +4,7 @@
 
 #include "parse_data.h"
 #include "Note.h"
+#include "NotePlate.h"
 
 #include <SFML/Graphics.hpp>
 #include <list>
@@ -69,14 +70,14 @@ private:
     int processedIndex = 0;
 
     float note_speed = 800;
-    int note_startPos = 230;
+    int note_startPos_X = 230;
+    int note_startPos_Y = -10;
     int note_distance = 90;
 
     // 화면 그리기에 필요한 멤버 변수들
     sf::Font font;
-    sf::RectangleShape plate;
-    sf::RectangleShape notePlace;
     sf::Text comboText, scoreText, accurateText;
     sf::RectangleShape scorePannel_outer;
     sf::RectangleShape scorePannel_inner;
+    NotePlate note_plate;
 };

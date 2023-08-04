@@ -153,6 +153,7 @@
     <ClInclude Include="signal.h" />
     <ClInclude Include="SongInfo.h" />
     <ClInclude Include="SongMenuScene.h" />
+    <ClInclude Include="NotePlate.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

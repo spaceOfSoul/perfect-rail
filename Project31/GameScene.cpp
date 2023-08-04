@@ -1,7 +1,7 @@
 #include "GameScene.h"
 
 
-GameScene::GameScene(float width, float height) : am(AudioManager::Instance()) {
+GameScene::GameScene(float width, float height) : am(AudioManager::Instance()) , note_plate(platePosition,0) {
     for (int i = 0; i < 4; i++) {
         keyPushed[i] = false;
     }
@@ -25,16 +25,7 @@ void GameScene::onActivate() {
 }
 
 void GameScene::initialize() {
-    // Plate rectangle
-    plate.setSize(sf::Vector2f(plateWidth, 600));
-    plate.setFillColor(sf::Color::White);
-    plate.setPosition(platePosition, 0);
-
-    // Note place
-    notePlace.setSize(sf::Vector2f(350, 475));
-    notePlace.setFillColor(sf::Color::Black);
-    notePlace.setPosition(225, 0);
-
+    
     // Buttons
     const int start_pos = 255;
     const int buttonY = 500;
@@ -96,7 +87,7 @@ void GameScene::update(float dt) {
          for (int j = 0; j < 4; j++) {
              if (lanes[j] > 0) {
                  bool isLong = (lanes[j] == 2);
-                 int xPosition = note_startPos + note_distance * j;
+                 int xPosition = note_startPos_X + note_distance * j;
                  sf::Color color = sf::Color::Green;
                  float size = 70;
                  Note note(j, xPosition, -10, size, color, isLong);
@@ -125,12 +116,11 @@ void GameScene::onDeactivate() {
 
 
 void GameScene::draw(sf::RenderWindow& window) {
-    window.draw(plate);
-    window.draw(notePlace);
-
     for (const Note& note : noteInScreen) {
         window.draw(note);
     }
+
+    window.draw(note_plate);
 
     for (int i = 0; i < 4; i++) {
         window.draw(buttons[i]);
