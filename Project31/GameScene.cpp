@@ -21,11 +21,11 @@ void GameScene::onActivate() {
     processedIndex = 0;
     initialize();
 	setSongInfo(scene_manager.currentPlaySong, scene_manager.currentDifficultyIndex);
-    musicStartClock.restart();
+    noteClock.restart();
 }
 
 void GameScene::initialize() {
-    
+    noteTravelTime = (judgeY - note_startPos_Y) / note_speed;
     // Buttons
     const int start_pos = 255;
     const int buttonY = 500;
@@ -36,6 +36,10 @@ void GameScene::initialize() {
         buttons[i].setFillColor(sf::Color(128, 128, 128));
         buttons[i].setPosition(start_pos + bt_distance * i, buttonY);
     }
+
+    judgeLine.setSize(sf::Vector2f(350, 20));
+    judgeLine.setPosition(225, 440);
+    judgeLine.setFillColor(sf::Color(128, 128, 128));
 
     // 콤보
     float comboX = platePosition + plateWidth / 2 - comboFontSize /2;
@@ -69,62 +73,68 @@ void GameScene::initialize() {
 }
 
 void GameScene::update(float dt) {
-    if (!musicStarted && musicStartClock.getElapsedTime().asSeconds() >= 3.0f) {
+    if (!noteClockStarted) {
+        noteClock.restart();
+        noteClockStarted = true;
+    }
+
+    if (!musicStarted && noteClock.getElapsedTime().asSeconds() >= noteTravelTime) {
         am.PlayMusic(songInfo.songNameStr);
         musicStarted = true;
     }
-     float musicTime = am.getMusic().getPlayingOffset().asMilliseconds();
 
+    long long noteTime = noteClock.getElapsedTime().asMilliseconds();
 
-     for (int i = processedIndex; i < song_data.NotePoints.size(); ++i) {
-         int time = song_data.NotePoints[i].first;
-         const std::array<int, 4>& lanes = song_data.NotePoints[i].second;
+    for (int i = processedIndex; i < song_data.NotePoints.size(); ++i) {
+        long long time = song_data.NotePoints[i].first;
+        const std::array<int, 4>& lanes = song_data.NotePoints[i].second;
 
-         if (musicTime < time) {
-             break; // 시간이 아직 안됐으면 종료
-         }
+        if (noteTime < time) {
+            break; // 시간이 아직 안됐으면 종료
+        }
 
-         for (int j = 0; j < 4; j++) {
-             if (lanes[j] > 0) {
-                 bool isLong = (lanes[j] == 2);
-                 int xPosition = note_startPos_X + note_distance * j;
-                 sf::Color color = sf::Color::Green;
-                 float size = 70;
-                 Note note(j, xPosition, -10, size, color, isLong);
-                 noteInScreen.push_back(note);
-             }
-         }
-         processedIndex = i + 1;
-     }
+        for (int j = 0; j < 4; j++) {
+            if (lanes[j] > 0) {
+                bool isLong = (lanes[j] == 2);
+                int xPosition = note_startPos_X + note_distance * j;
+                sf::Color color = sf::Color::Green;
+                float size = 70;
+                Note note(j, xPosition, note_startPos_Y, size, color, isLong);
+                noteInScreen.push_back(note);
+            }
+        }
+        processedIndex = i + 1;
+    }
 
-     for (std::list<Note>::iterator iter = noteInScreen.begin(); iter != noteInScreen.end(); ) {
-         sf::Vector2f pos = iter->getPosition();
-         pos.y += note_speed * dt;
-         iter->setPosition(pos);
-         if (iter->position.y > 600) {
-             iter = noteInScreen.erase(iter);
-         }
-         else {
-             ++iter;
-         }
-     }
+    for (std::list<Note>::iterator iter = noteInScreen.begin(); iter != noteInScreen.end(); ) {
+        sf::Vector2f pos = iter->getPosition();
+        pos.y += note_speed * dt;
+        iter->setPosition(pos);
+        if (iter->position.y > 600) {
+            iter = noteInScreen.erase(iter);
+        }
+        else {
+            ++iter;
+        }
+    }
+    
 }
 
 void GameScene::onDeactivate() {
     noteInScreen.clear();
 }
 
-
 void GameScene::draw(sf::RenderWindow& window) {
-    for (const Note& note : noteInScreen) {
+    
+    window.draw(judgeLine);
+
+    for (const Note& note : noteInScreen) 
         window.draw(note);
-    }
 
     window.draw(note_plate);
 
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 4; i++) 
         window.draw(buttons[i]);
-    }
 
     int Combo = 24; // TEST
     int Score = 1000; // TEST
@@ -193,6 +203,8 @@ std::string GameScene::generateFilePath(const SongInfo& songInfo, int difficulty
 void GameScene::setSongInfo(const SongInfo &songInfo, int difficulty) {
 	this->songInfo = songInfo;
 	this->difficultyIndex = difficulty;
+
+    song_data = {};
 
 	//file path
 	std::string filePath = generateFilePath(songInfo, difficultyIndex);

@@ -28,9 +28,10 @@ public:
 private:
     // 오디오 매니저
     AudioManager& am;
-    sf::Clock musicStartClock;
+    sf::Clock noteClock;
 
     bool musicStarted;
+    bool noteClockStarted;
 
     // 곡 정보
     SongInfo songInfo;
@@ -69,10 +70,14 @@ private:
     // note info
     int processedIndex = 0;
 
-    float note_speed = 800;
+    double note_speed = 1000;
     int note_startPos_X = 230;
     int note_startPos_Y = -10;
     int note_distance = 90;
+
+    int judgeY = 440;
+
+    double noteTravelTime;
 
     // 화면 그리기에 필요한 멤버 변수들
     sf::Font font;
@@ -80,4 +85,5 @@ private:
     sf::RectangleShape scorePannel_outer;
     sf::RectangleShape scorePannel_inner;
     NotePlate note_plate;
+    sf::RectangleShape judgeLine;
 };
