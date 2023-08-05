@@ -6,6 +6,7 @@
 #include "Note.h"
 #include "NotePlate.h"
 #include "ComboText.h"
+#include "JudgeText.h"
 
 #include "GameManager.h"
 
@@ -58,7 +59,11 @@ private:
 
     ComboText comboText;
     float comboHeight = 50;
-    unsigned int comboFontSize = 60;
+    unsigned int comboFontSize = 80;
+
+    JudgeText judgeText;
+    float judgeHeight = 300;
+    unsigned int judgeFontSize = 60;
 
     int start_pos = 255;
     int buttonY = 500;
@@ -77,7 +82,7 @@ private:
     // note info
     int processedIndex = 0;
 
-    double note_speed = 1000;
+    double note_speed = 1100;
     int note_startPos_X = 230;
     int note_startPos_Y = -10;
     int note_distance = 90;

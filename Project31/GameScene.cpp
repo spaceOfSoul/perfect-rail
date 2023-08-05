@@ -4,7 +4,8 @@ GameScene::GameScene(float width, float height)
 : am(AudioManager::Instance())
 , gm(GameManager(am))
 ,note_plate(platePosition,0)
-,comboText(sf::Color(128, 128, 128, 255), width/2, comboHeight) {
+,comboText(sf::Color(128, 128, 128, 255), width/2, comboHeight)
+,judgeText(sf::Color(128, 128, 128, 255), width / 2, judgeHeight) {
     for (int i = 0; i < 4; i++) {
         keyPushed[i] = false;
     }
@@ -12,6 +13,7 @@ GameScene::GameScene(float width, float height)
         printf("폰트가 없음!");
     }
     comboText.setFont(font);
+    judgeText.setFont(font);
 }
 
 GameScene::~GameScene() {
@@ -25,11 +27,15 @@ void GameScene::onActivate() {
     processedIndex = 0;
     initialize();
 	setSongInfo(scene_manager.currentPlaySong, scene_manager.currentDifficultyIndex);
+    gm.init(song_data);
     noteClock.restart();
 }
 
 void GameScene::initialize() {
+    //Game Setting
     noteTravelTime = (judgeY - note_startPos_Y) / note_speed;
+
+    // UI Setting
     // Buttons
     const int start_pos = 255;
     const int buttonY = 500;
@@ -47,17 +53,9 @@ void GameScene::initialize() {
 
     // 콤보
     comboText.setPosition(400, comboHeight);
-    
-    // 스코어
-    // Out Pannel
-    //scorePannel_outer.setSize(scorePannel_outerSize);
-    //scorePannel_outer.setFillColor(sf::Color::White);
-    //scorePannel_outer.setPosition(scorePos);
 
-    //// Inner Pannel
-    //scorePannel_outer.setSize(scorePannel_innerSize);
-    //scorePannel_outer.setFillColor(sf::Color::Black);
-    //scorePannel_outer.setPosition(scorePos);
+    // 판정
+    judgeText.setPosition(400, judgeHeight);
 
     // Score Text
     scoreText.setFont(font);
@@ -84,7 +82,7 @@ void GameScene::update(float dt) {
     }
 
     long long noteTime = noteClock.getElapsedTime().asMilliseconds();
-
+    gm.checkMiss(judgeText, comboText);
     for (int i = processedIndex; i < song_data.NotePoints.size(); ++i) {
         long long time = song_data.NotePoints[i].first;
         const std::array<int, 4>& lanes = song_data.NotePoints[i].second;
@@ -135,14 +133,11 @@ void GameScene::draw(sf::RenderWindow& window) {
     for (int i = 0; i < 4; i++)
         window.draw(buttons[i]);
 
-    //int Combo = 24; // TEST
-    int Score = 1000; // TEST
-    double Accurate = 98.f; // TEST
-
     window.draw(comboText);
-    scoreText.setString(std::to_string(Score));
+    window.draw(judgeText);
+    scoreText.setString(std::to_string(gm.getScore()));
 
-    std::string accurateStr = std::to_string(Accurate);
+    std::string accurateStr = std::to_string(gm.getAccuracy());
     accurateStr = accurateStr.substr(0, accurateStr.find(".") + 3) + "%";
     accurateText.setString(accurateStr);
 
@@ -158,15 +153,19 @@ Signal GameScene::handleInput(sf::Event event, sf::RenderWindow& window) {
             return Signal::GoToSongMenu;
         }
         else if (event.key.code == sf::Keyboard::D) {
+            gm.keyDownProcess(0, judgeText, comboText);
             buttons[0].setFillColor(sf::Color(65, 105, 225));
         }
         else if (event.key.code == sf::Keyboard::F) {
+            gm.keyDownProcess(1, judgeText, comboText);
             buttons[1].setFillColor(sf::Color(65, 105, 225));
         }
         else if (event.key.code == sf::Keyboard::J) {
+            gm.keyDownProcess(2, judgeText, comboText);
             buttons[2].setFillColor(sf::Color(65, 105, 225));
         }
         else if (event.key.code == sf::Keyboard::K) {
+            gm.keyDownProcess(3, judgeText, comboText);
             buttons[3].setFillColor(sf::Color(65, 105, 225));
         }
     }

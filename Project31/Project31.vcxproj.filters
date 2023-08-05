@@ -75,6 +75,9 @@
     <ClCompile Include="GameManager.cpp">
       <Filter>소스 파일\inGame</Filter>
     </ClCompile>
+    <ClCompile Include="judgeText.cpp">
+      <Filter>소스 파일\inGame\obj</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="signal.h">
@@ -118,6 +121,9 @@
     </ClInclude>
     <ClInclude Include="GameManager.h">
       <Filter>헤더 파일\inGame</Filter>
+    </ClInclude>
+    <ClInclude Include="judgeText.h">
+      <Filter>헤더 파일\inGame\obj</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

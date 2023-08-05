@@ -1,6 +1,8 @@
 #pragma once
 #include "AudioManager.h"
 #include "parse_data.h"
+#include "JudgeText.h"
+#include "ComboText.h"
 
 class GameManager {
 public:
@@ -10,21 +12,36 @@ public:
         targetPass.fill(0);
     }
 
-    void keyDownProcess(int keyIndex);
-    void checkMiss();
-    // ... (다른 메소드들)
+    void keyDownProcess(int keyIndex, JudgeText& judgeText, ComboText& comboText);
+    void checkMiss(JudgeText& judgeText, ComboText& comboText);
+
+    void calAccuracy();
+
+    void init(SongData& data);
+
+    int getJudgeIndex() const;
+    double getAccuracy() const;
+    std::array<int, 5> getTargetPass() const;
+    int getLastJudge() const;
+    double getHP() const;
+    double getHPUpRate() const;
+    double getHPDownRate() const;
+    double getRate() const;
+    int getScore() const;
+    int getCombo() const;
+    int getMaxCombo() const;
+
 
 private:
     AudioManager& am;
-    int judgeIndex;
     SongData song_data;
 
+    int judgeIndex;
     int score;
     double accuracy;
     std::array<bool, 4> keyDown;
     std::array<int, 5> targetPass; // MISS, BAD, GOOD, COOL, KOOL
-    int lastPan;
-    int panVisualTimer;
+    int lastJudge;
     int combo;
     int maxCombo;
     double hp;
