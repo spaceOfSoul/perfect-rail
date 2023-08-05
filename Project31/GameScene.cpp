@@ -1,13 +1,17 @@
 #include "GameScene.h"
 
-
-GameScene::GameScene(float width, float height) : am(AudioManager::Instance()) , note_plate(platePosition,0) {
+GameScene::GameScene(float width, float height)
+: am(AudioManager::Instance())
+, gm(GameManager(am))
+,note_plate(platePosition,0)
+,comboText(sf::Color(128, 128, 128, 255), width/2, comboHeight) {
     for (int i = 0; i < 4; i++) {
         keyPushed[i] = false;
     }
     if (!font.loadFromFile("fonts\\arial.ttf")) {
         printf("폰트가 없음!");
     }
+    comboText.setFont(font);
 }
 
 GameScene::~GameScene() {
@@ -42,12 +46,8 @@ void GameScene::initialize() {
     judgeLine.setFillColor(sf::Color(128, 128, 128));
 
     // 콤보
-    float comboX = platePosition + plateWidth / 2 - comboFontSize /2;
-    comboText.setFont(font);
-    comboText.setCharacterSize(comboFontSize);
-    comboText.setFillColor(sf::Color(128, 128, 128, 255)); // 회색으로 설정
-    comboText.setPosition(comboX, comboHeight);
-
+    comboText.setPosition(400, comboHeight);
+    
     // 스코어
     // Out Pannel
     //scorePannel_outer.setSize(scorePannel_outerSize);
@@ -125,22 +125,21 @@ void GameScene::onDeactivate() {
 }
 
 void GameScene::draw(sf::RenderWindow& window) {
-    
     window.draw(judgeLine);
 
-    for (const Note& note : noteInScreen) 
+    for (const Note& note : noteInScreen)
         window.draw(note);
 
     window.draw(note_plate);
 
-    for (int i = 0; i < 4; i++) 
+    for (int i = 0; i < 4; i++)
         window.draw(buttons[i]);
 
-    int Combo = 24; // TEST
+    //int Combo = 24; // TEST
     int Score = 1000; // TEST
     double Accurate = 98.f; // TEST
 
-    comboText.setString(std::to_string(Combo));
+    window.draw(comboText);
     scoreText.setString(std::to_string(Score));
 
     std::string accurateStr = std::to_string(Accurate);
@@ -148,7 +147,6 @@ void GameScene::draw(sf::RenderWindow& window) {
     accurateText.setString(accurateStr);
 
     // 콤보, 스코어, 정확도 텍스트 그리기
-    window.draw(comboText);
     window.draw(scoreText);
     window.draw(accurateText);
 }

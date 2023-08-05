@@ -5,6 +5,9 @@
 #include "parse_data.h"
 #include "Note.h"
 #include "NotePlate.h"
+#include "ComboText.h"
+
+#include "GameManager.h"
 
 #include <SFML/Graphics.hpp>
 #include <list>
@@ -30,6 +33,9 @@ private:
     AudioManager& am;
     sf::Clock noteClock;
 
+    // 게임 매니저
+    GameManager gm;
+
     bool musicStarted;
     bool noteClockStarted;
 
@@ -50,7 +56,8 @@ private:
     float plateWidth = 400;
     float platePosition = 200;;
 
-    float comboHeight = 100;
+    ComboText comboText;
+    float comboHeight = 50;
     unsigned int comboFontSize = 60;
 
     int start_pos = 255;
@@ -81,7 +88,7 @@ private:
 
     // 화면 그리기에 필요한 멤버 변수들
     sf::Font font;
-    sf::Text comboText, scoreText, accurateText;
+    sf::Text scoreText, accurateText;
     sf::RectangleShape scorePannel_outer;
     sf::RectangleShape scorePannel_inner;
     NotePlate note_plate;

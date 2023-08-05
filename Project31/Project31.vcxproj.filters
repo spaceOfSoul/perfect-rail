@@ -69,6 +69,12 @@
     <ClCompile Include="parse_data.cpp">
       <Filter>소스 파일\inGame</Filter>
     </ClCompile>
+    <ClCompile Include="ComboText.cpp">
+      <Filter>소스 파일\inGame\obj</Filter>
+    </ClCompile>
+    <ClCompile Include="GameManager.cpp">
+      <Filter>소스 파일\inGame</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="signal.h">
@@ -101,14 +107,17 @@
     <ClInclude Include="parse_data.h">
       <Filter>헤더 파일\inGame</Filter>
     </ClInclude>
-    <ClInclude Include="Note.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="ComboText.h">
       <Filter>헤더 파일\inGame\obj</Filter>
     </ClInclude>
     <ClInclude Include="NotePlate.h">
       <Filter>헤더 파일\inGame\obj</Filter>
+    </ClInclude>
+    <ClInclude Include="Note.h">
+      <Filter>헤더 파일\inGame\obj</Filter>
+    </ClInclude>
+    <ClInclude Include="GameManager.h">
+      <Filter>헤더 파일\inGame</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
