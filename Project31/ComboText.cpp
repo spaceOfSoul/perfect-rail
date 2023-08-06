@@ -2,9 +2,19 @@
 
 void ComboText::setCombo(int newCombo) {
     combo = newCombo;
-    numberText.setString(std::to_string(combo));
-    scale = 1.5f;
-    numberText.setCharacterSize((int)(50 * scale));
+    if (combo) {
+        numberText.setString(std::to_string(combo));
+        scale = 1.5f;
+        numberText.setCharacterSize((int)(50 * scale));
+        comboText.setString("Combo");
+    }
+    else {
+        numberText.setString("");
+        comboText.setString("");
+    }
+    
+    float centerX_number = x - numberText.getLocalBounds().width / 2.0f;
+    numberText.setPosition(centerX_number, y);
 }
 
 void ComboText::animation(float dt) {
@@ -14,6 +24,8 @@ void ComboText::animation(float dt) {
     }
     scale -= 0.5f * dt; 
     numberText.setCharacterSize((int)(50 * scale));
+    float centerX_number = x - numberText.getLocalBounds().width / 2.0f;
+    numberText.setPosition(centerX_number, y);
 }
 
 void ComboText::draw(sf::RenderTarget& target, sf::RenderStates states) const {

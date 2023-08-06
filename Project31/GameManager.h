@@ -1,13 +1,16 @@
 #pragma once
+#include <list>
+
 #include "AudioManager.h"
 #include "parse_data.h"
 #include "JudgeText.h"
 #include "ComboText.h"
+#include "Note.h"
 
 class GameManager {
 public:
-    GameManager(AudioManager& am)
-        : am(am), judgeIndex(0), score(0), accuracy(0.0), combo(0), maxCombo(0), hp(100), hpUpRate(1.0), hpDownRate(1.0), rate(1.0) {
+    GameManager(AudioManager& am, std::list<Note>& noteInScreen)
+        : am(am), judgeIndex(0), score(0), accuracy(0.0), combo(0), maxCombo(0), hp(100), hpUpRate(1.0), hpDownRate(1.0), rate(1.0), noteInScreen(noteInScreen) {
         keyDown.fill(false);
         targetPass.fill(0);
     }
@@ -31,10 +34,13 @@ public:
     int getCombo() const;
     int getMaxCombo() const;
 
+    void removeNote(int selected_time);
 
 private:
     AudioManager& am;
     SongData song_data;
+
+    std::list<Note>& noteInScreen;
 
     int judgeIndex;
     int score;

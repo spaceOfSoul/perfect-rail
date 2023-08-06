@@ -2,7 +2,7 @@
 
 GameScene::GameScene(float width, float height)
 : am(AudioManager::Instance())
-, gm(GameManager(am))
+, gm(GameManager(am, noteInScreen))
 ,note_plate(platePosition,0)
 ,comboText(sf::Color(128, 128, 128, 255), width/2, comboHeight)
 ,judgeText(sf::Color(128, 128, 128, 255), width / 2, judgeHeight) {
@@ -53,9 +53,11 @@ void GameScene::initialize() {
 
     // ÄÞº¸
     comboText.setPosition(400, comboHeight);
+    comboText.setCombo(0);
 
     // ÆÇÁ¤
     judgeText.setPosition(400, judgeHeight);
+    judgeText.setJudgement(0);
 
     // Score Text
     scoreText.setFont(font);
@@ -97,7 +99,7 @@ void GameScene::update(float dt) {
                 int xPosition = note_startPos_X + note_distance * j;
                 sf::Color color = sf::Color::Green;
                 float size = 70;
-                Note note(j, xPosition, note_startPos_Y, size, color, isLong);
+                Note note(j, xPosition, note_startPos_Y, size, color, time, isLong);
                 noteInScreen.push_back(note);
             }
         }

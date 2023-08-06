@@ -18,7 +18,7 @@ private:
     float x, y;
     std::string judgement;
 
-    int textSize = 80;
+    int textSize = 50;
 
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };
