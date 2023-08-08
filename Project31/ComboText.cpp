@@ -5,8 +5,9 @@ void ComboText::setCombo(int newCombo) {
     if (combo) {
         numberText.setString(std::to_string(combo));
         scale = 1.5f;
-        numberText.setCharacterSize((int)(50 * scale));
+        numberText.setCharacterSize((int)(comboSize_num * scale));
         comboText.setString("Combo");
+        comboText.setCharacterSize((int)(comboSize_txt * scale));
     }
     else {
         numberText.setString("");
@@ -15,6 +16,10 @@ void ComboText::setCombo(int newCombo) {
     
     float centerX_number = x - numberText.getLocalBounds().width / 2.0f;
     numberText.setPosition(centerX_number, y);
+
+    float comboCenterX = x - comboText.getLocalBounds().width / 2.0f;
+    float y_pos = y - comboSize_txt / 2;
+    comboText.setPosition(comboCenterX, y_pos);
 }
 
 void ComboText::animation(float dt) {
@@ -22,10 +27,16 @@ void ComboText::animation(float dt) {
         scale = 1.0f;
         return;
     }
-    scale -= 0.5f * dt; 
-    numberText.setCharacterSize((int)(50 * scale));
+    scale -= 2.5f * dt; 
+    numberText.setCharacterSize((int)(comboSize_num * scale));
+    comboText.setCharacterSize((int)(comboSize_txt * scale));
+
     float centerX_number = x - numberText.getLocalBounds().width / 2.0f;
     numberText.setPosition(centerX_number, y);
+
+    float comboCenterX = x - comboText.getLocalBounds().width / 2.0f;
+    float y_pos = y - comboSize_txt / 2;
+    comboText.setPosition(comboCenterX, y_pos);
 }
 
 void ComboText::draw(sf::RenderTarget& target, sf::RenderStates states) const {
@@ -41,7 +52,7 @@ void ComboText::setPosition(float x, float y) {
     numberText.setPosition(centerX_number, y);
 
     float comboCenterX = x - comboText.getLocalBounds().width / 2.0f;
-    float y_pos = y + comboSize_num + 5;
+    float y_pos = y - comboSize_txt/2;
     comboText.setPosition(comboCenterX, y_pos);
 }
 

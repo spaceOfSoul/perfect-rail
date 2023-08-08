@@ -140,6 +140,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenuScene.cpp" />
     <ClCompile Include="parse_data.cpp" />
+    <ClCompile Include="ResultScene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SongMenuScene.cpp" />
   </ItemGroup>
@@ -153,6 +154,7 @@
     <ClInclude Include="MainMenuScene.h" />
     <ClInclude Include="Note.h" />
     <ClInclude Include="parse_data.h" />
+    <ClInclude Include="ResultScene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="signal.h" />

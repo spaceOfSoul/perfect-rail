@@ -85,6 +85,7 @@ void GameScene::update(float dt) {
 
     long long noteTime = noteClock.getElapsedTime().asMilliseconds();
     gm.checkMiss(judgeText, comboText);
+
     for (int i = processedIndex; i < song_data.NotePoints.size(); ++i) {
         long long time = song_data.NotePoints[i].first;
         const std::array<int, 4>& lanes = song_data.NotePoints[i].second;
@@ -105,6 +106,9 @@ void GameScene::update(float dt) {
         }
         processedIndex = i + 1;
     }
+
+    comboText.animation(dt);
+    judgeText.animation(dt);
 
     for (std::list<Note>::iterator iter = noteInScreen.begin(); iter != noteInScreen.end(); ) {
         sf::Vector2f pos = iter->getPosition();

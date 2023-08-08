@@ -7,25 +7,30 @@ void JudgeText::setJudgement(int judge) {
     case 0:
         judgeText.setString("MISS");
         judgeText.setFillColor(sf::Color(128,128,128));
+        scale = 1.0f;
         break;
     case 1:
         judgeText.setString("BAD");
         judgeText.setFillColor(sf::Color(102, 0, 102));
+        scale = 1.0f;
         break;
     case 2:
         judgeText.setString("GOOD");
         judgeText.setFillColor(sf::Color(255, 153, 0));
+        scale = 1.2f;
         break;
     case 3:
         judgeText.setString("COOL");
         judgeText.setFillColor(sf::Color(153, 255, 51));
+        scale = 1.2f;
         break;
     case 4:
         judgeText.setString("KOOL");
+        scale = 1.2f;
         judgeText.setFillColor(sf::Color(0, 255, 0));
         break;
     }
-    scale = 1.5f;
+    
     judgeText.setCharacterSize((int)(textSize * scale));
     float centerX = x - judgeText.getLocalBounds().width / 2.0f;
     judgeText.setPosition(centerX, y);
@@ -36,8 +41,11 @@ void JudgeText::animation(float dt) {
         scale = 1.0f;
         return;
     }
-    scale -= 0.5f * dt;
+    scale -= 2.5f * dt;
     judgeText.setCharacterSize((int)(textSize * scale));
+
+    float centerX = x - judgeText.getLocalBounds().width / 2.0f;
+    judgeText.setPosition(centerX, y);
 }
 
 void JudgeText::draw(sf::RenderTarget& target, sf::RenderStates states) const {

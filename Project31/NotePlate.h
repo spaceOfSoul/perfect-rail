@@ -14,7 +14,6 @@ public:
         shapes[2].setSize(sf::Vector2f(25, 600));
         shapes[2].setPosition(x + 375, y);
         shapes[2].setFillColor(sf::Color::White);
-
     }
 
 private:

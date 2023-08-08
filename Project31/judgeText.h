@@ -9,7 +9,6 @@ public:
     void animation(float dt);
     void setFont(sf::Font&);
     void setPosition(float x, float y);
-
 private:
     sf::Text judgeText;
     sf::Font font;
@@ -18,7 +17,7 @@ private:
     float x, y;
     std::string judgement;
 
-    int textSize = 50;
+    int textSize = 40;
 
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

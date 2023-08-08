@@ -36,6 +36,7 @@ void AlbumArt::setTexturePath(const std::string& path) {
         sf::Vector2u textureSize = texture.getSize();
         float scaleX = imSize.x / (float)(textureSize.x);
         float scaleY = imSize.y / (float)(textureSize.y);
+
         sprite.setScale(scaleX, scaleY);
     }
 }

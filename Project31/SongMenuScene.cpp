@@ -2,7 +2,7 @@
 #include <SFML/Audio.hpp>
 #include <algorithm>
 // tmep max num
-#define MAX_NUM 6
+#define MAX_NUM 10
 
 std::string difficulties[3] = { "Normal", "Hard", "Expert" };
 

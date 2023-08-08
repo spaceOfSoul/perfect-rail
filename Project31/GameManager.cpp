@@ -105,7 +105,7 @@ void GameManager::keyDownProcess(int keyIndex, JudgeText& judgeText, ComboText& 
             judgeIndex = i + 1;
             break;
         }
-        else if (abs_v < 130) {//bad 범위
+        else if (abs_v < 120) {//bad 범위
             targetPass[1]++;  //bad
             lastJudge = 1; //bad
             combo++;
@@ -125,7 +125,7 @@ void GameManager::keyDownProcess(int keyIndex, JudgeText& judgeText, ComboText& 
 
             judgeIndex = i + 1;
             break;
-        }else if(130 < abs_v && abs_v <= 160) { // miss
+        }else if(120 <= abs_v && abs_v <= 170) { // miss
             targetPass[0]++;// miss
             lastJudge = 0;
             combo = 0;
@@ -155,7 +155,7 @@ void GameManager::checkMiss(JudgeText& judgeText, ComboText& comboText) {
         long long noteTime = song_data.NotePoints[judgeIndex].first;
         const std::array<int, 4>& lanes = song_data.NotePoints[judgeIndex].second;
 
-        if (noteTime < am.getMusic().getPlayingOffset().asMilliseconds() - 130) {
+        if (noteTime < am.getMusic().getPlayingOffset().asMilliseconds() - 120) {
             for (int i = 0; i < 4; ++i) {
                 if (lanes[i] > 0) {
                     targetPass[0]++; // MISS 증가
