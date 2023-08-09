@@ -96,3 +96,7 @@ void AudioManager::SetMusicVolume(const std::string& musicName, float volume) {
 sf::Music& AudioManager::getMusic() {
     return *currentMusic;
 }
+
+sf::SoundSource::Status AudioManager::GetMusicStatus() const {
+    return currentMusic->getStatus();
+}

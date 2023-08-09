@@ -23,6 +23,7 @@ public:
     void SetSoundVolume(const std::string& soundName, float volume);
     void SetMusicVolume(const std::string& musicName, float volume);
 
+    sf::SoundSource::Status GetMusicStatus() const;
     sf::Music& getMusic();
 
 private:

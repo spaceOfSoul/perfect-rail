@@ -7,6 +7,7 @@
 #include "NotePlate.h"
 #include "ComboText.h"
 #include "JudgeText.h"
+#include "ResultUI.h"
 
 #include "GameManager.h"
 
@@ -50,7 +51,7 @@ private:
     // notes
     std::list<Note> noteInScreen;
 
-    // UI position and size value
+    // Game UI position and size value
     sf::RectangleShape buttons[4];
     bool keyPushed[4];
 
@@ -98,4 +99,10 @@ private:
     sf::RectangleShape scorePannel_inner;
     NotePlate note_plate;
     sf::RectangleShape judgeLine;
+
+    // Result UI
+    bool game_finished = false;
+    ResultUI resultRectangle;
+
+    bool finish_process;
 };

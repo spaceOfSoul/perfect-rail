@@ -78,8 +78,8 @@
     <ClCompile Include="judgeText.cpp">
       <Filter>소스 파일\inGame\obj</Filter>
     </ClCompile>
-    <ClCompile Include="ResultScene.cpp">
-      <Filter>소스 파일\Scene\Scenes</Filter>
+    <ClCompile Include="ResultUI.cpp">
+      <Filter>소스 파일\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -128,8 +128,8 @@
     <ClInclude Include="judgeText.h">
       <Filter>헤더 파일\inGame\obj</Filter>
     </ClInclude>
-    <ClInclude Include="ResultScene.h">
-      <Filter>헤더 파일\Scene\Scenes</Filter>
+    <ClInclude Include="ResultUI.h">
+      <Filter>헤더 파일\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

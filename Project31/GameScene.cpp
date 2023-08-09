@@ -3,17 +3,21 @@
 GameScene::GameScene(float width, float height)
 : am(AudioManager::Instance())
 , gm(GameManager(am, noteInScreen))
-,note_plate(platePosition,0)
-,comboText(sf::Color(128, 128, 128, 255), width/2, comboHeight)
-,judgeText(sf::Color(128, 128, 128, 255), width / 2, judgeHeight) {
-    for (int i = 0; i < 4; i++) {
+, note_plate(platePosition, 0)
+, comboText(sf::Color(128, 128, 128, 255), width / 2, comboHeight)
+, judgeText(sf::Color(128, 128, 128, 255), width / 2, judgeHeight)
+, resultRectangle(width, height, font)
+{
+    for (int i = 0; i < 4; i++) 
         keyPushed[i] = false;
-    }
+    
     if (!font.loadFromFile("fonts\\arial.ttf")) {
         printf("폰트가 없음!");
     }
     comboText.setFont(font);
     judgeText.setFont(font);
+    am.LoadMusic("Result", "./bgm/Result.wav");
+    finish_process = false;
 }
 
 GameScene::~GameScene() {
@@ -32,6 +36,8 @@ void GameScene::onActivate() {
 }
 
 void GameScene::initialize() {
+    game_finished = false;
+    finish_process = false;
     //Game Setting
     noteTravelTime = (judgeY - note_startPos_Y) / note_speed;
 
@@ -81,6 +87,16 @@ void GameScene::update(float dt) {
     if (!musicStarted && noteClock.getElapsedTime().asSeconds() >= noteTravelTime) {
         am.PlayMusic(songInfo.songNameStr);
         musicStarted = true;
+    }
+
+
+    if (musicStarted && am.GetMusicStatus() == sf::Music::Stopped) {
+        game_finished = true;
+        if (!finish_process) {
+            resultRectangle.setResult(gm.getAccuracy(), gm.getScore(), gm.getMaxCombo(), gm.getTargetPass());
+            am.PlayMusic("Result");
+            finish_process = true;
+        }
     }
 
     long long noteTime = noteClock.getElapsedTime().asMilliseconds();
@@ -150,6 +166,8 @@ void GameScene::draw(sf::RenderWindow& window) {
     // 콤보, 스코어, 정확도 텍스트 그리기
     window.draw(scoreText);
     window.draw(accurateText);
+    if(game_finished)
+        window.draw(resultRectangle);
 }
 
 Signal GameScene::handleInput(sf::Event event, sf::RenderWindow& window) {
@@ -173,6 +191,12 @@ Signal GameScene::handleInput(sf::Event event, sf::RenderWindow& window) {
         else if (event.key.code == sf::Keyboard::K) {
             gm.keyDownProcess(3, judgeText, comboText);
             buttons[3].setFillColor(sf::Color(65, 105, 225));
+        }
+        else if (event.key.code == sf::Keyboard::Enter) {
+            if (game_finished) {
+                onDeactivate();
+                return Signal::GoToSongMenu;
+            }
         }
     }
     if (event.type == sf::Event::KeyReleased) {
