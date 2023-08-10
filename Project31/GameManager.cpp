@@ -1,13 +1,13 @@
 #include "GameManager.h"
 
 void GameManager::calAccuracy() {
-    int totalJudgedNotes = targetPass[1] + targetPass[2] + targetPass[3] + targetPass[4];
+    int totalJudgedNotes = targetPass[1] + targetPass[2] + targetPass[3] + targetPass[4] + targetPass[0];
     if (totalJudgedNotes == 0) { // 판정받은 노트가 없으면 정확도는 0
         accuracy = 0.0;
     }
     else {
-        accuracy = ((70.0 * targetPass[1] + 130.0 * targetPass[2] + 200.0 * (targetPass[3] + targetPass[4])) /
-            (totalJudgedNotes * 2.0));
+        accuracy = ((35.0 * targetPass[1] + 65.0 * targetPass[2] + 100.0 * (targetPass[3] + targetPass[4])) /
+            (totalJudgedNotes));
     }
 }
 

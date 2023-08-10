@@ -177,20 +177,32 @@ Signal GameScene::handleInput(sf::Event event, sf::RenderWindow& window) {
             return Signal::GoToSongMenu;
         }
         else if (event.key.code == sf::Keyboard::D) {
-            gm.keyDownProcess(0, judgeText, comboText);
-            buttons[0].setFillColor(sf::Color(65, 105, 225));
+            if (!keyPushed[0]) {
+                gm.keyDownProcess(0, judgeText, comboText);
+                buttons[0].setFillColor(sf::Color(65, 105, 225));
+                keyPushed[0] = true;
+            }
         }
         else if (event.key.code == sf::Keyboard::F) {
-            gm.keyDownProcess(1, judgeText, comboText);
-            buttons[1].setFillColor(sf::Color(65, 105, 225));
+            if (!keyPushed[1]) {
+                gm.keyDownProcess(1, judgeText, comboText);
+                buttons[1].setFillColor(sf::Color(65, 105, 225));
+                keyPushed[1] = true;
+            }
         }
         else if (event.key.code == sf::Keyboard::J) {
-            gm.keyDownProcess(2, judgeText, comboText);
-            buttons[2].setFillColor(sf::Color(65, 105, 225));
+            if (!keyPushed[2]) {
+                gm.keyDownProcess(2, judgeText, comboText);
+                buttons[2].setFillColor(sf::Color(65, 105, 225));
+                keyPushed[2] = true;
+            }
         }
         else if (event.key.code == sf::Keyboard::K) {
-            gm.keyDownProcess(3, judgeText, comboText);
-            buttons[3].setFillColor(sf::Color(65, 105, 225));
+            if (!keyPushed[3]) {
+                gm.keyDownProcess(3, judgeText, comboText);
+                buttons[3].setFillColor(sf::Color(65, 105, 225));
+                keyPushed[3] = true;
+            }
         }
         else if (event.key.code == sf::Keyboard::Enter) {
             if (game_finished) {
@@ -201,15 +213,19 @@ Signal GameScene::handleInput(sf::Event event, sf::RenderWindow& window) {
     }
     if (event.type == sf::Event::KeyReleased) {
         if (event.key.code == sf::Keyboard::D) {
+            keyPushed[0] = false;
             buttons[0].setFillColor(sf::Color(128, 128, 128));
         }
         else if (event.key.code == sf::Keyboard::F) {
+            keyPushed[1] = false;
             buttons[1].setFillColor(sf::Color(128, 128, 128));
         }
         else if (event.key.code == sf::Keyboard::J) {
+            keyPushed[2] = false;
             buttons[2].setFillColor(sf::Color(128, 128, 128));
         }
         else if (event.key.code == sf::Keyboard::K) {
+            keyPushed[3] = false;
             buttons[3].setFillColor(sf::Color(128, 128, 128));
         }
     }

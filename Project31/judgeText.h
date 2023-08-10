@@ -14,6 +14,7 @@ private:
     sf::Font font;
     sf::Color color;
     float scale;
+    float alpha_flag;
     float x, y;
     std::string judgement;
 

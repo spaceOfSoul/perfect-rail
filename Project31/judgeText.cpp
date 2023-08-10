@@ -30,17 +30,29 @@ void JudgeText::setJudgement(int judge) {
         judgeText.setFillColor(sf::Color(0, 255, 0));
         break;
     }
-    
+    alpha_flag = 1.0f;
     judgeText.setCharacterSize((int)(textSize * scale));
     float centerX = x - judgeText.getLocalBounds().width / 2.0f;
     judgeText.setPosition(centerX, y);
 }
 
 void JudgeText::animation(float dt) {
+    sf::Color currentColor = judgeText.getFillColor();
+    if (alpha_flag <= 0) {
+        printf("flag on\n");
+        alpha_flag = 0;
+        judgeText.setFillColor(sf::Color(currentColor.r,currentColor.g, currentColor.b, 0));
+        return;
+    }
+    else 
+        judgeText.setFillColor(sf::Color(currentColor.r, currentColor.g, currentColor.b, 255));
+    
+
     if (scale <= 1.0f) {
         scale = 1.0f;
         return;
     }
+    alpha_flag -= 1.5 * dt;
     scale -= 2.5f * dt;
     judgeText.setCharacterSize((int)(textSize * scale));
 
@@ -64,7 +76,7 @@ void JudgeText::setFont(sf::Font& font) {
     this->font = font;
     judgeText.setFont(font);
 
-    judgeText.setString(judgement);
+    judgeText.setString("");
     judgeText.setCharacterSize(textSize);
     judgeText.setFillColor(this->color);
 
