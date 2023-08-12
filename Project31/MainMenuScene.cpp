@@ -93,6 +93,7 @@ Signal MainMenuScene::handleInput(sf::Event event, sf::RenderWindow &window) {
 			else if (pressedItem == 1)
 			{
 				printf("Option button has been pressed\n");
+				return Signal::GoToOptionMenu;
 			}
 			else if (pressedItem == 2)
 			{

@@ -81,6 +81,9 @@
     <ClCompile Include="ResultUI.cpp">
       <Filter>소스 파일\UI</Filter>
     </ClCompile>
+    <ClCompile Include="OptionScene.cpp">
+      <Filter>소스 파일\Scene\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="signal.h">
@@ -130,6 +133,12 @@
     </ClInclude>
     <ClInclude Include="ResultUI.h">
       <Filter>헤더 파일\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="OptionScene.h">
+      <Filter>헤더 파일\Scene\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="options.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

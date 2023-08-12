@@ -63,7 +63,7 @@ void GameScene::initialize() {
 
     // ÆÇÁ¤
     judgeText.setPosition(400, judgeHeight);
-    judgeText.setJudgement(0);
+    //judgeText.setJudgement(0);
 
     // Score Text
     scoreText.setFont(font);
