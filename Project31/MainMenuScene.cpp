@@ -51,7 +51,7 @@ void MainMenuScene::MoveUp()
 {
 	if (selectedItemIndex - 1 >= 0)
 	{
-		am.PlaySound("menu_select");
+		am.PlayEventSound("menu_select");
 		menu_texts[selectedItemIndex].setFillColor(sf::Color::White);
 		selectedItemIndex--;
 		menu_texts[selectedItemIndex].setFillColor(sf::Color::Red);
@@ -62,7 +62,7 @@ void MainMenuScene::MoveDown()
 {
 	if (selectedItemIndex + 1 < MAX_OF_ITEM)
 	{
-		am.PlaySound("menu_select");
+		am.PlayEventSound("menu_select");
 		menu_texts[selectedItemIndex].setFillColor(sf::Color::White);
 		selectedItemIndex++;
 		menu_texts[selectedItemIndex].setFillColor(sf::Color::Red);

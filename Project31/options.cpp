@@ -1,9 +1,19 @@
 #include "options.h"
 
+#include <filesystem>
+
 void saveOptionFile(const Options& option, const std::string& filename) {
+    std::filesystem::path filePath(filename);
+    std::filesystem::path dirPath = filePath.parent_path(); // Directory
+
+    //해당 디렉토리가 존재하지 않을 경우 생성
+    if (!std::filesystem::exists(dirPath)) {
+        std::filesystem::create_directories(dirPath);
+    }
+
     std::ofstream file(filename, std::ios::binary);
     if (!file) {
-        printf("Failed to open the file for writting.\n");
+        printf("Failed to open the file for writing.\n");
         return;
     }
 
@@ -13,6 +23,7 @@ void saveOptionFile(const Options& option, const std::string& filename) {
 
     file.close();
 }
+
 
 void loadOptionFromFile(Options& option, const std::string& filename) {
     std::ifstream file(filename, std::ios::binary);

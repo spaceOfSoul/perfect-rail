@@ -12,7 +12,7 @@ public:
         return instance;
     }
     void LoadSound(const std::string& path);
-    void PlaySound(const std::string& soundName);
+    void PlayEventSound(const std::string& soundName);
     void StopSound(const std::string& soundName);
 
     void LoadMusic(const std::string& musicName, const std::string& path);

@@ -36,5 +36,7 @@ public:
 
     void MoveUp();
     void MoveDown();
+    void MoveLeft();
+    void MoveRight();
 };
 

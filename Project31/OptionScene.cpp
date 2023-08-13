@@ -8,46 +8,17 @@ OptionScene::OptionScene(float width, float height) : am(AudioManager::Instance(
 
 	// render texts
 	titleText.setFont(font);
-
 	titleText.setString("Options");
 	titleText.setCharacterSize(fontSize);
 	titleText.setPosition(sf::Vector2f(200.f, 50.f));
 	titleText.setFillColor(sf::Color::White);
 
-	std::stringstream ss;
-
-	menus[0].setFont(font);
-	menus[0].setFillColor(sf::Color::Red);
-	ss << "Music Volume: " << (int)sm.GetMusicVolume();
-	menus[0].setString(ss.str());
-	menus[0].setCharacterSize(fontSize);
-	menus[0].setPosition(sf::Vector2f(width / 2, height / (OPTION_ITEM + 1) * 1));
-	ss.str("");
-	ss.clear();
-
-	menus[1].setFont(font);
-	menus[1].setFillColor(sf::Color::White);
-	ss << "Sound Volume: " << (int)sm.GetSoundVolume();
-	menus[1].setString(ss.str());
-	menus[1].setCharacterSize(fontSize);
-	menus[1].setPosition(sf::Vector2f(width / 2, height / (OPTION_ITEM + 1) * 2));
-	ss.str("");
-	ss.clear();
-
-	menus[2].setFont(font);
-	menus[2].setFillColor(sf::Color::White);
-	ss << "Note Speed: " << (int)sm.GetNoteSpeed();
-	menus[2].setString(ss.str());
-	menus[2].setCharacterSize(fontSize);
-	menus[2].setPosition(sf::Vector2f(width / 2, height / (OPTION_ITEM + 1) * 3));
-	ss.str("");
-	ss.clear();
-
-	menus[3].setFont(font);
-	menus[3].setFillColor(sf::Color::White);
-	menus[3].setString("Exit");
-	menus[3].setCharacterSize(fontSize);
-	menus[3].setPosition(sf::Vector2f(width / 2, height / (OPTION_ITEM + 1) * 3));
+	for (int i = 0; i < OPTION_ITEM; ++i) {
+		menus[i].setFont(font);
+		menus[i].setFillColor(i == 0 ? sf::Color::Red : sf::Color::White);
+		menus[i].setCharacterSize(fontSize);
+		menus[i].setPosition(sf::Vector2f(width / 2, height / (OPTION_ITEM + 1) * (i + 1)));
+	}
 
 	selectedItemIndex = 0;
 }
@@ -57,11 +28,28 @@ OptionScene::~OptionScene()
 }
 
 void OptionScene::onActivate() {
+	std::stringstream ss;
 
+	ss << "Music Volume: " << (int)sm.GetMusicVolume();
+	menus[0].setString(ss.str());
+	ss.str("");
+	ss.clear();
+
+	ss << "Sound Volume: " << (int)sm.GetSoundVolume();
+	menus[1].setString(ss.str());
+	ss.str("");
+	ss.clear();
+
+	ss << "Note Speed: " << (int)sm.GetNoteSpeed();
+	menus[2].setString(ss.str());
+	ss.str("");
+	ss.clear();
+
+	menus[3].setString("Exit");
 }
 
 void OptionScene::onDeactivate() {
-
+	sm.saveOption();
 }
 
 void OptionScene::draw(sf::RenderWindow& window) {
@@ -80,7 +68,7 @@ void OptionScene::MoveUp()
 {
 	if (selectedItemIndex - 1 >= 0)
 	{
-		am.PlaySound("menu_select");
+		am.PlayEventSound("menu_select");
 		menus[selectedItemIndex].setFillColor(sf::Color::White);
 		selectedItemIndex--;
 		menus[selectedItemIndex].setFillColor(sf::Color::Red);
@@ -91,10 +79,90 @@ void OptionScene::MoveDown()
 {
 	if (selectedItemIndex + 1 < OPTION_ITEM)
 	{
-		am.PlaySound("menu_select");
+		am.PlayEventSound("menu_select");
 		menus[selectedItemIndex].setFillColor(sf::Color::White);
 		selectedItemIndex++;
 		menus[selectedItemIndex].setFillColor(sf::Color::Red);
+	}
+}
+
+void OptionScene::MoveLeft() {
+	std::stringstream ss;
+	if (selectedItemIndex == 0) { // music volume
+		float vol = sm.GetMusicVolume();
+		if (vol >= 10) 
+			vol -= 10;
+		sm.SetMusicVolume(vol);
+		am.PlayEventSound("menu_select");
+
+		ss << "Music Volume: " << (int)sm.GetMusicVolume();
+		menus[0].setString(ss.str());
+		ss.str("");
+		ss.clear();
+	}
+	else if (selectedItemIndex == 1) { // sound volume
+		float vol = sm.GetSoundVolume();
+		if (vol >= 10)
+			vol -= 10;
+		sm.SetSoundVolume(vol);
+		am.PlayEventSound("menu_select");
+
+		ss << "Sound Volume: " << (int)sm.GetSoundVolume();
+		menus[1].setString(ss.str());
+		ss.str("");
+		ss.clear();
+	}
+	else if (selectedItemIndex == 2) { // note speed
+		double speed = sm.GetNoteSpeed();
+		if (speed >= 300)
+			speed -= 50;
+		sm.SetNoteSpeed(speed);
+		am.PlayEventSound("menu_select");
+
+		ss << "Note Speed: " << (int)sm.GetNoteSpeed();
+		menus[2].setString(ss.str());
+		ss.str("");
+		ss.clear();
+	}
+}
+
+void OptionScene::MoveRight() {
+	std::stringstream ss;
+	if (selectedItemIndex == 0) { // music volume
+		float vol = sm.GetMusicVolume();
+		if (vol <= 90)
+			vol += 10;
+		sm.SetMusicVolume(vol);
+		am.PlayEventSound("menu_select");
+
+		ss << "Music Volume: " << (int)sm.GetMusicVolume();
+		menus[0].setString(ss.str());
+		ss.str("");
+		ss.clear();
+	}
+	else if (selectedItemIndex == 1) { // sound volume
+		float vol = sm.GetSoundVolume();
+		if (vol <= 90)
+			vol += 10;
+		sm.SetSoundVolume(vol);
+		am.PlayEventSound("menu_select");
+
+		ss << "Sound Volume: " << (int)sm.GetSoundVolume();
+		menus[1].setString(ss.str());
+		ss.str("");
+		ss.clear();
+	}
+	else if (selectedItemIndex == 2) { // note speed
+		double speed = sm.GetNoteSpeed();
+		if (speed <= 2950)
+			speed += 50;
+		sm.SetNoteSpeed(speed);
+		am.PlayEventSound("menu_select");
+
+		ss << "Note Speed: " << (int)sm.GetNoteSpeed();
+		menus[2].setString(ss.str());
+		ss.str("");
+		ss.clear();
 	}
 }
 
@@ -108,6 +176,12 @@ Signal OptionScene::handleInput(sf::Event event, sf::RenderWindow& window) {
 		else if (event.key.code == sf::Keyboard::Down)
 		{
 			MoveDown();
+		}
+		else if (event.key.code == sf::Keyboard::Left) {
+			MoveLeft();
+		}
+		else if (event.key.code == sf::Keyboard::Right) {
+			MoveRight();
 		}
 		else if (event.key.code == sf::Keyboard::Escape || event.key.code == sf::Keyboard::Enter)
 		{

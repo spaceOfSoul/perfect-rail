@@ -20,7 +20,7 @@ void AudioManager::LoadSound(const std::string& path) {
 }
 
 
-void AudioManager::PlaySound(const std::string& soundName) {
+void AudioManager::PlayEventSound(const std::string& soundName) {
     if (sounds.find(soundName) != sounds.end()) {
         std::unique_ptr<sf::Sound>& sound = sounds[soundName];
         sound->setVolume(sound_volume);

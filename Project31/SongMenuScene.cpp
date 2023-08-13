@@ -128,7 +128,7 @@ void SongMenuScene::MoveUp() {
     if (selectedItemIndex - 1 >= 0) {
         selectedItemIndex--;  // 먼저 인덱스를 감소
 
-        am.PlaySound("menu_select");
+        am.PlayEventSound("menu_select");
         selectedDifficultyIndex = 0;
 
         // Stop the current music and play the selected one
@@ -143,7 +143,7 @@ void SongMenuScene::MoveDown() {
     if (selectedItemIndex + 1 < songInfos.size()) {
         selectedItemIndex++;  // 먼저 인덱스를 증가
 
-        am.PlaySound("menu_select");
+        am.PlayEventSound("menu_select");
         selectedDifficultyIndex = 0;
 
         // Stop the current music and play the selected one
