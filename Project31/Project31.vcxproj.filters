@@ -84,6 +84,15 @@
     <ClCompile Include="OptionScene.cpp">
       <Filter>소스 파일\Scene\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="options.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SettingsManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="utils.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="signal.h">
@@ -138,6 +147,12 @@
       <Filter>헤더 파일\Scene\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="options.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SettingsManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="utils.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

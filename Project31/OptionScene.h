@@ -6,6 +6,7 @@
 #include "signal.h"
 #include "Scene.h"
 #include "options.h"
+#include "SettingsManager.h"
 
 #define OPTION_ITEM 4
 
@@ -13,6 +14,7 @@ class OptionScene : public Scene
 {
 private:
     AudioManager& am;
+    SettingsManager& sm;
 
     sf::Font font;
     sf::Text titleText;

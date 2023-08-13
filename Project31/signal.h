@@ -5,6 +5,5 @@ enum class Signal {
     GoToSongMenu,
     GoToOptionMenu,
     GoToPlayScene,
-    GoToResult,
     Exit,
 };

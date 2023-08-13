@@ -26,12 +26,10 @@ void SceneManager::handleInput(sf::Event event, sf::RenderWindow& window) {
         setScreen("songMenu");
         break;
     case Signal::GoToOptionMenu:
-        setScreen("optionMenu");
+        setScreen("optionScene");
         break;
     case Signal::GoToPlayScene:
         setScreen("gameScene");
-        break;
-    case Signal::GoToResult:
         break;
     case Signal::Exit:
         window.close();

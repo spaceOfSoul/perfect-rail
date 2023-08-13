@@ -7,6 +7,7 @@
 
 #include "SceneManager.h"
 #include "AudioManager.h"
+#include "OptionScene.h"
 
 int main()
 {
@@ -35,6 +36,7 @@ int main()
     scenes["mainMenu"] = new MainMenuScene(window.getSize().x, window.getSize().y);
     scenes["songMenu"] = new SongMenuScene(window.getSize().x, window.getSize().y);
     scenes["gameScene"] = new GameScene(window.getSize().x, window.getSize().y);
+    scenes["optionScene"] = new OptionScene(window.getSize().x, window.getSize().y);
 
     // 맵 관리자
     SceneManager& scene_manager = SceneManager::getInstance();

@@ -139,11 +139,14 @@
     <ClCompile Include="judgeText.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenuScene.cpp" />
+    <ClCompile Include="options.cpp" />
     <ClCompile Include="OptionScene.cpp" />
     <ClCompile Include="parse_data.cpp" />
     <ClCompile Include="ResultUI.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="SettingsManager.cpp" />
     <ClCompile Include="SongMenuScene.cpp" />
+    <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AlbumArt.h" />
@@ -160,10 +163,12 @@
     <ClInclude Include="ResultUI.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="SettingsManager.h" />
     <ClInclude Include="signal.h" />
     <ClInclude Include="SongInfo.h" />
     <ClInclude Include="SongMenuScene.h" />
     <ClInclude Include="NotePlate.h" />
+    <ClInclude Include="utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

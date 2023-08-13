@@ -1,33 +1,47 @@
 #include "OptionScene.h"
-OptionScene::OptionScene(float width, float height) : am(AudioManager::Instance()) {
+#include <sstream>
+
+OptionScene::OptionScene(float width, float height) : am(AudioManager::Instance()), sm(SettingsManager::Instance()) {
 	if (!font.loadFromFile("fonts\\arial.ttf")) {
 		printf("폰트가 없음\n");
 	}
 
 	// render texts
 	titleText.setFont(font);
+
 	titleText.setString("Options");
 	titleText.setCharacterSize(fontSize);
 	titleText.setPosition(sf::Vector2f(200.f, 50.f));
 	titleText.setFillColor(sf::Color::White);
 
+	std::stringstream ss;
+
 	menus[0].setFont(font);
 	menus[0].setFillColor(sf::Color::Red);
-	menus[0].setString("Music Volume");
+	ss << "Music Volume: " << (int)sm.GetMusicVolume();
+	menus[0].setString(ss.str());
 	menus[0].setCharacterSize(fontSize);
 	menus[0].setPosition(sf::Vector2f(width / 2, height / (OPTION_ITEM + 1) * 1));
+	ss.str("");
+	ss.clear();
 
 	menus[1].setFont(font);
 	menus[1].setFillColor(sf::Color::White);
-	menus[1].setString("Sound Volume");
+	ss << "Sound Volume: " << (int)sm.GetSoundVolume();
+	menus[1].setString(ss.str());
 	menus[1].setCharacterSize(fontSize);
 	menus[1].setPosition(sf::Vector2f(width / 2, height / (OPTION_ITEM + 1) * 2));
+	ss.str("");
+	ss.clear();
 
 	menus[2].setFont(font);
 	menus[2].setFillColor(sf::Color::White);
-	menus[2].setString("Note Speed");
+	ss << "Note Speed: " << (int)sm.GetNoteSpeed();
+	menus[2].setString(ss.str());
 	menus[2].setCharacterSize(fontSize);
 	menus[2].setPosition(sf::Vector2f(width / 2, height / (OPTION_ITEM + 1) * 3));
+	ss.str("");
+	ss.clear();
 
 	menus[3].setFont(font);
 	menus[3].setFillColor(sf::Color::White);
@@ -56,6 +70,10 @@ void OptionScene::draw(sf::RenderWindow& window) {
 	{
 		window.draw(menus[i]);
 	}
+}
+
+void OptionScene::update(float dt) {
+
 }
 
 void OptionScene::MoveUp()
