@@ -10,6 +10,7 @@
 #include "ResultUI.h"
 
 #include "GameManager.h"
+#include "SettingsManager.h"
 
 #include <SFML/Graphics.hpp>
 #include <list>
@@ -37,6 +38,9 @@ private:
 
     // 게임 매니저
     GameManager gm;
+
+    // 사용자 세팅
+    SettingsManager& sm;
 
     bool musicStarted;
     bool noteClockStarted;

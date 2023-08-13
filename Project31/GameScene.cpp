@@ -3,6 +3,7 @@
 GameScene::GameScene(float width, float height)
 : am(AudioManager::Instance())
 , gm(GameManager(am, noteInScreen))
+, sm(SettingsManager::Instance())
 , note_plate(platePosition, 0)
 , comboText(sf::Color(128, 128, 128, 255), width / 2, comboHeight)
 , judgeText(sf::Color(128, 128, 128, 255), width / 2, judgeHeight)
@@ -29,6 +30,7 @@ void GameScene::onActivate() {
 	printf("on Activate\n");
     musicStarted = false;
     processedIndex = 0;
+    note_speed = sm.GetNoteSpeed();
     initialize();
 	setSongInfo(scene_manager.currentPlaySong, scene_manager.currentDifficultyIndex);
     gm.init(song_data);
@@ -63,7 +65,7 @@ void GameScene::initialize() {
 
     // ÆÇÁ¤
     judgeText.setPosition(400, judgeHeight);
-    //judgeText.setJudgement(0);
+    judgeText.setJudgement(10);
 
     // Score Text
     scoreText.setFont(font);

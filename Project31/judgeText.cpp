@@ -29,6 +29,9 @@ void JudgeText::setJudgement(int judge) {
         scale = 1.2f;
         judgeText.setFillColor(sf::Color(0, 255, 0));
         break;
+    default:
+        judgeText.setString("");
+        break;
     }
     alpha_flag = 1.0f;
     judgeText.setCharacterSize((int)(textSize * scale));

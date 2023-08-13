@@ -4,6 +4,8 @@
 #include <SFML/Audio.hpp>
 #include <memory>
 
+#include "SettingsManager.h"
+
 class AudioManager {
 public:
     // 이 오브젝트는 싱글톤 인스턴스로 쓸거임.
@@ -28,6 +30,9 @@ public:
 
 private:
     AudioManager();
+
+    SettingsManager& sm;
+
     std::map<std::string, sf::SoundBuffer> soundBuffers;
     std::map<std::string, std::unique_ptr<sf::Sound>> sounds;
 
@@ -35,6 +40,6 @@ private:
 
     std::unique_ptr<sf::Music> currentMusic;
 
-    float music_volume = 30.f;
-    float sound_volume = 30.f;
+    float music_volume;
+    float sound_volume;
 };

@@ -2,7 +2,10 @@
 #include <stdio.h>
 #include <filesystem>
 
-AudioManager::AudioManager() {}
+AudioManager::AudioManager():sm(SettingsManager::Instance()) {
+    music_volume = sm.GetMusicVolume();
+    sound_volume = sm.GetSoundVolume();
+}
 
 //sound
 void AudioManager::LoadSound(const std::string& path) {
@@ -21,6 +24,7 @@ void AudioManager::LoadSound(const std::string& path) {
 
 
 void AudioManager::PlayEventSound(const std::string& soundName) {
+    sound_volume = sm.GetSoundVolume();
     if (sounds.find(soundName) != sounds.end()) {
         std::unique_ptr<sf::Sound>& sound = sounds[soundName];
         sound->setVolume(sound_volume);
@@ -51,6 +55,7 @@ void AudioManager::LoadMusic(const std::string& musicName, const std::string& pa
 }
 
 void AudioManager::PlayMusic(const std::string& musicName) {
+    music_volume = sm.GetMusicVolume();
     if (musics.find(musicName) == musics.end()) {
         printf("Music %s not found. Can't start.\n", musicName.c_str());
         return;
