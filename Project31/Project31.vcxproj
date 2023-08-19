@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -142,6 +142,7 @@
     <ClCompile Include="options.cpp" />
     <ClCompile Include="OptionScene.cpp" />
     <ClCompile Include="parse_data.cpp" />
+    <ClCompile Include="playResult.cpp" />
     <ClCompile Include="ResultUI.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SettingsManager.cpp" />
@@ -160,6 +161,7 @@
     <ClInclude Include="options.h" />
     <ClInclude Include="OptionScene.h" />
     <ClInclude Include="parse_data.h" />
+    <ClInclude Include="playResult.h" />
     <ClInclude Include="ResultUI.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Scene.h" />

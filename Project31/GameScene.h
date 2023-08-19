@@ -11,6 +11,7 @@
 
 #include "GameManager.h"
 #include "SettingsManager.h"
+#include "playResult.h"
 
 #include <SFML/Graphics.hpp>
 #include <list>
@@ -87,8 +88,9 @@ private:
     // note info
     int processedIndex = 0;
 
-    double note_speed = 1100;
-    int note_startPos_X = 230;
+    double note_speed;
+    float note_size=90;
+    int note_startPos_X = 220;
     int note_startPos_Y = -10;
     int note_distance = 90;
 

@@ -97,6 +97,10 @@ void GameScene::update(float dt) {
         if (!finish_process) {
             resultRectangle.setResult(gm.getAccuracy(), gm.getScore(), gm.getMaxCombo(), gm.getTargetPass());
             am.PlayMusic("Result");
+            
+            ResultData data(gm.getAccuracy(), gm.getScore(), gm.getMaxCombo(), gm.getTargetPass());
+            serialize(data,songInfo.songPath);
+
             finish_process = true;
         }
     }
@@ -117,8 +121,7 @@ void GameScene::update(float dt) {
                 bool isLong = (lanes[j] == 2);
                 int xPosition = note_startPos_X + note_distance * j;
                 sf::Color color = sf::Color::Green;
-                float size = 70;
-                Note note(j, xPosition, note_startPos_Y, size, color, time, isLong);
+                Note note(j, xPosition, note_startPos_Y, note_size, color, time, isLong);
                 noteInScreen.push_back(note);
             }
         }
