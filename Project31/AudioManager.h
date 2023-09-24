@@ -27,6 +27,7 @@ public:
 
     sf::SoundSource::Status GetMusicStatus() const;
     sf::Music& getMusic();
+    std::string getMusicName();
 
 private:
     AudioManager();
@@ -39,6 +40,7 @@ private:
     std::map<std::string, std::string> musics;
 
     std::unique_ptr<sf::Music> currentMusic;
+    std::string current_music_name;
 
     float music_volume;
     float sound_volume;

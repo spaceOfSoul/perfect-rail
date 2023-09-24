@@ -99,8 +99,8 @@ void GameScene::update(float dt) {
             am.StopMusic(songInfo.songNameStr);
             am.PlayMusic("Result");
             
-            ResultData data(gm.getAccuracy(), gm.getScore(), gm.getMaxCombo(), gm.getTargetPass());
-            serialize(data,songInfo.songPath);
+            /*ResultData data(gm.getAccuracy(), gm.getScore(), gm.getMaxCombo(), gm.getTargetPass());
+            serialize(data, songInfo.songPath);*/
 
             finish_process = true;
         }

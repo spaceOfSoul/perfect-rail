@@ -56,6 +56,7 @@ void AudioManager::LoadMusic(const std::string& musicName, const std::string& pa
 
 void AudioManager::PlayMusic(const std::string& musicName) {
     music_volume = sm.GetMusicVolume();
+    current_music_name = musicName;
     if (musics.find(musicName) == musics.end()) {
         printf("Music %s not found. Can't start.\n", musicName.c_str());
         return;
@@ -104,4 +105,8 @@ sf::Music& AudioManager::getMusic() {
 
 sf::SoundSource::Status AudioManager::GetMusicStatus() const {
     return currentMusic->getStatus();
+}
+
+std::string AudioManager::getMusicName() {
+    return current_music_name;
 }
