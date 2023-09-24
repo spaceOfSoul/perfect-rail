@@ -1,5 +1,9 @@
 #include "ResultUI.h"
 ResultUI::ResultUI(float width, float height, sf::Font& font) {
+	new_result = false;
+	accuracy = 100.0;
+	score_num = 0;
+	combo = 0;
 	backGround.setPosition(0, 0);
 	backGround.setSize(sf::Vector2f(width, height));
 	backGround.setFillColor(sf::Color::Black);
@@ -21,6 +25,12 @@ ResultUI::ResultUI(float width, float height, sf::Font& font) {
 	Rank.setCharacterSize(200);
 	Rank.setString("F");
 	Rank.setFillColor(sf::Color(71, 71, 71));
+
+	newRecord.setFont(font);
+	newRecord.setPosition(sf::Vector2f(120, 350));
+	newRecord.setCharacterSize(30);
+	newRecord.setString("New Record");
+	newRecord.setFillColor(sf::Color(255, 255,0));
 
 	acc_txt.setFont(font);
 	acc_txt.setPosition(sf::Vector2f(380, 350));
@@ -75,7 +85,7 @@ ResultUI::ResultUI(float width, float height, sf::Font& font) {
 	}
 }
 
-void ResultUI::setResult(double accuracy, int score, int maxCom, std::array<int, 5> targetPass) {
+void ResultUI::setResult(double accuracy, int score, int maxCom, std::array<int, 5> targetPass, bool is_new) {
 	std::string accurateStr = std::to_string(accuracy);
 	accurateStr = accurateStr.substr(0, accurateStr.find(".") + 3) + "%";
 	acc.setString(accurateStr);
@@ -111,6 +121,7 @@ void ResultUI::setResult(double accuracy, int score, int maxCom, std::array<int,
 	for (int i = 0; i < 5; i++) {
 		judeges[i].setString(std::to_string(targetPass[4-i]));
 	}
+	new_result = is_new;
 }
 
 void ResultUI::draw(sf::RenderTarget& target, sf::RenderStates states) const {

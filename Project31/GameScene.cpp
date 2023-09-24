@@ -95,7 +95,8 @@ void GameScene::update(float dt) {
     if (musicStarted && am.GetMusicStatus() == sf::Music::Stopped) {
         game_finished = true;
         if (!finish_process) {
-            resultRectangle.setResult(gm.getAccuracy(), gm.getScore(), gm.getMaxCombo(), gm.getTargetPass());
+            resultRectangle.setResult(gm.getAccuracy(), gm.getScore(), gm.getMaxCombo(), gm.getTargetPass(), false);
+            am.StopMusic(songInfo.songNameStr);
             am.PlayMusic("Result");
             
             ResultData data(gm.getAccuracy(), gm.getScore(), gm.getMaxCombo(), gm.getTargetPass());

@@ -5,7 +5,7 @@
 class ResultUI : public sf::Drawable {
 public:
     ResultUI(float width, float height, sf::Font& font);
-    void setResult(double accuracy, int score, int maxCom, std::array<int, 5> targetPass);
+    void setResult(double accuracy, int score, int maxCom, std::array<int, 5> targetPass, bool is_new);
 
 private:
     sf::RectangleShape backGround;
@@ -14,6 +14,9 @@ private:
 
     sf::Text rank_txt;
     sf::Text Rank;
+
+    bool new_result;
+    sf::Text newRecord;
 
     std::string judge_str[5] = {"KOOL : ","COOL : ", "GOOD : ","BAD : ","MISS : "};
     sf::Text judeges_txt[5];

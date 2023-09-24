@@ -10,7 +10,4 @@ std::string get_appdata_roaming_path();
 
 #include <filesystem>
 
-std::string getDirectoryPath(const std::string& filepath) {
-    std::filesystem::path path(filepath);
-    return path.parent_path().string();
-}
+std::string getDirectoryPath(const std::string& filepath);
