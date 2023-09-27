@@ -21,7 +21,9 @@ public:
     }
 };
 
-void serialize(const ResultData& data, const std::string& filepath);
-ResultData deserialize(const std::string& filepath);
-void saveToDirectory(const ResultData& data, const std::string& directory);
-ResultData loadFromDirectory(const std::string& directory);
+namespace SaveResult {
+    void result_serialize(const ResultData& data, const std::string& filepath);
+    ResultData result_deserialize(const std::string& filepath);
+    void saveToDirectory(const ResultData& data, const std::string& directory);
+    ResultData loadFromDirectory(const std::string& directory);
+}

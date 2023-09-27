@@ -24,12 +24,13 @@ void GameManager::removeNote(int selected_time) {
 }
 
 void GameManager::keyDownProcess(int keyIndex, JudgeText& judgeText, ComboText& comboText) {
-    for (int i = judgeIndex; i < song_data.NotePoints.size(); ++i) {
-        int time = song_data.NotePoints[i].first;
-        const std::array<int, 4>& lanes = song_data.NotePoints[i].second;
+    //printf("pushed\n");
+    for (int i = judgeIndex[keyIndex]; i < song_data.NotePoints[keyIndex].size(); ++i) {
+        int time = song_data.NotePoints[keyIndex][i].first;
 
         int abs_v = abs(time - am.getMusic().getPlayingOffset().asMilliseconds());
 
+        //printf("key : %d judge executed\n", keyIndex);
         if (abs_v <= 25) { //kool 범위
             targetPass[4]++; //kool
             lastJudge = 4; //kool
@@ -49,10 +50,10 @@ void GameManager::keyDownProcess(int keyIndex, JudgeText& judgeText, ComboText& 
             calAccuracy();
             removeNote(time);
 
-            song_data.NotePoints[i].second[keyIndex] = 0; //노트 친것으로 표시
-            song_data.ImagePoints[i].second[keyIndex] = 0; //롱노트는 일단 보류
+            song_data.NotePoints[keyIndex][i].second = 0; //노트 친것으로 표시
+            song_data.ImagePoints[keyIndex][i].second = 0; //롱노트는 일단 보류
 
-            judgeIndex = i + 1;
+            judgeIndex[keyIndex] = i + 1;
             break;
         }
         else if (abs_v <= 41.5) { //cool 범위
@@ -74,10 +75,10 @@ void GameManager::keyDownProcess(int keyIndex, JudgeText& judgeText, ComboText& 
             calAccuracy();
             removeNote(time);
 
-            song_data.NotePoints[i].second[keyIndex] = 0; //노트 친것으로 표시
-            song_data.ImagePoints[i].second[keyIndex] = 0; //롱노트는 일단 보류
+            song_data.NotePoints[keyIndex][i].second = 0; //노트 친것으로 표시
+            song_data.ImagePoints[keyIndex][i].second = 0; //롱노트는 일단 보류
 
-            judgeIndex = i + 1;
+            judgeIndex[keyIndex] = i + 1;
             break;
         }
         else if (abs_v <= 78.5) { //good 범위
@@ -99,10 +100,10 @@ void GameManager::keyDownProcess(int keyIndex, JudgeText& judgeText, ComboText& 
             calAccuracy();
             removeNote(time);
 
-            song_data.NotePoints[i].second[keyIndex] = 0; //노트 친것으로 표시
-            song_data.ImagePoints[i].second[keyIndex] = 0; //롱노트는 일단 보류
+            song_data.NotePoints[keyIndex][i].second = 0; //노트 친것으로 표시
+            song_data.ImagePoints[keyIndex][i].second = 0; //롱노트는 일단 보류
 
-            judgeIndex = i + 1;
+            judgeIndex[keyIndex] = i + 1;
             break;
         }
         else if (abs_v < 120) {//bad 범위
@@ -120,10 +121,10 @@ void GameManager::keyDownProcess(int keyIndex, JudgeText& judgeText, ComboText& 
             calAccuracy();
             removeNote(time);
 
-            song_data.NotePoints[i].second[keyIndex] = 0; //노트 친것으로 표시
-            song_data.ImagePoints[i].second[keyIndex] = 0; //롱노트는 일단 보류
+            song_data.NotePoints[keyIndex][i].second = 0; //노트 친것으로 표시
+            song_data.ImagePoints[keyIndex][i].second = 0; //롱노트는 일단 보류
 
-            judgeIndex = i + 1;
+            judgeIndex[keyIndex] = i + 1;
             break;
         }else if(120 <= abs_v && abs_v <= 170) { // miss
             targetPass[0]++;// miss
@@ -138,10 +139,10 @@ void GameManager::keyDownProcess(int keyIndex, JudgeText& judgeText, ComboText& 
             calAccuracy();
             removeNote(time);
 
-            song_data.NotePoints[i].second[keyIndex] = 0; //노트 친것으로 표시
-            song_data.ImagePoints[i].second[keyIndex] = 0; //롱노트는 일단 보류
+            song_data.NotePoints[keyIndex][i].second = 0; //노트 친것으로 표시
+            song_data.ImagePoints[keyIndex][i].second = 0; //롱노트는 일단 보류
 
-            judgeIndex = i + 1;
+            judgeIndex[keyIndex] = i + 1;
             break;
         }
         else
@@ -151,37 +152,36 @@ void GameManager::keyDownProcess(int keyIndex, JudgeText& judgeText, ComboText& 
 
 // Miss 판정
 void GameManager::checkMiss(JudgeText& judgeText, ComboText& comboText) {
-    while (judgeIndex < song_data.NotePoints.size()) {
-        long long noteTime = song_data.NotePoints[judgeIndex].first;
-        const std::array<int, 4>& lanes = song_data.NotePoints[judgeIndex].second;
+    for (int keyIndex = 0; keyIndex < 4; keyIndex++) {
+        while (judgeIndex[keyIndex] < song_data.NotePoints[keyIndex].size()) {
+            long long noteTime = song_data.NotePoints[keyIndex][judgeIndex[keyIndex]].first;
 
-        if (noteTime < am.getMusic().getPlayingOffset().asMilliseconds() - 120) {
-            for (int i = 0; i < 4; ++i) {
-                if (lanes[i] > 0) {
-                    targetPass[0]++; // MISS 증가
-                    lastJudge = 0;
-                    combo = 0;
-                    hp -= 3 * hpDownRate; //hp 차감
-                    hpDownRate *= 1.1; //hp 감소 가중치 증가
-                    hpUpRate = 1.0; //hp 상승 가중치 
+            if (noteTime < am.getMusic().getPlayingOffset().asMilliseconds() - 120) {
+                   targetPass[0]++; // MISS 증가
+                   lastJudge = 0;
+                   combo = 0;
+                   hp -= 3 * hpDownRate; //hp 차감
+                   hpDownRate *= 1.1; //hp 감소 가중치 증가
+                   hpUpRate = 1.0; //hp 상승 가중치 
 
-                    song_data.NotePoints[judgeIndex].second[i] = 0; // 노트 삭제
-                    song_data.ImagePoints[judgeIndex].second[i] = 0;
-                    judgeText.setJudgement(0);
-                    comboText.setCombo(combo);
-                    calAccuracy();
-                    judgeIndex++;
-                }
+                   song_data.NotePoints[keyIndex][judgeIndex[keyIndex]].second = 0; // 노트 삭제
+                   song_data.ImagePoints[keyIndex][judgeIndex[keyIndex]].second = 0;
+                   judgeText.setJudgement(0);
+                   comboText.setCombo(combo);
+                   calAccuracy();
+                   judgeIndex[keyIndex]++;
             }
+            else
+                break;
         }
-        else 
-            break;
     }
 }
 
 void GameManager::init(SongData& data) {
     song_data = data;
-    judgeIndex = 0;
+
+    for(int i=0; i<4; i++)
+        judgeIndex[i] = 0;
     score = 0;
     accuracy = 100.0;
     combo = 0;
@@ -192,10 +192,6 @@ void GameManager::init(SongData& data) {
     rate = 1.0;
     keyDown.fill(false);
     targetPass.fill(0);
-}
-
-int GameManager::getJudgeIndex() const {
-    return judgeIndex;
 }
 
 int GameManager::getScore() const {

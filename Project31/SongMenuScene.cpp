@@ -2,7 +2,7 @@
 #include <SFML/Audio.hpp>
 #include <algorithm>
 // tmep max num
-#define MAX_NUM 12
+#define MAX_NUM 13
 
 std::string difficulties[3] = { "Normal", "Hard", "Expert" };
 
@@ -35,6 +35,7 @@ SongMenuScene::SongMenuScene(float width, float height) :am(AudioManager::Instan
                     else if (subEntry.path().extension() == ".mp3" || subEntry.path().extension() == ".ogg") {
                         songInfo.songPath = subEntry.path().string();
                         am.LoadMusic(songInfo.songNameStr,songInfo.songPath);
+                        printf("%s\n", songInfo.songPath.c_str());
                     }
                     // 채보 파일 경로
                     else if (subEntry.path().extension() == ".osu") {
@@ -50,6 +51,7 @@ SongMenuScene::SongMenuScene(float width, float height) :am(AudioManager::Instan
                 }
 
                 songInfos.push_back(songInfo);
+
                 i++;
             }
         }
@@ -82,11 +84,9 @@ void SongMenuScene::draw(sf::RenderWindow& window) {
         window.draw(songName);
     }
 
-    // 난이도 목록
     float spacing = 50.f;  // 각 난이도 텍스트 사이의 공간
     float currentPositionX = 100.f;  // 첫 번째 난이도 텍스트 시작점
-
-
+    // 난이도 목록
     for (const auto& difficulty : songInfos[selectedItemIndex].difficultiesExist) {
         sf::Text difficultyText;
         difficultyText.setFont(font);
@@ -122,6 +122,7 @@ void SongMenuScene::draw(sf::RenderWindow& window) {
 
     // 앨범 이미지 그리기
     albumImage->draw(window);
+
 }
 
 void SongMenuScene::MoveUp() {
@@ -136,6 +137,13 @@ void SongMenuScene::MoveUp() {
         am.PlayMusic(songInfos[selectedItemIndex].songNameStr);
 
         albumImage->setTexturePath(songInfos[selectedItemIndex].imagePath);
+
+        // result data read
+        ResultData result = SaveResult::loadFromDirectory(get_appdata_roaming_path().append("\\perfectRail\\").append(songInfos[selectedItemIndex].songNameStr));
+        song_results[songInfos[selectedItemIndex].songNameStr] = result;
+
+        printf("%s : %lf, %d, %d\n", songInfos[selectedItemIndex].songNameStr.c_str(), result.accuracy, result.maxCom, result.score);
+
     }
 }
 
@@ -151,6 +159,12 @@ void SongMenuScene::MoveDown() {
         am.PlayMusic(songInfos[selectedItemIndex].songNameStr);
 
         albumImage->setTexturePath(songInfos[selectedItemIndex].imagePath);
+
+        // result data read
+        ResultData result = SaveResult::loadFromDirectory(get_appdata_roaming_path().append("\\perfectRail\\").append(songInfos[selectedItemIndex].songNameStr));
+        song_results[songInfos[selectedItemIndex].songNameStr] = result;
+
+        printf("%s : %lf, %d, %d\n", songInfos[selectedItemIndex].songNameStr.c_str(), result.accuracy, result.maxCom, result.score);
     }
 }
 

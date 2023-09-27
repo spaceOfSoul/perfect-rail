@@ -10,7 +10,7 @@
 class GameManager {
 public:
     GameManager(AudioManager& am, std::list<Note>& noteInScreen)
-        : am(am), judgeIndex(0), score(0), accuracy(0.0), combo(0), maxCombo(0), hp(100), hpUpRate(1.0), hpDownRate(1.0), rate(1.0), noteInScreen(noteInScreen) {
+        : am(am), judgeIndex{0,0,0,0}, score(0), accuracy(0.0), combo(0), maxCombo(0), hp(100), hpUpRate(1.0), hpDownRate(1.0), rate(1.0), noteInScreen(noteInScreen) {
         keyDown.fill(false);
         targetPass.fill(0);
     }
@@ -22,7 +22,6 @@ public:
 
     void init(SongData& data);
 
-    int getJudgeIndex() const;
     double getAccuracy() const;
     std::array<int, 5> getTargetPass() const;
     int getLastJudge() const;
@@ -42,7 +41,7 @@ private:
 
     std::list<Note>& noteInScreen;
 
-    int judgeIndex;
+    int judgeIndex[4];
     int score;
     double accuracy;
     std::array<bool, 4> keyDown;

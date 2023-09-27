@@ -57,8 +57,8 @@ struct SongData {
     MetaData_Set M_MetaData;
     Difficulty_Set M_Difficulty;
     std::vector<TimingPoint_Set> TimingPoints;
-    std::vector<std::pair<int, std::array<int, 4>>> NotePoints;
-    std::vector<std::pair<int, std::array<int, 4>>> ImagePoints;
+    std::vector<std::pair<int, int>> NotePoints[4];
+    std::vector<std::pair<int, int>> ImagePoints[4];
     int TPoint_array_section;
     int Last_Note_pos;
     int _KEY_COUNT_;

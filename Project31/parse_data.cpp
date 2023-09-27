@@ -53,24 +53,19 @@ void note_info(std::string str, SongData& data)
 		break;
 	}
 
-	// printf("%d %d\n", row[2], key);
-	std::array<int, 4> noteInfo = { 0, 0, 0, 0 };
-	noteInfo[key] = 1;
-	data.NotePoints.push_back({ row[2], noteInfo });     // Add note
-	data.Last_Note_pos = row[2];                       // Update last note position
+	data.NotePoints[key].push_back({ row[2] ,0});     // Add note
+	//printf("index : %d, row : %d, key : %d\n", data.NotePoints[key].size(), row[2], key);
+	data.Last_Note_pos = row[2];// Update last note position
 	if (row[3] == 128) {                               // Check if it's a long note (0: single note, 128: long note)
 		for (int n = row[2]; n <= row[5]; n++)         // Fill until the end of long note : up to row[5]
 		{
-			std::array<int, 4> imageInfo = { 0, 0, 0, 0 };
-			imageInfo[key] = 2;                        // Fill long note
-			data.ImagePoints.push_back({ n, imageInfo });
+			// Fill long note
+			data.ImagePoints[key].push_back({n, 2});
 		}
 	}
 	else
 	{
-		std::array<int, 4> imageInfo = { 0, 0, 0, 0 };
-		imageInfo[key] = 1;                            // Fill single note
-		data.ImagePoints.push_back({ row[2], imageInfo });
+		data.ImagePoints[key].push_back({row[2], 1});
 	}
 }
 

@@ -1,6 +1,6 @@
 #include "playResult.h"
 
-void serialize(const ResultData& data, const std::string& filepath) {
+void SaveResult::result_serialize(const ResultData& data, const std::string& filepath) {
     std::ofstream out(filepath, std::ios::binary);
     if (!out.is_open()) {
         throw std::runtime_error("Failed to open file for writing");
@@ -16,7 +16,7 @@ void serialize(const ResultData& data, const std::string& filepath) {
     out.close();
 }
 
-ResultData deserialize(const std::string& filepath) {
+ResultData SaveResult::result_deserialize(const std::string& filepath) {
     std::ifstream in(filepath, std::ios::binary);
     if (!in.is_open()) {
         throw std::runtime_error("Failed to open file for reading");
@@ -36,17 +36,27 @@ ResultData deserialize(const std::string& filepath) {
 }
 
 
-void saveToDirectory(const ResultData& data, const std::string& directory) {
+void SaveResult::saveToDirectory(const ResultData& data, const std::string& directory) {
     std::filesystem::path dir(directory);
     if (!std::filesystem::exists(dir)) {
         std::filesystem::create_directories(dir);
     }
 
     std::string filepath = directory + "/data.bin";
-    serialize(data, filepath);
+    result_serialize(data, filepath);
 }
 
-ResultData loadFromDirectory(const std::string& directory) {
+ResultData SaveResult::loadFromDirectory(const std::string& directory) {
     std::string filepath = directory + "/data.bin";
-    return deserialize(filepath);
+    ResultData result;
+    try
+    {
+        result = result_deserialize(filepath);
+    }
+    catch (const std::exception&)
+    {
+        printf("¸ø ºÒ·¯¿È!\n");
+    }
+
+    return result;
 }

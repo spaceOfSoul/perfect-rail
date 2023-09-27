@@ -4,10 +4,12 @@
 #include "AudioManager.h"
 #include "SongInfo.h"
 #include "SceneManager.h"
+#include "playResult.h"
 
 #include <filesystem>
 #include <vector>
 #include <stdio.h>
+#include <map>
 
 class SongMenuScene : public Scene {
 private:
@@ -16,6 +18,7 @@ private:
     AudioManager& am;
 
     std::vector<SongInfo> songInfos;
+    std::map<std::string, ResultData> song_results;
     std::unique_ptr<AlbumArt> albumImage;
     int selectedItemIndex = 0;
     int selectedDifficultyIndex = 0;

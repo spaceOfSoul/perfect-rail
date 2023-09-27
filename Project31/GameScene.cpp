@@ -29,7 +29,10 @@ void GameScene::onActivate() {
 	SceneManager& scene_manager = SceneManager::getInstance();
 	printf("on Activate\n");
     musicStarted = false;
-    processedIndex = 0;
+    
+    for (int i = 0; i < 4; i++)
+        processedIndex[i] = 0;
+
     note_speed = sm.GetNoteSpeed();
     initialize();
 	setSongInfo(scene_manager.currentPlaySong, scene_manager.currentDifficultyIndex);
@@ -99,8 +102,8 @@ void GameScene::update(float dt) {
             am.StopMusic(songInfo.songNameStr);
             am.PlayMusic("Result");
             
-            /*ResultData data(gm.getAccuracy(), gm.getScore(), gm.getMaxCombo(), gm.getTargetPass());
-            serialize(data, songInfo.songPath);*/
+            ResultData data(gm.getAccuracy(), gm.getScore(), gm.getMaxCombo(), gm.getTargetPass());
+            SaveResult::saveToDirectory(data, get_appdata_roaming_path().append("\\perfectRail\\").append(songInfo.songNameStr));
 
             finish_process = true;
         }
@@ -109,24 +112,20 @@ void GameScene::update(float dt) {
     long long noteTime = noteClock.getElapsedTime().asMilliseconds();
     gm.checkMiss(judgeText, comboText);
 
-    for (int i = processedIndex; i < song_data.NotePoints.size(); ++i) {
-        long long time = song_data.NotePoints[i].first;
-        const std::array<int, 4>& lanes = song_data.NotePoints[i].second;
+    for (int lane = 0; lane < 4; lane++) {
+        for (int i = processedIndex[lane]; i < song_data.NotePoints[lane].size(); ++i) {
+            long long time = song_data.NotePoints[lane][i].first;
 
-        if (noteTime < time) {
-            break; // 시간이 아직 안됐으면 종료
-        }
-
-        for (int j = 0; j < 4; j++) {
-            if (lanes[j] > 0) {
-                bool isLong = (lanes[j] == 2);
-                int xPosition = note_startPos_X + note_distance * j;
-                sf::Color color = sf::Color::Green;
-                Note note(j, xPosition, note_startPos_Y, note_size, color, time, isLong);
-                noteInScreen.push_back(note);
+            if (noteTime < time) {
+                break; // 시간이 아직 안됐으면 종료
             }
+
+            int xPosition = note_startPos_X + note_distance * lane;
+            sf::Color color = sf::Color::Green;
+            Note note(lane, xPosition, note_startPos_Y, note_size, color, time, false);
+            noteInScreen.push_back(note);
+            processedIndex[lane] = i + 1;
         }
-        processedIndex = i + 1;
     }
 
     comboText.animation(dt);

@@ -86,7 +86,7 @@ private:
     sf::Vector2f scorePannel_innerSize = sf::Vector2f(50, 50);
 
     // note info
-    int processedIndex = 0;
+    int processedIndex[4] = {0,0,0,0};
 
     double note_speed;
     float note_size=90;
