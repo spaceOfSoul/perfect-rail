@@ -94,7 +94,6 @@ void GameScene::update(float dt) {
         musicStarted = true;
     }
 
-
     if (musicStarted && am.GetMusicStatus() == sf::Music::Stopped) {
         game_finished = true;
         if (!finish_process) {
@@ -110,7 +109,6 @@ void GameScene::update(float dt) {
     }
 
     long long noteTime = noteClock.getElapsedTime().asMilliseconds();
-    gm.checkMiss(judgeText, comboText);
 
     for (int lane = 0; lane < 4; lane++) {
         for (int i = processedIndex[lane]; i < song_data.NotePoints[lane].size(); ++i) {
@@ -127,6 +125,7 @@ void GameScene::update(float dt) {
             processedIndex[lane] = i + 1;
         }
     }
+    gm.checkMiss(judgeText, comboText);
 
     comboText.animation(dt);
     judgeText.animation(dt);

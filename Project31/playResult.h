@@ -3,6 +3,7 @@
 #include <fstream>
 #include <string>
 #include <filesystem>
+#include <vector>
 
 class ResultData {
 public:
@@ -21,9 +22,26 @@ public:
     }
 };
 
+class Results {
+public:
+    std::vector<ResultData> results;
+
+    void add(const ResultData& data) {
+        results.push_back(data);
+    }
+
+    size_t size() const {
+        return results.size();
+    }
+
+    ResultData& operator[](size_t index) {
+        return results[index];
+    }
+};
+
 namespace SaveResult {
-    void result_serialize(const ResultData& data, const std::string& filepath);
-    ResultData result_deserialize(const std::string& filepath);
-    void saveToDirectory(const ResultData& data, const std::string& directory);
-    ResultData loadFromDirectory(const std::string& directory);
+    void results_serialize(const Results& results, const std::string& filepath);
+    Results results_deserialize(const std::string& filepath);
+    void SaveResult::saveToDirectory(const Results& results, const std::string& directory);
+    Results SaveResult::loadFromDirectory(const std::string& directory);
 }

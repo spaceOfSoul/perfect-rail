@@ -57,7 +57,7 @@ SongMenuScene::SongMenuScene(float width, float height) :am(AudioManager::Instan
         }
     }
 
-    albumImage = std::make_unique<AlbumArt>(sf::Vector2f(200, 200), sf::Vector2f(100, 100), songInfos[selectedItemIndex].imagePath);
+    albumImage = std::make_unique<AlbumArt>(sf::Vector2f(150, 150), sf::Vector2f(100, 100), songInfos[selectedItemIndex].imagePath);
 }
 
 
@@ -104,7 +104,7 @@ void SongMenuScene::draw(sf::RenderWindow& window) {
             currentPositionX = 232.f;
             break;
         }
-        difficultyText.setPosition(sf::Vector2f(currentPositionX, 300));
+        difficultyText.setPosition(sf::Vector2f(currentPositionX, 250));
         difficultyText.setCharacterSize(20);
 
         if (difficulty == songInfos[selectedItemIndex].difficultiesExist[selectedDifficultyIndex]) {
