@@ -100,12 +100,26 @@ void GameScene::update(float dt) {
             resultRectangle.setResult(gm.getAccuracy(), gm.getScore(), gm.getMaxCombo(), gm.getTargetPass(), false);
             am.StopMusic(songInfo.songNameStr);
             am.PlayMusic("Result");
-            
-            ResultData data(gm.getAccuracy(), gm.getScore(), gm.getMaxCombo(), gm.getTargetPass());
-            SaveResult::saveToDirectory(data, get_appdata_roaming_path().append("\\perfectRail\\").append(songInfo.songNameStr));
+
+            ResultData data(gm.getAccuracy(), gm.getScore(), gm.getMaxCombo(), gm.getTargetPass()); // 현재 결과
+
+            Results existingResults = SaveResult::loadFromDirectory(get_appdata_roaming_path().append("\\perfectRail\\").append(songInfo.songNameStr));
+            existingResults.add(data);
+
+            std::sort(existingResults.results.begin(), existingResults.results.end(), [](const ResultData& a, const ResultData& b) {
+                return a.score > b.score;
+            });
+
+            if (existingResults.size() > 10) {
+                existingResults.results.resize(10);
+            }
+
+            // 최종 하이스코어 저장
+            SaveResult::saveToDirectory(existingResults, get_appdata_roaming_path().append("\\perfectRail\\").append(songInfo.songNameStr));
 
             finish_process = true;
         }
+
     }
 
     long long noteTime = noteClock.getElapsedTime().asMilliseconds();

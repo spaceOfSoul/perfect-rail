@@ -42,6 +42,6 @@ public:
 namespace SaveResult {
     void results_serialize(const Results& results, const std::string& filepath);
     Results results_deserialize(const std::string& filepath);
-    void SaveResult::saveToDirectory(const Results& results, const std::string& directory);
-    Results SaveResult::loadFromDirectory(const std::string& directory);
+    void saveToDirectory(const Results& results, const std::string& directory);
+    Results loadFromDirectory(const std::string& directory);
 }

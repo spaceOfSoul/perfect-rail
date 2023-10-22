@@ -127,46 +127,48 @@ void SongMenuScene::draw(sf::RenderWindow& window) {
 
 void SongMenuScene::MoveUp() {
     if (selectedItemIndex - 1 >= 0) {
-        selectedItemIndex--;  // 먼저 인덱스를 감소
+        selectedItemIndex--;
 
         am.PlayEventSound("menu_select");
         selectedDifficultyIndex = 0;
 
-        // Stop the current music and play the selected one
+        // music switch
         am.StopMusic(songInfos[selectedItemIndex + 1].songNameStr);
         am.PlayMusic(songInfos[selectedItemIndex].songNameStr);
 
         albumImage->setTexturePath(songInfos[selectedItemIndex].imagePath);
 
-        // result data read
-        ResultData result = SaveResult::loadFromDirectory(get_appdata_roaming_path().append("\\perfectRail\\").append(songInfos[selectedItemIndex].songNameStr));
-        song_results[songInfos[selectedItemIndex].songNameStr] = result;
+        // result load
+        Results results = SaveResult::loadFromDirectory(get_appdata_roaming_path().append("\\perfectRail\\").append(songInfos[selectedItemIndex].songNameStr));
 
-        printf("%s : %lf, %d, %d\n", songInfos[selectedItemIndex].songNameStr.c_str(), result.accuracy, result.maxCom, result.score);
-
+        for (const auto& result : results.results) {
+            printf("%s : %lf, %d, %d\n", songInfos[selectedItemIndex].songNameStr.c_str(), result.accuracy, result.maxCom, result.score);
+        }
     }
 }
 
 void SongMenuScene::MoveDown() {
     if (selectedItemIndex + 1 < songInfos.size()) {
-        selectedItemIndex++;  // 먼저 인덱스를 증가
+        selectedItemIndex++;
 
         am.PlayEventSound("menu_select");
         selectedDifficultyIndex = 0;
 
-        // Stop the current music and play the selected one
+        // music switch
         am.StopMusic(songInfos[selectedItemIndex - 1].songNameStr);
         am.PlayMusic(songInfos[selectedItemIndex].songNameStr);
 
         albumImage->setTexturePath(songInfos[selectedItemIndex].imagePath);
 
-        // result data read
-        ResultData result = SaveResult::loadFromDirectory(get_appdata_roaming_path().append("\\perfectRail\\").append(songInfos[selectedItemIndex].songNameStr));
-        song_results[songInfos[selectedItemIndex].songNameStr] = result;
+        // result load
+        Results results = SaveResult::loadFromDirectory(get_appdata_roaming_path().append("\\perfectRail\\").append(songInfos[selectedItemIndex].songNameStr));
 
-        printf("%s : %lf, %d, %d\n", songInfos[selectedItemIndex].songNameStr.c_str(), result.accuracy, result.maxCom, result.score);
+        for (const auto& result : results.results) {
+            printf("%s : %lf, %d, %d\n", songInfos[selectedItemIndex].songNameStr.c_str(), result.accuracy, result.maxCom, result.score);
+        }
     }
 }
+
 
 void SongMenuScene::MoveLeft() {
     if (selectedDifficultyIndex > 0) {
