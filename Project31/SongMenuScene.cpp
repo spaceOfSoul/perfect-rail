@@ -58,6 +58,7 @@ SongMenuScene::SongMenuScene(float width, float height) :am(AudioManager::Instan
     }
 
     albumImage = std::make_unique<AlbumArt>(sf::Vector2f(150, 150), sf::Vector2f(100, 100), songInfos[selectedItemIndex].imagePath);
+    region_highscore = std::make_unique<HighscorePannel>(20,300, font);
 }
 
 
@@ -104,7 +105,7 @@ void SongMenuScene::draw(sf::RenderWindow& window) {
             currentPositionX = 232.f;
             break;
         }
-        difficultyText.setPosition(sf::Vector2f(currentPositionX, 250));
+        difficultyText.setPosition(sf::Vector2f(currentPositionX, 260));
         difficultyText.setCharacterSize(20);
 
         if (difficulty == songInfos[selectedItemIndex].difficultiesExist[selectedDifficultyIndex]) {
@@ -122,7 +123,7 @@ void SongMenuScene::draw(sf::RenderWindow& window) {
 
     // 앨범 이미지 그리기
     albumImage->draw(window);
-
+    window.draw(*region_highscore);
 }
 
 void SongMenuScene::MoveUp() {
@@ -140,10 +141,7 @@ void SongMenuScene::MoveUp() {
 
         // result load
         Results results = SaveResult::loadFromDirectory(get_appdata_roaming_path().append("\\perfectRail\\").append(songInfos[selectedItemIndex].songNameStr));
-
-        for (const auto& result : results.results) {
-            printf("%s : %lf, %d, %d\n", songInfos[selectedItemIndex].songNameStr.c_str(), result.accuracy, result.maxCom, result.score);
-        }
+        region_highscore->setScores(results);
     }
 }
 
@@ -162,10 +160,7 @@ void SongMenuScene::MoveDown() {
 
         // result load
         Results results = SaveResult::loadFromDirectory(get_appdata_roaming_path().append("\\perfectRail\\").append(songInfos[selectedItemIndex].songNameStr));
-
-        for (const auto& result : results.results) {
-            printf("%s : %lf, %d, %d\n", songInfos[selectedItemIndex].songNameStr.c_str(), result.accuracy, result.maxCom, result.score);
-        }
+        region_highscore->setScores(results);
     }
 }
 
@@ -221,6 +216,8 @@ void SongMenuScene::onActivate() {
     if (songInfos.size() > 0) {
         am.PlayMusic(songInfos[selectedItemIndex].songNameStr);
     }
+    Results results = SaveResult::loadFromDirectory(get_appdata_roaming_path().append("\\perfectRail\\").append(songInfos[selectedItemIndex].songNameStr));
+    region_highscore->setScores(results);
 }
 
 void SongMenuScene::onDeactivate() {

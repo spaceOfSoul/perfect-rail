@@ -99,8 +99,11 @@
     <ClCompile Include="playResult.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="scoreCalculator.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
     <ClCompile Include="socresPannel.cpp">
-      <Filter>소스 파일\inGame\obj</Filter>
+      <Filter>소스 파일\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -167,8 +170,11 @@
     <ClInclude Include="playResult.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="socresPannel.h">
-      <Filter>헤더 파일\inGame\obj</Filter>
+    <ClInclude Include="scoreCalculator.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="scoresPannel.h">
+      <Filter>헤더 파일\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

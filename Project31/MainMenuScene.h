@@ -4,7 +4,8 @@
 #include "signal.h"
 #include "AudioManager.h"
 
-#define MAX_OF_ITEM 3
+//#define MAX_OF_ITEM 3
+#define MAX_OF_ITEM 2
 
 class MainMenuScene : public Scene {
 private:

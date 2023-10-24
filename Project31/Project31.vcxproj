@@ -145,6 +145,7 @@
     <ClCompile Include="playResult.cpp" />
     <ClCompile Include="ResultUI.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="scoreCalculator.cpp" />
     <ClCompile Include="SettingsManager.cpp" />
     <ClCompile Include="socresPannel.cpp" />
     <ClCompile Include="SongMenuScene.cpp" />
@@ -166,9 +167,10 @@
     <ClInclude Include="ResultUI.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="scoreCalculator.h" />
     <ClInclude Include="SettingsManager.h" />
     <ClInclude Include="signal.h" />
-    <ClInclude Include="socresPannel.h" />
+    <ClInclude Include="scoresPannel.h" />
     <ClInclude Include="SongInfo.h" />
     <ClInclude Include="SongMenuScene.h" />
     <ClInclude Include="NotePlate.h" />

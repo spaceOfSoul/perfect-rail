@@ -1,9 +1,12 @@
 #pragma once
 #include "Scene.h"
-#include "AlbumArt.h"
 #include "AudioManager.h"
 #include "SongInfo.h"
 #include "SceneManager.h"
+
+#include "AlbumArt.h"
+
+#include "scoresPannel.h"
 #include "playResult.h"
 
 #include <filesystem>
@@ -20,6 +23,7 @@ private:
     std::vector<SongInfo> songInfos;
     std::map<std::string, ResultData> song_results;
     std::unique_ptr<AlbumArt> albumImage;
+    std::unique_ptr<HighscorePannel> region_highscore;
     int selectedItemIndex = 0;
     int selectedDifficultyIndex = 0;
 

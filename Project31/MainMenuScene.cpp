@@ -10,7 +10,7 @@ MainMenuScene::MainMenuScene(float width, float height) : am(AudioManager::Insta
 	// render texts
 	titleText.setFont(font);
 	titleText.setString("Main Menu");
-	titleText.setCharacterSize(fontSize);
+	titleText.setCharacterSize(fontSize*1.2);
 	titleText.setPosition(sf::Vector2f(200.f, 50.f));
 	titleText.setFillColor(sf::Color::White);
 
@@ -26,11 +26,11 @@ MainMenuScene::MainMenuScene(float width, float height) : am(AudioManager::Insta
 	menu_texts[1].setCharacterSize(fontSize);
 	menu_texts[1].setPosition(sf::Vector2f(width / 2, height / (MAX_OF_ITEM + 1) * 2));
 
-	menu_texts[2].setFont(font);
+	/*menu_texts[2].setFont(font);
 	menu_texts[2].setFillColor(sf::Color::White);
 	menu_texts[2].setString("Exit");
 	menu_texts[2].setCharacterSize(fontSize);
-	menu_texts[2].setPosition(sf::Vector2f(width / 2, height / (MAX_OF_ITEM + 1) * 3));
+	menu_texts[2].setPosition(sf::Vector2f(width / 2, height / (MAX_OF_ITEM + 1) * 3));*/
 
 	selectedItemIndex = 0;
 }
@@ -95,7 +95,7 @@ Signal MainMenuScene::handleInput(sf::Event event, sf::RenderWindow &window) {
 				printf("Option button has been pressed\n");
 				return Signal::GoToOptionMenu;
 			}
-			else if (pressedItem == 2)
+			else if (pressedItem == 2) // not working now
 			{
 				window.close();
 			}
