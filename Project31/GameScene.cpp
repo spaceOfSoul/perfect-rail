@@ -8,6 +8,7 @@ GameScene::GameScene(float width, float height)
 , comboText(sf::Color(128, 128, 128, 255), width / 2, comboHeight)
 , judgeText(sf::Color(128, 128, 128, 255), width / 2, judgeHeight)
 , resultRectangle(width, height, font)
+, screen_width(width), screen_height(height)
 {
     for (int i = 0; i < 4; i++) 
         keyPushed[i] = false;
@@ -19,10 +20,12 @@ GameScene::GameScene(float width, float height)
     judgeText.setFont(font);
     am.LoadMusic("Result", "./bgm/Result.wav");
     finish_process = false;
+
+    hp_bar = new HpBar(screen_width/2+ plateWidth/2, 75, 25,375, font, 15);
 }
 
 GameScene::~GameScene() {
-
+    free(hp_bar);
 }
 
 void GameScene::onActivate() {
@@ -181,9 +184,10 @@ void GameScene::draw(sf::RenderWindow& window) {
     accurateStr = accurateStr.substr(0, accurateStr.find(".") + 3) + "%";
     accurateText.setString(accurateStr);
 
-    // 콤보, 스코어, 정확도 텍스트 그리기
+    // 콤보, 스코어, hp 그리기
     window.draw(scoreText);
     window.draw(accurateText);
+    window.draw(*hp_bar);
     if(game_finished)
         window.draw(resultRectangle);
 }
@@ -276,4 +280,50 @@ void GameScene::setSongInfo(const SongInfo &songInfo, int difficulty) {
         printf("%s open failed!\n",filePath.c_str());
     else
         printf("Load %s\n", filePath.c_str());
+}
+
+// hp bar object
+
+HpBar::HpBar(float x, float y, float width, float height, sf::Font font, int font_size) {
+    pos.x = x;
+    pos.y = y;
+    hp = 100;
+    hpColor = sf::Color::Red;
+    this->height = height;
+    this->width = width;
+
+    hp_height = this->height - 40;
+    full_hp_height= this->height - 40;
+
+    pannel_rect.setFillColor(sf::Color(128, 128, 128));
+    pannel_rect.setSize(sf::Vector2f(width, height));
+    pannel_rect.setPosition(x,y);
+
+    hp_rect.setFillColor(sf::Color::Red);
+    hp_rect.setSize(sf::Vector2f(width-10, hp_height));
+    hp_y_pos = y + 30;
+    hp_rect.setPosition(x+5, y+30);
+
+    this->font = font;
+    label.setFont(this->font);
+    label.setString("HP");
+    label.setCharacterSize(font_size);
+    label.setFillColor(sf::Color::Black);
+    label.setPosition(x +2, y + 10);
+    label.setStyle(sf::Text::Bold);
+}
+
+void HpBar::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+    target.draw(pannel_rect, states);
+    target.draw(hp_rect, states);
+    target.draw(label, states);
+}
+
+void HpBar::setHP(double hp) {
+    double hpHeightRate = hp / (double)100;
+    hp_height = full_hp_height * hpHeightRate;
+    hp_rect.setSize(sf::Vector2f(width - 10, hp_height));
+
+    hp_y_pos = (full_hp_height - hp_height);
+    hp_rect.setPosition(pos.x + 5, pos.y + 30 + hp_y_pos);
 }
