@@ -6,6 +6,7 @@
 #include "JudgeText.h"
 #include "ComboText.h"
 #include "Note.h"
+#include "HpBar.h"
 
 class GameManager {
 public:
@@ -35,6 +36,8 @@ public:
 
     void removeNote(int selected_time);
 
+    // UI
+    //HpBar* hp_bar;
 private:
     AudioManager& am;
     SongData song_data;

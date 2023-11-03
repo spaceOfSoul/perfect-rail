@@ -105,6 +105,9 @@
     <ClCompile Include="socresPannel.cpp">
       <Filter>소스 파일\UI</Filter>
     </ClCompile>
+    <ClCompile Include="HpBar.cpp">
+      <Filter>소스 파일\inGame\obj</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="signal.h">
@@ -175,6 +178,9 @@
     </ClInclude>
     <ClInclude Include="scoresPannel.h">
       <Filter>헤더 파일\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="HpBar.h">
+      <Filter>헤더 파일\inGame\obj</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

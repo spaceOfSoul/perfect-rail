@@ -136,6 +136,7 @@
     <ClCompile Include="ComboText.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="HpBar.cpp" />
     <ClCompile Include="judgeText.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenuScene.cpp" />
@@ -157,6 +158,7 @@
     <ClInclude Include="ComboText.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameScene.h" />
+    <ClInclude Include="HpBar.h" />
     <ClInclude Include="judgeText.h" />
     <ClInclude Include="MainMenuScene.h" />
     <ClInclude Include="Note.h" />

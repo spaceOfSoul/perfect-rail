@@ -12,32 +12,10 @@
 #include "GameManager.h"
 #include "SettingsManager.h"
 #include "playResult.h"
+#include "HpBar.h"
 
 #include <SFML/Graphics.hpp>
 #include <list>
-
-class HpBar : public sf::Drawable {
-public:
-    HpBar(float x, float y, float width, float height, sf::Font font, int font_size);
-    void setHP(double hp);
-private:
-    sf::Vector2f pos;
-    double hp;
-    sf::Color hpColor;
-    float full_hp_height;
-    float hp_height;
-    float hp_y_pos;
-    float height;
-    float width;
-    sf::Font font;
-
-    //render objs
-    sf::RectangleShape pannel_rect;
-    sf::RectangleShape hp_rect;
-    sf::Text label;
-
-    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-};
 
 class GameScene : public Scene {
 public:
@@ -111,9 +89,6 @@ private:
     sf::Vector2f scorePannel_outerSize = sf::Vector2f(100,100);
     sf::Vector2f scorePannel_innerSize = sf::Vector2f(50, 50);
 
-    // hp bar
-    HpBar* hp_bar;
-
     // note info
     int processedIndex[4] = {0,0,0,0};
 
@@ -134,6 +109,7 @@ private:
     sf::RectangleShape scorePannel_inner;
     NotePlate note_plate;
     sf::RectangleShape judgeLine;
+    HpBar *hp_bar;
 
     // Result UI
     bool game_finished = false;
