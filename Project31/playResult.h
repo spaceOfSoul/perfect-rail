@@ -11,12 +11,13 @@ public:
     int score;
     int maxCom;
     std::array<int, 5> targetPass;
+    std::string username;
 
     // 기본 생성자
-    ResultData(double acc, int score, int maxCom, std::array<int, 5> target)
-        : accuracy(acc), score(score), maxCom(maxCom), targetPass(target) {}
+    ResultData(double acc, int score, int maxCom, std::array<int, 5> target, std::string name)
+        : accuracy(acc), score(score), maxCom(maxCom), targetPass(target), username(name) {}
     ResultData()
-        : accuracy(0.0), score(0), maxCom(0), targetPass{0,0,0,0,0} {}
+        : accuracy(0.0), score(0), maxCom(0), targetPass{0,0,0,0,0}, username("unknown") {}
 
     ~ResultData() {
     }

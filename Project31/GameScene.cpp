@@ -103,7 +103,7 @@ void GameScene::update(float dt) {
             am.StopMusic(songInfo.songNameStr);
             am.PlayMusic("Result");
 
-            ResultData data(gm.getAccuracy(), gm.getScore(), gm.getMaxCombo(), gm.getTargetPass()); // 현재 결과
+            ResultData data(gm.getAccuracy(), gm.getScore(), gm.getMaxCombo(), gm.getTargetPass(), ""); // 현재 결과
 
             Results existingResults = SaveResult::loadFromDirectory(get_appdata_roaming_path().append("\\perfectRail\\").append(songInfo.songNameStr));
             existingResults.add(data);
@@ -121,7 +121,6 @@ void GameScene::update(float dt) {
 
             finish_process = true;
         }
-
     }
 
     long long noteTime = noteClock.getElapsedTime().asMilliseconds();
