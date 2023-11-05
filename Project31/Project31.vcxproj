@@ -140,6 +140,7 @@
     <ClCompile Include="judgeText.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenuScene.cpp" />
+    <ClCompile Include="NameInputUI.cpp" />
     <ClCompile Include="options.cpp" />
     <ClCompile Include="OptionScene.cpp" />
     <ClCompile Include="parse_data.cpp" />
@@ -161,6 +162,7 @@
     <ClInclude Include="HpBar.h" />
     <ClInclude Include="judgeText.h" />
     <ClInclude Include="MainMenuScene.h" />
+    <ClInclude Include="NameInputUI.h" />
     <ClInclude Include="Note.h" />
     <ClInclude Include="options.h" />
     <ClInclude Include="OptionScene.h" />

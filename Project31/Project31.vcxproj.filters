@@ -108,6 +108,9 @@
     <ClCompile Include="HpBar.cpp">
       <Filter>소스 파일\inGame\obj</Filter>
     </ClCompile>
+    <ClCompile Include="NameInputUI.cpp">
+      <Filter>소스 파일\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="signal.h">
@@ -181,6 +184,9 @@
     </ClInclude>
     <ClInclude Include="HpBar.h">
       <Filter>헤더 파일\inGame\obj</Filter>
+    </ClInclude>
+    <ClInclude Include="NameInputUI.h">
+      <Filter>헤더 파일\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
