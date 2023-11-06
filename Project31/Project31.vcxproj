@@ -134,6 +134,7 @@
     <ClCompile Include="AlbumArt.cpp" />
     <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="ComboText.cpp" />
+    <ClCompile Include="DebugingScene.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="HpBar.cpp" />
@@ -157,6 +158,7 @@
     <ClInclude Include="AlbumArt.h" />
     <ClInclude Include="AudioManager.h" />
     <ClInclude Include="ComboText.h" />
+    <ClInclude Include="DebugingScene.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="HpBar.h" />

@@ -1,5 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <vector>
+
 #include "Scene.h"
 #include "signal.h"
 #include "AudioManager.h"
@@ -17,6 +19,11 @@ private:
     int selectedItemIndex = 0;
     const int fontSize = 24;
 
+    std::vector<sf::Keyboard::Key> testSceneCommands;
+    std::vector<sf::Keyboard::Key> currentInputSequence;
+    bool hiddenSceneActivate;
+
+    bool checkForHiddenCommand(sf::Keyboard::Key keyPressed);
 
 public:
     MainMenuScene(float width, float height);

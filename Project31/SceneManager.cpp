@@ -31,6 +31,8 @@ void SceneManager::handleInput(sf::Event event, sf::RenderWindow& window) {
     case Signal::GoToPlayScene:
         setScreen("gameScene");
         break;
+    case Signal::DebugCommandActivated:
+        setScreen("debugScene");
     case Signal::Exit:
         window.close();
         break;

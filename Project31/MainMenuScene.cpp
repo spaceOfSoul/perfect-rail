@@ -33,6 +33,24 @@ MainMenuScene::MainMenuScene(float width, float height) : am(AudioManager::Insta
 	menu_texts[2].setPosition(sf::Vector2f(width / 2, height / (MAX_OF_ITEM + 1) * 3));*/
 
 	selectedItemIndex = 0;
+
+	// hidden command (for test)
+	testSceneCommands = { sf::Keyboard::R, sf::Keyboard::T, sf::Keyboard::R, sf::Keyboard::T};
+	hiddenSceneActivate = false;
+}
+
+bool MainMenuScene::checkForHiddenCommand(sf::Keyboard::Key keyPressed) {
+	currentInputSequence.push_back(keyPressed);
+
+	while (currentInputSequence.size() > testSceneCommands.size() ||
+		!std::equal(currentInputSequence.begin(), currentInputSequence.end(), testSceneCommands.begin())) {
+		currentInputSequence.erase(currentInputSequence.begin());
+	}
+
+	if (currentInputSequence == testSceneCommands) {
+		return true;
+	}
+	return false;
 }
 
 MainMenuScene::~MainMenuScene()
@@ -72,6 +90,12 @@ void MainMenuScene::MoveDown()
 Signal MainMenuScene::handleInput(sf::Event event, sf::RenderWindow &window) {
 	if (event.type == sf::Event::KeyPressed)
 	{
+		hiddenSceneActivate = checkForHiddenCommand(event.key.code);
+
+		if (hiddenSceneActivate)
+			return Signal::DebugCommandActivated;
+		
+		// menu select
 		if (event.key.code == sf::Keyboard::Up)
 		{
 			MoveUp();

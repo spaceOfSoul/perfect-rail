@@ -3,11 +3,12 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 
-class NameInputUI : sf::Drawable
+class NameInputUI : public sf::Drawable
 {
 public:
-	NameInputUI(int x, int y, int offset, int current_char = 0, int current_size = 50, std::string username);
-	void setChar(int index, bool upOrDown);
+	NameInputUI(int x, int y, int offset, int width, int height, int current_chracter = 0, int current_size = 50);
+	void setChar(bool upOrDown);
+	void setIndex(bool upOrDown);
 
 private:
 	// position and scale
@@ -28,8 +29,10 @@ private:
 	sf::Font font;
 
 	sf::RectangleShape rects[5];
+
+	sf::RectangleShape backgroudShape; // background
 	
 	// drawing func
-	void draw(sf::RenderTarget& target, sf::RenderStates states);
+	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };
 
