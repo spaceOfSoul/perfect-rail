@@ -6,4 +6,5 @@ enum class Signal {
     GoToOptionMenu,
     GoToPlayScene,
     Exit,
+    DebugCommandActivated,
 };
