@@ -33,6 +33,7 @@ void SceneManager::handleInput(sf::Event event, sf::RenderWindow& window) {
         break;
     case Signal::DebugCommandActivated:
         setScreen("debugScene");
+        break;
     case Signal::Exit:
         window.close();
         break;

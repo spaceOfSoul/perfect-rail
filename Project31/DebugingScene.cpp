@@ -1,6 +1,6 @@
 #include "DebugingScene.h"
 
-DebuggingScene::DebuggingScene(float width, float height) : input_ui(50, 50, 50, (int)width, (int)height) {
+DebuggingScene::DebuggingScene(float width, float height) : input_ui(130, 300, 50, (int)width, (int)height) {
 	this->width = width;
 	this->height = height;
 }

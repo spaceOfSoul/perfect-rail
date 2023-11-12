@@ -13,6 +13,7 @@
 #include "SettingsManager.h"
 #include "playResult.h"
 #include "HpBar.h"
+#include "NameInputUI.h"
 
 #include <SFML/Graphics.hpp>
 #include <list>
@@ -110,6 +111,9 @@ private:
     NotePlate note_plate;
     sf::RectangleShape judgeLine;
     HpBar *hp_bar;
+
+    // game finished ui
+    NameInputUI input_ui;
 
     // Result UI
     bool game_finished = false;

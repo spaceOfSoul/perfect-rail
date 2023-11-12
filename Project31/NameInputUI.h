@@ -17,8 +17,11 @@ private:
 	int x_offset;
 
 	// char info
+	uint8_t character_size;
+
 	char current_chracter;
-	int character_size;
+	//uint8_t current_size;
+	uint8_t index;
 
 	// name string info
 	const int nameLenth = 5;;
@@ -27,6 +30,8 @@ private:
 	//drawable objs
 	sf::Text txts[5];
 	sf::Font font;
+
+	sf::Text inform;
 
 	sf::RectangleShape rects[5];
 

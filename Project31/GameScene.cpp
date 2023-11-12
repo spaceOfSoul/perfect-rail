@@ -9,6 +9,7 @@ GameScene::GameScene(float width, float height)
 , judgeText(sf::Color(128, 128, 128, 255), width / 2, judgeHeight)
 , resultRectangle(width, height, font)
 , screen_width(width), screen_height(height)
+, input_ui(130, 300, 50, (int)width, (int)height)
 {
     for (int i = 0; i < 4; i++) 
         keyPushed[i] = false;
@@ -188,8 +189,10 @@ void GameScene::draw(sf::RenderWindow& window) {
     window.draw(accurateText);
     window.draw(*hp_bar);
 
-    if(game_finished)
+    if (game_finished) {
         window.draw(resultRectangle);
+        window.draw(input_ui);
+    }
 }
 
 Signal GameScene::handleInput(sf::Event event, sf::RenderWindow& window) {
