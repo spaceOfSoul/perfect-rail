@@ -21,6 +21,7 @@ GameScene::GameScene(float width, float height)
     comboText.setFont(font);
     judgeText.setFont(font);
     am.LoadMusic("Result", "./bgm/Result.wav");
+    am.LoadMusic("Died", "./bgm/GameOver.wav");
 
     finish_process = false;
     input_process = false;
@@ -168,6 +169,7 @@ void GameScene::update(float dt) {
 
     if (hp <= 0) {
         am.StopMusic(songInfo.songNameStr);
+        am.PlayMusic("Died");
         isAlive = false;
     }
 
