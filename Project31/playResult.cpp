@@ -70,21 +70,22 @@ void SaveResult::saveToDirectory(const Results& results, const std::string& dire
         std::filesystem::create_directories(dir);
     }
 
-    std::string filepath = directory + "/data.bin";
+    std::string filepath = directory + "\\data.bin";
     results_serialize(results, filepath);
 }
 
 // 기록 로드
 Results SaveResult::loadFromDirectory(const std::string& directory) {
-    std::string filepath = directory + "/data.bin";
+    std::string filepath = directory + "\\data.bin";
+
     Results loadedResults;
     try
     {
         loadedResults = results_deserialize(filepath);
     }
-    catch (const std::exception&)
+    catch (const std::exception& e)
     {
-        printf("못 불러옴!\n");
+        printf("Error while loading file: %s\n", e.what());
     }
 
     return loadedResults;

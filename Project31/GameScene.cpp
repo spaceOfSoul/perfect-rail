@@ -110,7 +110,7 @@ void GameScene::update(float dt) {
         musicStarted = true;
     }
 
-    if (musicStarted && am.GetMusicStatus() == sf::Music::Stopped) {
+    if (musicStarted && am.GetMusicStatus() == sf::Music::Stopped && isAlive) {
         game_finished = true;
         if (finish_process) {
             resultRectangle.setResult(gm.getAccuracy(), gm.getScore(), gm.getMaxCombo(), gm.getTargetPass(), false);
@@ -269,7 +269,7 @@ Signal GameScene::handleInput(sf::Event event, sf::RenderWindow& window) {
                 if (username.size()>0)
                     finish_process = true;
             }
-            else if (!isAlive||game_finished) { // go to song menu
+            else if (!isAlive || game_finished) { // go to song menu
                 onDeactivate();
                 return Signal::GoToSongMenu;
             }
