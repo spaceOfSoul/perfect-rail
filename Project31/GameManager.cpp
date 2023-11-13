@@ -112,7 +112,7 @@ void GameManager::keyDownProcess(int keyIndex, JudgeText& judgeText, ComboText& 
             combo++;
             if (combo >= maxCombo)
                 maxCombo = combo;
-            hp--;
+            hp -=3;
             hpDownRate *= 1.1;
             score += 15 * rate;
 
@@ -130,8 +130,8 @@ void GameManager::keyDownProcess(int keyIndex, JudgeText& judgeText, ComboText& 
             targetPass[0]++;// miss
             lastJudge = 0;
             combo = 0;
-            hp -= 3 * hpDownRate;
-            hpDownRate *= 1.1;
+            hp -= 10 * hpDownRate;
+            hpDownRate *= 1.2;
             hpUpRate = 1.0;
 
             judgeText.setJudgement(0);
@@ -160,8 +160,8 @@ void GameManager::checkMiss(JudgeText& judgeText, ComboText& comboText) {
                    targetPass[0]++; // MISS 증가
                    lastJudge = 0;
                    combo = 0;
-                   hp -= 3 * hpDownRate; //hp 차감
-                   hpDownRate *= 1.1; //hp 감소 가중치 증가
+                   hp -= 10 * hpDownRate; //hp 차감
+                   hpDownRate *= 1.2; //hp 감소 가중치 증가
                    hpUpRate = 1.0; //hp 상승 가중치 
 
                    song_data.NotePoints[keyIndex][judgeIndex[keyIndex]].second = 0; // 노트 삭제

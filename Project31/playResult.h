@@ -45,4 +45,4 @@ namespace SaveResult {
     Results results_deserialize(const std::string& filepath);
     void saveToDirectory(const Results& results, const std::string& directory);
     Results loadFromDirectory(const std::string& directory);
-}
+};

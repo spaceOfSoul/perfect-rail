@@ -15,7 +15,7 @@ NameInputUI::NameInputUI(int x, int y, int offset,int width, int height, int cur
 		// txt setting
 		txts[i].setFont(font);
 		txts[i].setFillColor(sf::Color::White);
-		txts[i].setPosition(sf::Vector2f(x_position+x_offset+i*100, y_position));
+		txts[i].setPosition(sf::Vector2f(x_position+x_offset+i*100, y_position- character_size));
 		txts[i].setCharacterSize(character_size);
 
 		// rectangle setting
@@ -33,17 +33,10 @@ NameInputUI::NameInputUI(int x, int y, int offset,int width, int height, int cur
 	backgroudShape.setPosition(sf::Vector2f(0, 0));
 	backgroudShape.setSize(sf::Vector2f(width, height));
 
-
 	current_chracter = 'A';
-	index = 0;
-	username.append(std::to_string(current_chracter));
-	txts[index].setString(username[index]);
-}
-
-void resizeString(std::string& str, size_t newSize) {
-	if (newSize != 0 && newSize < str.size()) {
-		str.resize(newSize);
-	}
+	username.resize(1);
+	username[0] = current_chracter;
+	txts[0].setString(username[0]);
 }
 
 void NameInputUI::setChar(bool upOrDown) { // 문자 업다운
@@ -59,7 +52,7 @@ void NameInputUI::setChar(bool upOrDown) { // 문자 업다운
 	else {
 		current_chracter--;
 
-		if (current_chracter <'A')
+		if (current_chracter < 'A')
 			current_chracter = 'Z';
 
 		username[username.size() - 1] = current_chracter;
@@ -69,10 +62,23 @@ void NameInputUI::setChar(bool upOrDown) { // 문자 업다운
 
 void NameInputUI::setIndex(bool upOrDown){
 	if (upOrDown) {
-		resizeString(username, username.size() + 1);
+		size_t beforeSize = username.size();
+		if (beforeSize+1 < nameLenth + 1) {
+			username.resize(beforeSize + 1);
+			username[username.size() - 1] = current_chracter;
+			txts[username.size() - 1].setString(username[username.size() - 1]);
+		}
 	}
 	else {
-		resizeString(username, username.size() - 1);
+		size_t beforeSize = username.size();
+
+		if (beforeSize - 1 > 1) {
+			txts[beforeSize - 1].setString("");
+
+			username.resize(beforeSize - 1);
+			username[username.size() - 1] = current_chracter;
+			txts[username.size() - 1].setString(username[username.size() - 1]);
+		}
 	}
 }
 
@@ -86,4 +92,8 @@ void NameInputUI::draw(sf::RenderTarget& target, sf::RenderStates states) const 
 		target.draw(rects[i], states);
 	}
 	target.draw(inform, states);
+}
+
+std::string NameInputUI::getUserName() {
+	return username;
 }

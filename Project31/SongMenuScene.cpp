@@ -58,7 +58,7 @@ SongMenuScene::SongMenuScene(float width, float height) :am(AudioManager::Instan
     }
 
     albumImage = std::make_unique<AlbumArt>(sf::Vector2f(150, 150), sf::Vector2f(100, 100), songInfos[selectedItemIndex].imagePath);
-    region_highscore = std::make_unique<HighscorePannel>(20,300, font);
+    region_highscore = std::make_unique<HighscorePannel>(50,290, font);
 }
 
 

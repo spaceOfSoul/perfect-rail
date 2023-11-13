@@ -114,6 +114,9 @@
     <ClCompile Include="DebugingScene.cpp">
       <Filter>소스 파일\Scene\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="deadPannel.cpp">
+      <Filter>소스 파일\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="signal.h">
@@ -194,43 +197,8 @@
     <ClInclude Include="DebugingScene.h">
       <Filter>헤더 파일\Scene\Scenes</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Media Include="Songs\End Time\audio.mp3">
-      <Filter>리소스 파일\musics</Filter>
-    </Media>
-    <Media Include="Songs\FLOWER\audio.mp3">
-      <Filter>리소스 파일\musics</Filter>
-    </Media>
-    <Media Include="Songs\Fly far bounce\audio.mp3">
-      <Filter>리소스 파일\musics</Filter>
-    </Media>
-    <Media Include="Songs\invisible bullets\audio.mp3">
-      <Filter>리소스 파일\musics</Filter>
-    </Media>
-    <Media Include="Songs\KillerToy\audio.mp3">
-      <Filter>리소스 파일\musics</Filter>
-    </Media>
-    <Media Include="Songs\Ouka Ryouran\audio.mp3">
-      <Filter>리소스 파일\musics</Filter>
-    </Media>
-    <Media Include="Songs\Poochie\audio.mp3">
-      <Filter>리소스 파일\musics</Filter>
-    </Media>
-    <Media Include="Songs\SAtAN\audio.mp3">
-      <Filter>리소스 파일\musics</Filter>
-    </Media>
-    <Media Include="Songs\smooooch\audio.mp3">
-      <Filter>리소스 파일\musics</Filter>
-    </Media>
-    <Media Include="Songs\The Shortest Mashcore Ever\audio.mp3">
-      <Filter>리소스 파일\musics</Filter>
-    </Media>
-    <Media Include="Songs\Tithonus\audio.mp3">
-      <Filter>리소스 파일\musics</Filter>
-    </Media>
-    <Media Include="Songs\WYNEHOUSE\audio.mp3">
-      <Filter>리소스 파일\musics</Filter>
-    </Media>
+    <ClInclude Include="deadPannel.h">
+      <Filter>헤더 파일\UI</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -134,6 +134,7 @@
     <ClCompile Include="AlbumArt.cpp" />
     <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="ComboText.cpp" />
+    <ClCompile Include="deadPannel.cpp" />
     <ClCompile Include="DebugingScene.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameScene.cpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="AlbumArt.h" />
     <ClInclude Include="AudioManager.h" />
     <ClInclude Include="ComboText.h" />
+    <ClInclude Include="deadPannel.h" />
     <ClInclude Include="DebugingScene.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameScene.h" />
@@ -181,20 +183,6 @@
     <ClInclude Include="SongMenuScene.h" />
     <ClInclude Include="NotePlate.h" />
     <ClInclude Include="utils.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Media Include="Songs\End Time\audio.mp3" />
-    <Media Include="Songs\FLOWER\audio.mp3" />
-    <Media Include="Songs\Fly far bounce\audio.mp3" />
-    <Media Include="Songs\invisible bullets\audio.mp3" />
-    <Media Include="Songs\KillerToy\audio.mp3" />
-    <Media Include="Songs\Ouka Ryouran\audio.mp3" />
-    <Media Include="Songs\Poochie\audio.mp3" />
-    <Media Include="Songs\SAtAN\audio.mp3" />
-    <Media Include="Songs\smooooch\audio.mp3" />
-    <Media Include="Songs\The Shortest Mashcore Ever\audio.mp3" />
-    <Media Include="Songs\Tithonus\audio.mp3" />
-    <Media Include="Songs\WYNEHOUSE\audio.mp3" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

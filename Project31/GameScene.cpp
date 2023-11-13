@@ -20,7 +20,10 @@ GameScene::GameScene(float width, float height)
     comboText.setFont(font);
     judgeText.setFont(font);
     am.LoadMusic("Result", "./bgm/Result.wav");
+
     finish_process = false;
+    input_process = false;
+
     hp_bar = new HpBar(screen_width / 2 + plateWidth / 2, 75, 25, 375, font, 15);
 }
 
@@ -46,6 +49,8 @@ void GameScene::onActivate() {
 void GameScene::initialize() {
     game_finished = false;
     finish_process = false;
+    input_process = false;
+
     //Game Setting
     noteTravelTime = (judgeY - note_startPos_Y) / note_speed;
 
@@ -99,19 +104,19 @@ void GameScene::update(float dt) {
 
     if (musicStarted && am.GetMusicStatus() == sf::Music::Stopped) {
         game_finished = true;
-        if (!finish_process) {
+        if (finish_process) {
             resultRectangle.setResult(gm.getAccuracy(), gm.getScore(), gm.getMaxCombo(), gm.getTargetPass(), false);
             am.StopMusic(songInfo.songNameStr);
             am.PlayMusic("Result");
 
-            ResultData data(gm.getAccuracy(), gm.getScore(), gm.getMaxCombo(), gm.getTargetPass(), ""); // 현재 결과
+            ResultData data(gm.getAccuracy(), gm.getScore(), gm.getMaxCombo(), gm.getTargetPass(), username); // 현재 결과
 
             Results existingResults = SaveResult::loadFromDirectory(get_appdata_roaming_path().append("\\perfectRail\\").append(songInfo.songNameStr));
             existingResults.add(data);
 
             std::sort(existingResults.results.begin(), existingResults.results.end(), [](const ResultData& a, const ResultData& b) {
                 return a.score > b.score;
-            });
+                });
 
             if (existingResults.size() > 10) {
                 existingResults.results.resize(10);
@@ -120,7 +125,6 @@ void GameScene::update(float dt) {
             // 최종 하이스코어 저장
             SaveResult::saveToDirectory(existingResults, get_appdata_roaming_path().append("\\perfectRail\\").append(songInfo.songNameStr));
 
-            finish_process = true;
         }
     }
 
@@ -158,7 +162,6 @@ void GameScene::update(float dt) {
             ++iter;
         }
     }
-    
 }
 
 void GameScene::onDeactivate() {
@@ -190,8 +193,12 @@ void GameScene::draw(sf::RenderWindow& window) {
     window.draw(*hp_bar);
 
     if (game_finished) {
-        window.draw(resultRectangle);
-        window.draw(input_ui);
+        if (!finish_process) { // 이름 입력
+            window.draw(input_ui);
+        }
+        else { // 결과창 표시
+            window.draw(resultRectangle);
+        }
     }
 }
 
@@ -229,10 +236,30 @@ Signal GameScene::handleInput(sf::Event event, sf::RenderWindow& window) {
                 keyPushed[3] = true;
             }
         }
-        else if (event.key.code == sf::Keyboard::Enter) {
-            if (game_finished) {
+        else if (event.key.code == sf::Keyboard::Enter) { // enter
+            if (!finish_process) { // get username
+                // get user name
+                username = input_ui.getUserName();
+                if (username.size()>0)
+                    finish_process = true;
+            }
+            else if (game_finished) { // go to song menu
                 onDeactivate();
                 return Signal::GoToSongMenu;
+            }
+        }
+
+        if (game_finished) { // 방향키는 여기서만 활성화
+            if (event.key.code == sf::Keyboard::Left) { // 이름 좌우 이동
+                input_ui.setIndex(false);
+            }
+            else if (event.key.code == sf::Keyboard::Right) {
+                input_ui.setIndex(true);
+            }else if (event.key.code == sf::Keyboard::Up) { // 알파벳 변경
+                input_ui.setChar(true);
+            }
+            else if (event.key.code == sf::Keyboard::Down) {
+                input_ui.setChar(false);
             }
         }
     }

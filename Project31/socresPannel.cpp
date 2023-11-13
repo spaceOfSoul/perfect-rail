@@ -9,9 +9,9 @@ HighscorePannel::HighscorePannel(float x, float y, sf::Font font) {
     resgionShaape.setFillColor(sf::Color::White);*/
     for (int i = 0; i < 10; i++) {
         text_result[i].setFont(this->font);
-        text_result[i].setPosition(x, y + i * 20);
+        text_result[i].setPosition(x, y + i * 27);
         text_result[i].setString("");
-        text_result[i].setCharacterSize(20);
+        text_result[i].setCharacterSize(13);
         text_result[i].setFillColor(sf::Color::White);
     }
 }
@@ -23,7 +23,7 @@ void HighscorePannel::setScores(Results& results) {
 
     for (int i = 0; i < result_size; i++) {
         result = results[i];
-        oss << decideRank(result.accuracy).first << "\tscore : " << result.score << "\tmax combo : " << result.maxCom;
+        oss << result.username << "\n" << decideRank(result.accuracy).first << "\tscore : " << result.score << "\tmax combo : " << result.maxCom;
         text_result[i].setString(oss.str());
         oss.str("");
         oss.clear();

@@ -114,10 +114,12 @@ private:
 
     // game finished ui
     NameInputUI input_ui;
+    std::string username;
 
     // Result UI
     bool game_finished = false;
     ResultUI resultRectangle;
 
     bool finish_process;
+    bool input_process;
 };
