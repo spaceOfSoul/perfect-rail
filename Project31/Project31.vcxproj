@@ -184,6 +184,69 @@
     <ClInclude Include="NotePlate.h" />
     <ClInclude Include="utils.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Media Include="bgm\Result.wav" />
+    <Media Include="Songs\End Time\audio.mp3" />
+    <Media Include="Songs\FLOWER\audio.mp3" />
+    <Media Include="Songs\Fly far bounce\audio.mp3" />
+    <Media Include="Songs\invisible bullets\audio.mp3" />
+    <Media Include="Songs\Oceanus\audio.mp3" />
+    <Media Include="Songs\Ouka Ryouran\audio.mp3" />
+    <Media Include="Songs\SAtAN\audio.mp3" />
+    <Media Include="Songs\smooooch\audio.mp3" />
+    <Media Include="Songs\The Shortest Mashcore Ever\audio.mp3" />
+    <Media Include="Songs\Tithonus\audio.mp3" />
+    <Media Include="Sounds\menu_select.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="fonts\arial.ttf" />
+    <Font Include="fonts\arialbd.ttf" />
+    <Font Include="fonts\arialbi.ttf" />
+    <Font Include="fonts\ariali.ttf" />
+    <Font Include="fonts\ARIALN.TTF" />
+    <Font Include="fonts\ARIALNB.TTF" />
+    <Font Include="fonts\ARIALNBI.TTF" />
+    <Font Include="fonts\ARIALNI.TTF" />
+    <Font Include="fonts\ariblk.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Songs\End Time\Expert.osu" />
+    <None Include="Songs\End Time\Hard.osu" />
+    <None Include="Songs\End Time\Normal.osu" />
+    <None Include="Songs\FLOWER\Expert.osu" />
+    <None Include="Songs\FLOWER\Hard.osu" />
+    <None Include="Songs\FLOWER\Normal.osu" />
+    <None Include="Songs\Fly far bounce\Expert.osu" />
+    <None Include="Songs\Fly far bounce\Hard.osu" />
+    <None Include="Songs\Fly far bounce\Normal.osu" />
+    <None Include="Songs\invisible bullets\Expert.osu" />
+    <None Include="Songs\Oceanus\Expert.osu" />
+    <None Include="Songs\Ouka Ryouran\Expert.osu" />
+    <None Include="Songs\Ouka Ryouran\Hard.osu" />
+    <None Include="Songs\Ouka Ryouran\Normal.osu" />
+    <None Include="Songs\SAtAN\Expert.osu" />
+    <None Include="Songs\SAtAN\Hard.osu" />
+    <None Include="Songs\SAtAN\Normal.osu" />
+    <None Include="Songs\smooooch\Hard.osu" />
+    <None Include="Songs\smooooch\Normal.osu" />
+    <None Include="Songs\The Shortest Mashcore Ever\Hard.osu" />
+    <None Include="Songs\The Shortest Mashcore Ever\Normal.osu" />
+    <None Include="Songs\Tithonus\Expert.osu" />
+    <None Include="Songs\Tithonus\Hard.osu" />
+    <None Include="Songs\Tithonus\Normal.osu" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Songs\End Time\image.jpg" />
+    <Image Include="Songs\FLOWER\image.jpg" />
+    <Image Include="Songs\Fly far bounce\image.jpg" />
+    <Image Include="Songs\invisible bullets\image.png" />
+    <Image Include="Songs\Oceanus\image.png" />
+    <Image Include="Songs\Ouka Ryouran\image.jpg" />
+    <Image Include="Songs\SAtAN\image.png" />
+    <Image Include="Songs\smooooch\image.jpg" />
+    <Image Include="Songs\The Shortest Mashcore Ever\image.jpg" />
+    <Image Include="Songs\Tithonus\image.jpg" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

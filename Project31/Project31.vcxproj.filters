@@ -43,8 +43,23 @@
     <Filter Include="소스 파일\inGame\obj">
       <UniqueIdentifier>{67f14964-5f07-4250-8846-ad032cf90fdb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="리소스 파일\musics">
-      <UniqueIdentifier>{8f027b98-070a-44cf-a398-04265e26fd41}</UniqueIdentifier>
+    <Filter Include="리소스 파일\sound">
+      <UniqueIdentifier>{7a0fed62-bf10-4f41-96f2-1f20fdf50c90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="리소스 파일\music">
+      <UniqueIdentifier>{26818c30-fb08-4ee7-8e3a-f852431d72d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="리소스 파일\font">
+      <UniqueIdentifier>{81598776-3263-4349-85d0-3cb4c3d47a0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="리소스 파일\chart">
+      <UniqueIdentifier>{bd3e7c1c-64f5-4c00-9c9a-02ded20d0855}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="리소스 파일\image">
+      <UniqueIdentifier>{07786f37-8c8d-4e2e-ace5-664717d6c3fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="리소스 파일\bgm">
+      <UniqueIdentifier>{93ceb5ff-0166-4037-ae57-cb2c0c524858}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -200,5 +215,178 @@
     <ClInclude Include="deadPannel.h">
       <Filter>헤더 파일\UI</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Songs\End Time\audio.mp3">
+      <Filter>리소스 파일\music</Filter>
+    </Media>
+    <Media Include="Songs\FLOWER\audio.mp3">
+      <Filter>리소스 파일\music</Filter>
+    </Media>
+    <Media Include="Songs\Fly far bounce\audio.mp3">
+      <Filter>리소스 파일\music</Filter>
+    </Media>
+    <Media Include="Songs\invisible bullets\audio.mp3">
+      <Filter>리소스 파일\music</Filter>
+    </Media>
+    <Media Include="Songs\Oceanus\audio.mp3">
+      <Filter>리소스 파일\music</Filter>
+    </Media>
+    <Media Include="Songs\Ouka Ryouran\audio.mp3">
+      <Filter>리소스 파일\music</Filter>
+    </Media>
+    <Media Include="Songs\SAtAN\audio.mp3">
+      <Filter>리소스 파일\music</Filter>
+    </Media>
+    <Media Include="Songs\smooooch\audio.mp3">
+      <Filter>리소스 파일\music</Filter>
+    </Media>
+    <Media Include="Songs\The Shortest Mashcore Ever\audio.mp3">
+      <Filter>리소스 파일\music</Filter>
+    </Media>
+    <Media Include="Songs\Tithonus\audio.mp3">
+      <Filter>리소스 파일\music</Filter>
+    </Media>
+    <Media Include="Sounds\menu_select.wav">
+      <Filter>리소스 파일\sound</Filter>
+    </Media>
+    <Media Include="bgm\Result.wav">
+      <Filter>리소스 파일\bgm</Filter>
+    </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="fonts\arial.ttf">
+      <Filter>리소스 파일\font</Filter>
+    </Font>
+    <Font Include="fonts\arialbd.ttf">
+      <Filter>리소스 파일\font</Filter>
+    </Font>
+    <Font Include="fonts\arialbi.ttf">
+      <Filter>리소스 파일\font</Filter>
+    </Font>
+    <Font Include="fonts\ariali.ttf">
+      <Filter>리소스 파일\font</Filter>
+    </Font>
+    <Font Include="fonts\ARIALN.TTF">
+      <Filter>리소스 파일\font</Filter>
+    </Font>
+    <Font Include="fonts\ARIALNB.TTF">
+      <Filter>리소스 파일\font</Filter>
+    </Font>
+    <Font Include="fonts\ARIALNBI.TTF">
+      <Filter>리소스 파일\font</Filter>
+    </Font>
+    <Font Include="fonts\ARIALNI.TTF">
+      <Filter>리소스 파일\font</Filter>
+    </Font>
+    <Font Include="fonts\ariblk.ttf">
+      <Filter>리소스 파일\font</Filter>
+    </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Songs\End Time\Expert.osu">
+      <Filter>리소스 파일\chart</Filter>
+    </None>
+    <None Include="Songs\FLOWER\Expert.osu">
+      <Filter>리소스 파일\chart</Filter>
+    </None>
+    <None Include="Songs\Fly far bounce\Expert.osu">
+      <Filter>리소스 파일\chart</Filter>
+    </None>
+    <None Include="Songs\invisible bullets\Expert.osu">
+      <Filter>리소스 파일\chart</Filter>
+    </None>
+    <None Include="Songs\Oceanus\Expert.osu">
+      <Filter>리소스 파일\chart</Filter>
+    </None>
+    <None Include="Songs\Ouka Ryouran\Expert.osu">
+      <Filter>리소스 파일\chart</Filter>
+    </None>
+    <None Include="Songs\SAtAN\Expert.osu">
+      <Filter>리소스 파일\chart</Filter>
+    </None>
+    <None Include="Songs\Tithonus\Expert.osu">
+      <Filter>리소스 파일\chart</Filter>
+    </None>
+    <None Include="Songs\End Time\Hard.osu">
+      <Filter>리소스 파일\chart</Filter>
+    </None>
+    <None Include="Songs\FLOWER\Hard.osu">
+      <Filter>리소스 파일\chart</Filter>
+    </None>
+    <None Include="Songs\Fly far bounce\Hard.osu">
+      <Filter>리소스 파일\chart</Filter>
+    </None>
+    <None Include="Songs\Ouka Ryouran\Hard.osu">
+      <Filter>리소스 파일\chart</Filter>
+    </None>
+    <None Include="Songs\SAtAN\Hard.osu">
+      <Filter>리소스 파일\chart</Filter>
+    </None>
+    <None Include="Songs\smooooch\Hard.osu">
+      <Filter>리소스 파일\chart</Filter>
+    </None>
+    <None Include="Songs\The Shortest Mashcore Ever\Hard.osu">
+      <Filter>리소스 파일\chart</Filter>
+    </None>
+    <None Include="Songs\Tithonus\Hard.osu">
+      <Filter>리소스 파일\chart</Filter>
+    </None>
+    <None Include="Songs\End Time\Normal.osu">
+      <Filter>리소스 파일\chart</Filter>
+    </None>
+    <None Include="Songs\FLOWER\Normal.osu">
+      <Filter>리소스 파일\chart</Filter>
+    </None>
+    <None Include="Songs\Fly far bounce\Normal.osu">
+      <Filter>리소스 파일\chart</Filter>
+    </None>
+    <None Include="Songs\Ouka Ryouran\Normal.osu">
+      <Filter>리소스 파일\chart</Filter>
+    </None>
+    <None Include="Songs\SAtAN\Normal.osu">
+      <Filter>리소스 파일\chart</Filter>
+    </None>
+    <None Include="Songs\smooooch\Normal.osu">
+      <Filter>리소스 파일\chart</Filter>
+    </None>
+    <None Include="Songs\The Shortest Mashcore Ever\Normal.osu">
+      <Filter>리소스 파일\chart</Filter>
+    </None>
+    <None Include="Songs\Tithonus\Normal.osu">
+      <Filter>리소스 파일\chart</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Songs\End Time\image.jpg">
+      <Filter>리소스 파일\image</Filter>
+    </Image>
+    <Image Include="Songs\FLOWER\image.jpg">
+      <Filter>리소스 파일\image</Filter>
+    </Image>
+    <Image Include="Songs\Fly far bounce\image.jpg">
+      <Filter>리소스 파일\image</Filter>
+    </Image>
+    <Image Include="Songs\Ouka Ryouran\image.jpg">
+      <Filter>리소스 파일\image</Filter>
+    </Image>
+    <Image Include="Songs\smooooch\image.jpg">
+      <Filter>리소스 파일\image</Filter>
+    </Image>
+    <Image Include="Songs\The Shortest Mashcore Ever\image.jpg">
+      <Filter>리소스 파일\image</Filter>
+    </Image>
+    <Image Include="Songs\Tithonus\image.jpg">
+      <Filter>리소스 파일\image</Filter>
+    </Image>
+    <Image Include="Songs\Oceanus\image.png">
+      <Filter>리소스 파일\image</Filter>
+    </Image>
+    <Image Include="Songs\SAtAN\image.png">
+      <Filter>리소스 파일\image</Filter>
+    </Image>
+    <Image Include="Songs\invisible bullets\image.png">
+      <Filter>리소스 파일\image</Filter>
+    </Image>
   </ItemGroup>
 </Project>
