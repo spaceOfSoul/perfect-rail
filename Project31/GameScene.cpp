@@ -44,6 +44,7 @@ void GameScene::onActivate() {
         processedIndex[i] = 0;
 
     note_speed = sm.GetNoteSpeed();
+    input_ui.initInput();
     initialize();
 	setSongInfo(scene_manager.currentPlaySong, scene_manager.currentDifficultyIndex);
     gm.init(song_data);
@@ -268,7 +269,7 @@ Signal GameScene::handleInput(sf::Event event, sf::RenderWindow& window) {
                 if (username.size()>0)
                     finish_process = true;
             }
-            else if (game_finished || !isAlive) { // go to song menu
+            else if (!isAlive||game_finished) { // go to song menu
                 onDeactivate();
                 return Signal::GoToSongMenu;
             }

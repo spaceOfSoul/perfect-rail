@@ -33,7 +33,7 @@ NameInputUI::NameInputUI(int x, int y, int offset,int width, int height, int cur
 	backgroudShape.setPosition(sf::Vector2f(0, 0));
 	backgroudShape.setSize(sf::Vector2f(width, height));
 
-	current_chracter = 'A';
+	this->current_chracter = 'A';
 	username.resize(1);
 	username[0] = current_chracter;
 	txts[0].setString(username[0]);
@@ -64,6 +64,7 @@ void NameInputUI::setIndex(bool upOrDown){
 	if (upOrDown) {
 		size_t beforeSize = username.size();
 		if (beforeSize+1 < nameLenth + 1) {
+			current_chracter = 'A';
 			username.resize(beforeSize + 1);
 			username[username.size() - 1] = current_chracter;
 			txts[username.size() - 1].setString(username[username.size() - 1]);
@@ -72,13 +73,25 @@ void NameInputUI::setIndex(bool upOrDown){
 	else {
 		size_t beforeSize = username.size();
 
-		if (beforeSize - 1 > 1) {
+		if (beforeSize > 1) {
 			txts[beforeSize - 1].setString("");
 
 			username.resize(beforeSize - 1);
-			username[username.size() - 1] = current_chracter;
+			current_chracter = username[username.size() - 1];
 			txts[username.size() - 1].setString(username[username.size() - 1]);
 		}
+	}
+}
+
+void NameInputUI::initInput() {
+	current_chracter = 'A';
+	username.resize(1);
+	username[0] = current_chracter;
+	txts[0].setString(username[0]);
+
+	for (int i = 1; i < nameLenth; i++) {
+		// txt init
+		txts[i].setString("");
 	}
 }
 

@@ -9,6 +9,7 @@ public:
 	NameInputUI(int x, int y, int offset, int width, int height, int current_chracter = 0, int current_size = 50);
 	void setChar(bool upOrDown);
 	void setIndex(bool upOrDown);
+	void initInput();
 	std::string getUserName();
 
 private:
