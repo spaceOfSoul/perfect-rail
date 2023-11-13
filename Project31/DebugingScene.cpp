@@ -1,6 +1,6 @@
 #include "DebugingScene.h"
 
-DebuggingScene::DebuggingScene(float width, float height) : input_ui(130, 300, 50, (int)width, (int)height) {
+DebuggingScene::DebuggingScene(float width, float height) : dead_ui(0,0) {
 	this->width = width;
 	this->height = height;
 }
@@ -23,7 +23,7 @@ void DebuggingScene::onDeactivate() {
 }
 
 void DebuggingScene::draw(sf::RenderWindow& window) {
-	window.draw(input_ui);
+	window.draw(dead_ui);
 }
 
 Signal DebuggingScene::handleInput(sf::Event event, sf::RenderWindow& window) {

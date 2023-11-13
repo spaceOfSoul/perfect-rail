@@ -14,6 +14,7 @@
 #include "playResult.h"
 #include "HpBar.h"
 #include "NameInputUI.h"
+#include "deadPannel.h"
 
 #include <SFML/Graphics.hpp>
 #include <list>
@@ -113,6 +114,7 @@ private:
     HpBar *hp_bar;
 
     // game finished ui
+    // Input UI
     NameInputUI input_ui;
     std::string username;
 
@@ -120,6 +122,13 @@ private:
     bool game_finished = false;
     ResultUI resultRectangle;
 
+    // died UI
+    DeadPannel deadPannel;
+
+    //states
     bool finish_process;
     bool input_process;
+
+    bool isAlive;
+    double hp;
 };

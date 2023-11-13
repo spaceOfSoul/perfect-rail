@@ -10,6 +10,7 @@ GameScene::GameScene(float width, float height)
 , resultRectangle(width, height, font)
 , screen_width(width), screen_height(height)
 , input_ui(130, 300, 50, (int)width, (int)height)
+, deadPannel(0,0)
 {
     for (int i = 0; i < 4; i++) 
         keyPushed[i] = false;
@@ -23,6 +24,7 @@ GameScene::GameScene(float width, float height)
 
     finish_process = false;
     input_process = false;
+    isAlive = true;
 
     hp_bar = new HpBar(screen_width / 2 + plateWidth / 2, 75, 25, 375, font, 15);
 }
@@ -35,6 +37,8 @@ void GameScene::onActivate() {
 	SceneManager& scene_manager = SceneManager::getInstance();
 	printf("on Activate\n");
     musicStarted = false;
+    isAlive = true;
+    hp = 100;
     
     for (int i = 0; i < 4; i++)
         processedIndex[i] = 0;
@@ -50,6 +54,9 @@ void GameScene::initialize() {
     game_finished = false;
     finish_process = false;
     input_process = false;
+    isAlive = true;
+
+    hp = 100;
 
     //Game Setting
     noteTravelTime = (judgeY - note_startPos_Y) / note_speed;
@@ -128,29 +135,42 @@ void GameScene::update(float dt) {
         }
     }
 
-    long long noteTime = noteClock.getElapsedTime().asMilliseconds();
+    // note drawing
+    if (isAlive) {
+        long long noteTime = noteClock.getElapsedTime().asMilliseconds();
 
-    for (int lane = 0; lane < 4; lane++) {
-        for (int i = processedIndex[lane]; i < song_data.NotePoints[lane].size(); ++i) {
-            long long time = song_data.NotePoints[lane][i].first;
+        for (int lane = 0; lane < 4; lane++) {
+            for (int i = processedIndex[lane]; i < song_data.NotePoints[lane].size(); ++i) {
+                long long time = song_data.NotePoints[lane][i].first;
 
-            if (noteTime < time) {
-                break; // 시간이 아직 안됐으면 종료
+                if (noteTime < time) {
+                    break; // 시간이 아직 안됐으면 종료
+                }
+
+                int xPosition = note_startPos_X + note_distance * lane;
+                sf::Color color = sf::Color::Green;
+
+                // Generate Note
+                Note note(lane, xPosition, note_startPos_Y, note_size, color, time, false);
+                noteInScreen.push_back(note);
+                processedIndex[lane] = i + 1;
             }
-
-            int xPosition = note_startPos_X + note_distance * lane;
-            sf::Color color = sf::Color::Green;
-            Note note(lane, xPosition, note_startPos_Y, note_size, color, time, false);
-            noteInScreen.push_back(note);
-            processedIndex[lane] = i + 1;
         }
     }
+
     gm.checkMiss(judgeText, comboText);
 
     comboText.animation(dt);
     judgeText.animation(dt);
-    hp_bar->setHP(gm.getHP());
+    hp = gm.getHP();
+    hp_bar->setHP(hp);
 
+    if (hp <= 0) {
+        am.StopMusic(songInfo.songNameStr);
+        isAlive = false;
+    }
+
+    // note drawing logic
     for (std::list<Note>::iterator iter = noteInScreen.begin(); iter != noteInScreen.end(); ) {
         sf::Vector2f pos = iter->getPosition();
         pos.y += note_speed * dt;
@@ -191,6 +211,11 @@ void GameScene::draw(sf::RenderWindow& window) {
     window.draw(scoreText);
     window.draw(accurateText);
     window.draw(*hp_bar);
+
+    if (!isAlive) {
+        window.draw(deadPannel);
+        return;
+    }
 
     if (game_finished) {
         if (!finish_process) { // 이름 입력
@@ -243,7 +268,7 @@ Signal GameScene::handleInput(sf::Event event, sf::RenderWindow& window) {
                 if (username.size()>0)
                     finish_process = true;
             }
-            else if (game_finished) { // go to song menu
+            else if (game_finished || !isAlive) { // go to song menu
                 onDeactivate();
                 return Signal::GoToSongMenu;
             }

@@ -3,13 +3,14 @@
 #include "Scene.h"
 
 // test include
-#include "NameInputUI.h"
+//#include "NameInputUI.h"
+#include "deadPannel.h"
 
 class DebuggingScene : public Scene {
 private:
 	sf::Font font;
     int width, height;
-    NameInputUI input_ui;
+    DeadPannel dead_ui;
 	
 public:
     DebuggingScene(float width, float height);

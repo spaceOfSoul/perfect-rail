@@ -17,20 +17,20 @@ DeadPannel::DeadPannel(float x, float y) {
 
 	main_text.setFont(font);
 	main_text.setFillColor(sf::Color::White);
-	//main_text.setPosition(sf::Vector2f(200, 350));
 	main_text.setCharacterSize(50); // font size 50, pos (200, 350)
 	main_text.setString("GAME OVER");
 
 	sub_text.setFont(font);
 	sub_text.setFillColor(sf::Color::White);
-	//sub_text.setPosition(sf::Vector2f(200, 400));
 	sub_text.setCharacterSize(38); // font size 50, pos (200, 350)
 	sub_text.setString("U NEED MORE PRACTICE");
 
+
+	// 텍스트 중앙정렬
 	sf::FloatRect textRect = main_text.getLocalBounds();
 	main_text.setOrigin(textRect.left + textRect.width / 2.0f,
 		textRect.top + textRect.height / 2.0f);
-	main_text.setPosition(sf::Vector2f(width / 2.0f, height / 2.0f));
+	main_text.setPosition(sf::Vector2f(width / 2.0f, height / 2.0f - 30));
 
 	// sub_text 위치 설정 (main_text 아래에 위치)
 	textRect = sub_text.getLocalBounds();
