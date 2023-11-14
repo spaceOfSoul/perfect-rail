@@ -17,11 +17,13 @@ void saveOptionFile(const Options& option, const std::string& filename) {
         return;
     }
 
-    file.write(reinterpret_cast<const char*>(&option.music_volume), sizeof(option.music_volume));
-    file.write(reinterpret_cast<const char*>(&option.sound_volume), sizeof(option.sound_volume));
-    file.write(reinterpret_cast<const char*>(&option.note_speed), sizeof(option.note_speed));
+    file.write((char*)(&option.music_volume), sizeof(option.music_volume));
+    file.write((char*)(&option.sound_volume), sizeof(option.sound_volume));
+    file.write((char*)(&option.note_speed), sizeof(option.note_speed));
 
     file.close();
+
+    printf("Successed writing.\n");
 }
 
 
@@ -31,18 +33,18 @@ void loadOptionFromFile(Options& option, const std::string& filename) {
         printf("Failed to open file for reading\n");
         option.music_volume = 30.f;
         option.sound_volume = 30.f;
-        option.note_speed = 1100;
+        option.note_speed = 600;
 
         saveOptionFile(option, filename);
     }
 
-    Options options;
+    printf("music volume(세이브 직후) :%f\n", option.music_volume);
 
-    file.read(reinterpret_cast<char*>(&options.music_volume), sizeof(options.music_volume));
-    file.read(reinterpret_cast<char*>(&options.sound_volume), sizeof(options.sound_volume));
-    file.read(reinterpret_cast<char*>(&options.note_speed), sizeof(options.note_speed));
+    file.read((char*)(&option.music_volume), sizeof(option.music_volume));
+    file.read((char*)(&option.sound_volume), sizeof(option.sound_volume));
+    file.read((char*)(&option.note_speed), sizeof(option.note_speed));
 
-    option = options;
+    printf("option read\n");
 
     file.close();
 }

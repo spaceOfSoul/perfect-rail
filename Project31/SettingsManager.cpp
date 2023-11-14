@@ -1,6 +1,7 @@
 #include "SettingsManager.h"
 
 SettingsManager::SettingsManager() {
+	printf("Generate Setting manager\n");
 	loadOptionFromFile(options, OPTIONFILE_PATH());
 }
 

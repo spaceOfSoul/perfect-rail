@@ -189,6 +189,7 @@
     <ClInclude Include="utils.h" />
   </ItemGroup>
   <ItemGroup>
+    <Media Include="bgm\GameOver.wav" />
     <Media Include="bgm\Result.wav" />
     <Media Include="Songs\End Time\audio.mp3" />
     <Media Include="Songs\FLOWER\audio.mp3" />

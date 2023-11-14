@@ -169,7 +169,9 @@ void GameScene::update(float dt) {
 
     if (hp <= 0) {
         am.StopMusic(songInfo.songNameStr);
-        am.PlayMusic("Died");
+        if (isAlive) {
+            am.PlayMusic("Died");
+        }
         isAlive = false;
     }
 

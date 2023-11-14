@@ -9,17 +9,29 @@
 #include "SceneManager.h"
 #include "AudioManager.h"
 #include "OptionScene.h"
+#include "SettingsManager.h"
 
 int main()
 {
     const unsigned int window_width = 800;
     const unsigned int window_height = 600;
+    SettingsManager sm = SettingsManager::Instance();
+
+    printf("music volume : %f", sm.GetMusicVolume());
+
     sf::RenderWindow window(sf::VideoMode(window_width, window_height), "Perfect Rail");
 
     bool fullscreen = true;
     int screen_num = 0;
 
-    //singleton instances
+    //if (sm.GetMusicVolume() < 0 || sm.GetMusicVolume() > 100) { // Option 값 비정상 여부
+    //    printf("detect\n");
+    //    sm.SetMusicVolume(30);
+    //    sm.SetSoundVolume(30);
+    //    sm.SetNoteSpeed(600);
+    //    sm.saveOption();
+    //}
+
     AudioManager& am = AudioManager::Instance(); // 오디오 관리자
 
     // sounds load

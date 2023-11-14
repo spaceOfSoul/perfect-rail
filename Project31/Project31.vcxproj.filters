@@ -253,6 +253,9 @@
     <Media Include="bgm\Result.wav">
       <Filter>리소스 파일\bgm</Filter>
     </Media>
+    <Media Include="bgm\GameOver.wav">
+      <Filter>리소스 파일\bgm</Filter>
+    </Media>
   </ItemGroup>
   <ItemGroup>
     <Font Include="fonts\arial.ttf">
