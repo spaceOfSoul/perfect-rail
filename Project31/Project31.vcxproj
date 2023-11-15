@@ -189,7 +189,6 @@
     <ClInclude Include="utils.h" />
   </ItemGroup>
   <ItemGroup>
-    <Media Include="bgm\GameOver.wav" />
     <Media Include="bgm\Result.wav" />
     <Media Include="Songs\End Time\audio.mp3" />
     <Media Include="Songs\FLOWER\audio.mp3" />
@@ -201,6 +200,7 @@
     <Media Include="Songs\smooooch\audio.mp3" />
     <Media Include="Songs\The Shortest Mashcore Ever\audio.mp3" />
     <Media Include="Songs\Tithonus\audio.mp3" />
+    <Media Include="Sounds\GameOver.wav" />
     <Media Include="Sounds\menu_select.wav" />
   </ItemGroup>
   <ItemGroup>

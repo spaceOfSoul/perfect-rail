@@ -18,10 +18,10 @@ GameScene::GameScene(float width, float height)
     if (!font.loadFromFile("fonts\\arial.ttf")) {
         printf("폰트가 없음!");
     }
+
     comboText.setFont(font);
     judgeText.setFont(font);
     am.LoadMusic("Result", "./bgm/Result.wav");
-    am.LoadMusic("Died", "./bgm/GameOver.wav");
 
     finish_process = false;
     input_process = false;
@@ -170,7 +170,8 @@ void GameScene::update(float dt) {
     if (hp <= 0) {
         am.StopMusic(songInfo.songNameStr);
         if (isAlive) {
-            am.PlayMusic("Died");
+            printf("player dead\n");
+            am.PlayEventSound("GameOver");
         }
         isAlive = false;
     }

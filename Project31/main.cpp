@@ -24,14 +24,6 @@ int main()
     bool fullscreen = true;
     int screen_num = 0;
 
-    //if (sm.GetMusicVolume() < 0 || sm.GetMusicVolume() > 100) { // Option 값 비정상 여부
-    //    printf("detect\n");
-    //    sm.SetMusicVolume(30);
-    //    sm.SetSoundVolume(30);
-    //    sm.SetNoteSpeed(600);
-    //    sm.saveOption();
-    //}
-
     AudioManager& am = AudioManager::Instance(); // 오디오 관리자
 
     // sounds load
