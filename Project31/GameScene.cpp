@@ -125,15 +125,13 @@ void GameScene::update(float dt) {
 
             std::sort(existingResults.results.begin(), existingResults.results.end(), [](const ResultData& a, const ResultData& b) {
                 return a.score > b.score;
-                });
+             });
 
             if (existingResults.size() > 10) {
                 existingResults.results.resize(10);
             }
-
             // 최종 하이스코어 저장
             SaveResult::saveToDirectory(existingResults, get_appdata_roaming_path().append("\\perfectRail\\").append(songInfo.songNameStr));
-
         }
     }
 

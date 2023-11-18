@@ -15,13 +15,14 @@ int main()
 {
     const unsigned int window_width = 800;
     const unsigned int window_height = 600;
+
     SettingsManager sm = SettingsManager::Instance();
 
     printf("music volume : %f", sm.GetMusicVolume());
 
     sf::RenderWindow window(sf::VideoMode(window_width, window_height), "Perfect Rail");
 
-    bool fullscreen = true;
+    bool fullscreen = false;
     int screen_num = 0;
 
     AudioManager& am = AudioManager::Instance(); // 오디오 관리자
@@ -65,9 +66,16 @@ int main()
             if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F5)
             {
                 fullscreen = !fullscreen;
-                window.create(fullscreen ? sf::VideoMode::getDesktopMode() : sf::VideoMode(window_width, window_height),
-                    "Perfect Rail",
-                    fullscreen ? sf::Style::Fullscreen : sf::Style::Close);
+                if (fullscreen)
+                {
+                    // 전체화면
+                    window.create(sf::VideoMode(window_width, window_height), "Perfect Rail", sf::Style::Fullscreen);
+                }
+                else
+                {   
+                    // 창모드
+                    window.create(sf::VideoMode(window_width, window_height), "Perfect Rail", sf::Style::Close);
+                }
             }
 
             // Scene handle
