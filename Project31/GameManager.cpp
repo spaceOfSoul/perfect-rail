@@ -56,7 +56,7 @@ void GameManager::keyDownProcess(int keyIndex, JudgeText& judgeText, ComboText& 
             judgeIndex[keyIndex] = i + 1;
             break;
         }
-        else if (abs_v <= 41.5) { //cool 범위
+        else if (abs_v <= 41.3) { //cool 범위
             targetPass[3]++;  //cool
             lastJudge = 3; //cool
             combo++;
@@ -182,6 +182,7 @@ void GameManager::init(SongData& data) {
 
     for(int i=0; i<4; i++)
         judgeIndex[i] = 0;
+
     score = 0;
     accuracy = 100.0;
     combo = 0;

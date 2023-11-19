@@ -30,12 +30,12 @@ OptionScene::~OptionScene()
 void OptionScene::onActivate() {
 	std::stringstream ss;
 
-	ss << "Music Volume: " << (int)sm.GetMusicVolume();
+	ss << "Music Volume: " << (int)sm.GetMusicVolume() << "%";
 	menus[0].setString(ss.str());
 	ss.str("");
 	ss.clear();
 
-	ss << "Sound Volume: " << (int)sm.GetSoundVolume();
+	ss << "Sound Volume: " << (int)sm.GetSoundVolume() << "%";
 	menus[1].setString(ss.str());
 	ss.str("");
 	ss.clear();
@@ -45,7 +45,17 @@ void OptionScene::onActivate() {
 	ss.str("");
 	ss.clear();
 
-	menus[3].setString("Exit");
+	ss << "judgeline Y: " << (int)sm.GetJudgeLine_Y();
+	menus[3].setString(ss.str());
+	ss.str("");
+	ss.clear();
+
+	ss << "Time Sync: " << (int)sm.GetTimeSync() << "ms";
+	menus[4].setString(ss.str());
+	ss.str("");
+	ss.clear();
+
+	menus[5].setString("Exit");
 }
 
 void OptionScene::onDeactivate() {
@@ -95,7 +105,7 @@ void OptionScene::MoveLeft() {
 		sm.SetMusicVolume(vol);
 		am.PlayEventSound("menu_select");
 
-		ss << "Music Volume: " << (int)sm.GetMusicVolume();
+		ss << "Music Volume: " << (int)sm.GetMusicVolume() << "%";
 		menus[0].setString(ss.str());
 		ss.str("");
 		ss.clear();
@@ -107,7 +117,7 @@ void OptionScene::MoveLeft() {
 		sm.SetSoundVolume(vol);
 		am.PlayEventSound("menu_select");
 
-		ss << "Sound Volume: " << (int)sm.GetSoundVolume();
+		ss << "Sound Volume: " << (int)sm.GetSoundVolume() << "%";
 		menus[1].setString(ss.str());
 		ss.str("");
 		ss.clear();
@@ -124,6 +134,31 @@ void OptionScene::MoveLeft() {
 		ss.str("");
 		ss.clear();
 	}
+	else if (selectedItemIndex == 3) { // jedgeline y position
+		int y = sm.GetJudgeLine_Y();
+		if (y >= 405)
+			y -= 5;
+		sm.SetJudgeLine_Y(y);
+		am.PlayEventSound("menu_select");
+
+		ss << "judgeline Y: " << (int)sm.GetJudgeLine_Y();
+		menus[3].setString(ss.str());
+		ss.str("");
+		ss.clear();
+	}
+	else if (selectedItemIndex == 4) { // time sync
+		int sync = sm.GetTimeSync();
+		if (sync >= -999)
+			sync -= 1;
+
+		sm.SetTimeSync(sync);
+		am.PlayEventSound("menu_select");
+
+		ss << "Time Sync: " << (int)sm.GetTimeSync() << "ms";
+		menus[4].setString(ss.str());
+		ss.str("");
+		ss.clear();
+	}
 }
 
 void OptionScene::MoveRight() {
@@ -135,7 +170,7 @@ void OptionScene::MoveRight() {
 		sm.SetMusicVolume(vol);
 		am.PlayEventSound("menu_select");
 
-		ss << "Music Volume: " << (int)sm.GetMusicVolume();
+		ss << "Music Volume: " << (int)sm.GetMusicVolume() << "%";
 		menus[0].setString(ss.str());
 		ss.str("");
 		ss.clear();
@@ -147,7 +182,7 @@ void OptionScene::MoveRight() {
 		sm.SetSoundVolume(vol);
 		am.PlayEventSound("menu_select");
 
-		ss << "Sound Volume: " << (int)sm.GetSoundVolume();
+		ss << "Sound Volume: " << (int)sm.GetSoundVolume() << "%";
 		menus[1].setString(ss.str());
 		ss.str("");
 		ss.clear();
@@ -161,6 +196,31 @@ void OptionScene::MoveRight() {
 
 		ss << "Note Speed: " << (int)sm.GetNoteSpeed();
 		menus[2].setString(ss.str());
+		ss.str("");
+		ss.clear();
+	}
+	else if (selectedItemIndex == 3) { // judgeline y position
+		int y = sm.GetJudgeLine_Y();
+		if (y <= 645)
+			y += 5;
+		sm.SetJudgeLine_Y(y);
+		am.PlayEventSound("menu_select");
+
+		ss << "judgeline Y: " << sm.GetJudgeLine_Y();
+		menus[3].setString(ss.str());
+		ss.str("");
+		ss.clear();
+	}
+	else if (selectedItemIndex == 4) { // time sync
+		int sync = sm.GetTimeSync();
+		if (sync <= 999)
+			sync += 1;
+
+		sm.SetTimeSync(sync);
+		am.PlayEventSound("menu_select");
+
+		ss << "Time Sync: " << (int)sm.GetTimeSync() << "ms";
+		menus[4].setString(ss.str());
 		ss.str("");
 		ss.clear();
 	}
