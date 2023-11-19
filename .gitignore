@@ -364,3 +364,8 @@ FodyWeavers.xsd
 
 # util python
 d.py
+
+# pre installer
+pre_installer/dist
+pre_installer/build
+pre_installer

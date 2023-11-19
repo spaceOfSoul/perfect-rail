@@ -80,7 +80,6 @@ void AudioManager::StopMusic(const std::string& musicName) {
     currentMusic->stop();
 }
 
-
 // Volume Setting
 void AudioManager::SetSoundVolume(const std::string& soundName, float volume) {
     sound_volume = volume;
