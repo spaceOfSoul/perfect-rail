@@ -136,7 +136,7 @@ void OptionScene::MoveLeft() {
 	}
 	else if (selectedItemIndex == 3) { // jedgeline y position
 		int y = sm.GetJudgeLine_Y();
-		if (y >= 405)
+		if (y >= -20)
 			y -= 5;
 		sm.SetJudgeLine_Y(y);
 		am.PlayEventSound("menu_select");
@@ -201,7 +201,7 @@ void OptionScene::MoveRight() {
 	}
 	else if (selectedItemIndex == 3) { // judgeline y position
 		int y = sm.GetJudgeLine_Y();
-		if (y <= 645)
+		if (y <= 295)
 			y += 5;
 		sm.SetJudgeLine_Y(y);
 		am.PlayEventSound("menu_select");

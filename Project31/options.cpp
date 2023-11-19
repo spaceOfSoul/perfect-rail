@@ -66,7 +66,7 @@ void initOptionSave(Options& option, const std::string& filename) {
     option.music_volume = 30.f;
     option.sound_volume = 30.f;
     option.note_speed = 650;
-    option.val_y = 440;
+    option.val_y = 0;
     option.time_sync = 0;
 
     saveOptionFile(option, filename);

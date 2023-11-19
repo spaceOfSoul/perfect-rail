@@ -27,6 +27,8 @@ GameScene::GameScene(float width, float height)
     input_process = false;
     isAlive = true;
 
+    judgeY = 440;
+
     hp_bar = new HpBar(screen_width / 2 + plateWidth / 2, 75, 25, 375, font, 15);
 }
 
@@ -40,6 +42,8 @@ void GameScene::onActivate() {
     musicStarted = false;
     isAlive = true;
     hp = 100;
+
+    judgeY = 440 - sm.GetJudgeLine_Y();
     
     for (int i = 0; i < 4; i++)
         processedIndex[i] = 0;
@@ -61,7 +65,7 @@ void GameScene::initialize() {
     hp = 100;
 
     //Game Setting
-    noteTravelTime = (judgeY - note_startPos_Y) / note_speed;
+    noteTravelTime = ((judgeY - note_startPos_Y) / note_speed) + ((double)sm.GetTimeSync()/(double)1000);
 
     // UI Setting
     // Buttons
@@ -76,7 +80,7 @@ void GameScene::initialize() {
     }
 
     judgeLine.setSize(sf::Vector2f(350, 20));
-    judgeLine.setPosition(225, 440);
+    judgeLine.setPosition(225, judgeY);
     judgeLine.setFillColor(sf::Color(128, 128, 128));
 
     // ÄÞº¸
@@ -98,14 +102,19 @@ void GameScene::initialize() {
     accurateText.setCharacterSize(24);
     accurateText.setFillColor(sf::Color(128, 128, 128));
     accurateText.setPosition(accPos);
+
+    judgeY = sm.GetJudgeLine_Y();
 }
 
 void GameScene::update(float dt) {
+    // note clock
     if (!noteClockStarted) {
         noteClock.restart();
         noteClockStarted = true;
     }
 
+    // music clock
+    // Music click is slower then Note clock.
     if (!musicStarted && noteClock.getElapsedTime().asSeconds() >= noteTravelTime) {
         am.PlayMusic(songInfo.songNameStr);
         musicStarted = true;
