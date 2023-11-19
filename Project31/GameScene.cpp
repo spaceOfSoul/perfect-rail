@@ -1,4 +1,5 @@
 #include "GameScene.h"
+#define _BV(n) (1<<n)
 
 GameScene::GameScene(float width, float height)
 : am(AudioManager::Instance())
@@ -24,7 +25,7 @@ GameScene::GameScene(float width, float height)
     am.LoadMusic("Result", "./bgm/Result.wav");
 
     finish_process = false;
-    input_process = false;
+    input_process = 0;
     isAlive = true;
 
     judgeY = 440;
@@ -42,6 +43,7 @@ void GameScene::onActivate() {
     musicStarted = false;
     isAlive = true;
     hp = 100;
+    input_process = 0;
 
     judgeY = 440 - sm.GetJudgeLine_Y();
     
@@ -59,7 +61,7 @@ void GameScene::onActivate() {
 void GameScene::initialize() {
     game_finished = false;
     finish_process = false;
-    input_process = false;
+    input_process = 0;
     isAlive = true;
 
     hp = 100;
@@ -122,6 +124,7 @@ void GameScene::update(float dt) {
 
     if (musicStarted && am.GetMusicStatus() == sf::Music::Stopped && isAlive) {
         game_finished = true;
+        input_process |= _BV(0); // sound
         if (finish_process) {
             resultRectangle.setResult(gm.getAccuracy(), gm.getScore(), gm.getMaxCombo(), gm.getTargetPass(), false);
             am.StopMusic(songInfo.songNameStr);
@@ -142,6 +145,14 @@ void GameScene::update(float dt) {
             // 최종 하이스코어 저장
             SaveResult::saveToDirectory(existingResults, get_appdata_roaming_path().append("\\perfectRail\\").append(songInfo.songNameStr));
         }
+    }
+
+    // sound play
+    // 0 1 : game finished
+    // 1 1 : sound played
+    if ((_BV(0) & input_process) && !(_BV(1) & input_process)) {
+        am.PlayEventSound("applause");
+        input_process |= _BV(1);
     }
 
     // note drawing
@@ -243,6 +254,8 @@ void GameScene::draw(sf::RenderWindow& window) {
 Signal GameScene::handleInput(sf::Event event, sf::RenderWindow& window) {
     if (event.type == sf::Event::KeyPressed) {
         if (event.key.code == sf::Keyboard::Escape) {
+            if (game_finished && !finish_process) // when running input process
+                return Signal::None;
             onDeactivate();
             return Signal::GoToSongMenu;
         }

@@ -34,6 +34,7 @@ private:
 	sf::Font font;
 
 	sf::Text inform;
+	sf::Text clearText;
 
 	sf::RectangleShape rects[5];
 

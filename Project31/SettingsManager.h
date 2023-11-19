@@ -26,7 +26,7 @@ public:
 	void SetSoundVolume(float vol);
 	void SetNoteSpeed(float speed);
 	void SetJudgeLine_Y(int y);
-	void SetTimeSync(int sync);
+	void SetTimeSync(int sync); 
 
 	void saveOption();
 };

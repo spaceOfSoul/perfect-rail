@@ -127,7 +127,7 @@ private:
 
     //states
     bool finish_process;
-    bool input_process;
+    uint8_t input_process;
 
     bool isAlive;
     double hp;

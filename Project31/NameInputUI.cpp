@@ -23,13 +23,19 @@ NameInputUI::NameInputUI(int x, int y, int offset,int width, int height, int cur
 		rects[i].setPosition(sf::Vector2f(x_position+x_offset+i*100, y_position + character_size/3));
 		rects[i].setSize(sf::Vector2f(character_size, character_size/4));
 	}
+	clearText.setFont(font);
+	clearText.setFillColor(sf::Color::White);
+	clearText.setPosition(sf::Vector2f(x_position - character_size, y_position - character_size*5));
+	clearText.setCharacterSize(character_size*2);
+	clearText.setString("Clear!");
+
 	inform.setFont(font);
 	inform.setFillColor(sf::Color::White);
-	inform.setPosition(sf::Vector2f(x_position - character_size*1.5, y_position - character_size*2.5));
+	inform.setPosition(sf::Vector2f(x_position - character_size, y_position - character_size*2.5));
 	inform.setCharacterSize(character_size);
 	inform.setString("Plz write your name : ");
 
-	backgroudShape.setFillColor(sf::Color(125, 125, 125, 125)); // r,g,b,a
+	backgroudShape.setFillColor(sf::Color(29, 84, 63, 255)); // r,g,b,a
 	backgroudShape.setPosition(sf::Vector2f(0, 0));
 	backgroudShape.setSize(sf::Vector2f(width, height));
 
@@ -105,6 +111,7 @@ void NameInputUI::draw(sf::RenderTarget& target, sf::RenderStates states) const 
 		target.draw(rects[i], states);
 	}
 	target.draw(inform, states);
+	target.draw(clearText, states);
 }
 
 std::string NameInputUI::getUserName() {
