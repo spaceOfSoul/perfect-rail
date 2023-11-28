@@ -8,7 +8,7 @@
 #include "options.h"
 #include "SettingsManager.h"
 
-#define OPTION_ITEM 6
+#define OPTION_ITEM 7
 
 class OptionScene : public Scene
 {

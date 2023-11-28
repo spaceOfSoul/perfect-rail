@@ -4,13 +4,13 @@
 
 // test include
 //#include "NameInputUI.h"
-#include "deadPannel.h"
+#include "KeySettingModal.h"
 
 class DebuggingScene : public Scene {
 private:
 	sf::Font font;
     int width, height;
-    DeadPannel dead_ui;
+    KeySettingModal setting_ui;
 	
 public:
     DebuggingScene(float width, float height);

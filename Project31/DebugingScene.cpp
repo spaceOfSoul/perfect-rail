@@ -1,6 +1,6 @@
 #include "DebugingScene.h"
 
-DebuggingScene::DebuggingScene(float width, float height) : dead_ui(0,0) {
+DebuggingScene::DebuggingScene(float width, float height) : setting_ui(150,175,500,250) {
 	this->width = width;
 	this->height = height;
 }
@@ -15,7 +15,8 @@ void DebuggingScene::update(float dt) {
 }
 
 void DebuggingScene::onActivate() {
-
+	char keys[5] = "DFJK";
+	setting_ui.setKey(keys);
 }
 
 void DebuggingScene::onDeactivate() {
@@ -23,7 +24,7 @@ void DebuggingScene::onDeactivate() {
 }
 
 void DebuggingScene::draw(sf::RenderWindow& window) {
-	window.draw(dead_ui);
+	window.draw(setting_ui);
 }
 
 Signal DebuggingScene::handleInput(sf::Event event, sf::RenderWindow& window) {

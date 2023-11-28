@@ -55,7 +55,12 @@ void OptionScene::onActivate() {
 	ss.str("");
 	ss.clear();
 
-	menus[5].setString("Exit");
+	ss << "Key binding";
+	menus[5].setString(ss.str());
+	ss.str("");
+	ss.clear();
+
+	menus[6].setString("Exit");
 }
 
 void OptionScene::onDeactivate() {
@@ -243,10 +248,15 @@ Signal OptionScene::handleInput(sf::Event event, sf::RenderWindow& window) {
 		else if (event.key.code == sf::Keyboard::Right) {
 			MoveRight();
 		}
-		else if (event.key.code == sf::Keyboard::Escape || event.key.code == sf::Keyboard::Enter)
+		else if (event.key.code == sf::Keyboard::Escape)
 		{
 			onDeactivate();
 			return Signal::GoToMainMenu;
+		}
+		else if (event.key.code == sf::Keyboard::Enter) {
+			if (selectedItemIndex == 5) {
+				printf("key binding is pushed.\n");
+			}
 		}
 	}
 	return Signal::None;
