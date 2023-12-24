@@ -16,7 +16,7 @@ void DebuggingScene::update(float dt) {
 
 void DebuggingScene::onActivate() {
 	char keys[5] = "DFJK";
-	setting_ui.setKey(keys);
+	setting_ui.setAllkey(keys);
 }
 
 void DebuggingScene::onDeactivate() {
@@ -32,6 +32,12 @@ Signal DebuggingScene::handleInput(sf::Event event, sf::RenderWindow& window) {
 	{
 		if (event.key.code == sf::Keyboard::Escape)
 			return Signal::GoToMainMenu;
+
+		if (event.key.code == sf::Keyboard::Left) {
+			
+		}else if (event.key.code == sf::Keyboard::Right) {
+
+		}
 	}
 	return Signal::None;
 }

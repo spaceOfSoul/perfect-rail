@@ -35,7 +35,7 @@ NameInputUI::NameInputUI(int x, int y, int offset,int width, int height, int cur
 	inform.setCharacterSize(character_size);
 	inform.setString("Plz write your name : ");
 
-	backgroudShape.setFillColor(sf::Color(29, 84, 63, 255)); // r,g,b,a
+	backgroudShape.setFillColor(sf::Color::Black);
 	backgroudShape.setPosition(sf::Vector2f(0, 0));
 	backgroudShape.setSize(sf::Vector2f(width, height));
 

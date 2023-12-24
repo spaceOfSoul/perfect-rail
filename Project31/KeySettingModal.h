@@ -5,20 +5,25 @@ class KeySettingModal : public sf::Drawable
 {
 public:
     KeySettingModal(float x, float y, float width, float height);
-    void setKey(char* keys);
+    void setKey(uint8_t index, char keys);
+    void setAllkey(char *);
 private:
     sf::RectangleShape OuterRect;
     sf::RectangleShape innerRect;
     const uint8_t margin = 6;
 
+    // key UI
     sf::RectangleShape keyRect[4];
     sf::ConvexShape cursur; // 아래위 삼각형
-    char keys[4];
     const int keyRect_padding = 60;
 
     sf::Text keyText[4];
 
     sf::Font font;
+
+    // keys
+    char keys[4];
+    uint8_t select_index;
 
     sf::Text Title;
 

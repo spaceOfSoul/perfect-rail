@@ -25,7 +25,6 @@ DeadPannel::DeadPannel(float x, float y) {
 	sub_text.setCharacterSize(38); // font size 50, pos (200, 350)
 	sub_text.setString("U NEED MORE PRACTICE");
 
-
 	// 텍스트 중앙정렬
 	sf::FloatRect textRect = main_text.getLocalBounds();
 	main_text.setOrigin(textRect.left + textRect.width / 2.0f,

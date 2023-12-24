@@ -40,7 +40,9 @@ KeySettingModal::KeySettingModal(float x, float y, float width, float height) {
 	}
 
 	// cursur init
+	// point ea
 	cursur.setPointCount(3);
+
 	float cur_size = 20;  // 삼각형의 크기
 	float triangleX = this->keyRect[0].getPosition().x + (this->keyRect[0].getSize().x - cur_size) / 2;
 	float triangleY = this->keyRect[0].getPosition().y + this->keyRect[0].getSize().y + (cur_size/2);
@@ -49,12 +51,20 @@ KeySettingModal::KeySettingModal(float x, float y, float width, float height) {
 	cursur.setPoint(1, sf::Vector2f(0, cur_size));
 	cursur.setPoint(2, sf::Vector2f(cur_size, cur_size));
 	cursur.setFillColor(sf::Color::White);
+
+	// 선택한 키 인덱스
+	select_index = -1;
 }
 
-void KeySettingModal::setKey(char* keys) {
-	for (int i = 0; i < 4; i++) {
+void KeySettingModal::setKey(uint8_t index, char keys) {
+	this->keys[index] = keys;
+	this->keyText[index].setString(keys);
+}
+
+void KeySettingModal::setAllkey(char* keys) {
+	for (uint8_t i = 0; i < 4; i++) {
 		this->keys[i] = keys[i];
-		this->keyText[i].setString(this->keys[i]);
+		this->keyText[i].setString(keys[i]);
 	}
 }
 
