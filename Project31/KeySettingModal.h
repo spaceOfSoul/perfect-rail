@@ -14,7 +14,7 @@ private:
 
     // key UI
     sf::RectangleShape keyRect[4];
-    sf::ConvexShape cursur; // 아래위 삼각형
+    sf::ConvexShape cursur; // 아래 위 삼각형
     const int keyRect_padding = 60;
 
     sf::Text keyText[4];
