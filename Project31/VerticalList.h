@@ -14,9 +14,12 @@ public:
     void MoveUp();
     void MoveDown();
     void updateIndex();
+    
+    void setPos(float, float);
 
     int getCurrentIndex();
 private:
+    float pos_x, pos_y;
 
     int startIndex;
     int endIndex;

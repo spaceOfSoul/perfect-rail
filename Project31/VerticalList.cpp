@@ -12,9 +12,9 @@ VerticalList::VerticalList(float width, float height) {
 	for (uint8_t i = 0; i < MAX_NUM; i++) {
 		textItems[i].setFont(font);
 		textItems[i].setString("");
-		textItems[i].setPosition(sf::Vector2f(width / 2, height / (MAX_NUM + 1) * (i + 1)));
+		textItems[i].setPosition(sf::Vector2f((width / 2) + pos_x, (height / (MAX_NUM + 1) * (i + 1)) + pos_y));
 
-		if (i == currentIndex) {// 선택된 곡은 붉은 색으로 (추후에 RectangleShape 추가)
+		if (i == currentIndex) { // 선택된 곡은 붉은 색으로 (추후에 RectangleShape 추가)
 			textItems[i].setFillColor(sf::Color::Red);
 		}
 		else {
@@ -83,6 +83,14 @@ void VerticalList::draw(sf::RenderWindow& window) {
 	}
 }
 
+
+void VerticalList::setPos(float x,float y) {
+	this->pos_x = x;
+	this->pos_y = y;
+	for (uint8_t i = 0; i < MAX_NUM; i++) {
+		textItems[i].setPosition(sf::Vector2f((width / 2) + pos_x, (height / (MAX_NUM + 1) * (i + 1)) + pos_y));
+	}
+}
 
 int VerticalList::getCurrentIndex() {
 	return currentIndex;

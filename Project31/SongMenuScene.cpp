@@ -55,8 +55,10 @@ SongMenuScene::SongMenuScene(float width, float height)
         }
     }
     selectedItemIndex = songList.getCurrentIndex();
-    albumImage = std::make_unique<AlbumArt>(sf::Vector2f(200, 200), sf::Vector2f(50, 50), songInfos[selectedItemIndex].imagePath);
+    albumImage = std::make_unique<AlbumArt>(sf::Vector2f(200, 200), sf::Vector2f(50, 50), songInfos[selectedItemIndex].imagePath); // size, pos
     region_highscore = std::make_unique<HighscorePannel>(50,290, font);
+    songList.setPos(-60,-30);
+
 }
 
 
@@ -79,13 +81,13 @@ void SongMenuScene::draw(sf::RenderWindow& window) {
         switch (difficulty)
         {
         case 0:
-            currentPositionX = 100.f;
+            currentPositionX = 50.f;
             break;
         case 1:
-            currentPositionX = 177.f;
+            currentPositionX = 127.f;
             break;
         case 2:
-            currentPositionX = 232.f;
+            currentPositionX = 182.f;
             break;
         }
         difficultyText.setPosition(sf::Vector2f(currentPositionX, 260));
@@ -110,12 +112,14 @@ void SongMenuScene::draw(sf::RenderWindow& window) {
 }
 
 void SongMenuScene::MoveUp() {
+    selectedDifficultyIndex = 0;
     songList.MoveUp();
     updateSelectedItem();
     am.PlayEventSound("menu_select");
 }
 
 void SongMenuScene::MoveDown() {
+    selectedDifficultyIndex = 0;
     songList.MoveDown();
     updateSelectedItem();
     am.PlayEventSound("menu_select");
