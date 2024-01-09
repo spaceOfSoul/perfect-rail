@@ -55,10 +55,9 @@ SongMenuScene::SongMenuScene(float width, float height)
         }
     }
     selectedItemIndex = songList.getCurrentIndex();
-    albumImage = std::make_unique<AlbumArt>(sf::Vector2f(200, 200), sf::Vector2f(50, 50), songInfos[selectedItemIndex].imagePath); // size, pos
-    region_highscore = std::make_unique<HighscorePannel>(50,290, font);
+    albumImage = std::make_unique<AlbumArt>(sf::Vector2f(220, 220), sf::Vector2f(30, 30), songInfos[selectedItemIndex].imagePath); // size, pos
+    region_highscore = std::make_unique<HighscorePannel>(30,290, font);
     songList.setPos(-60,-30);
-
 }
 
 
@@ -71,7 +70,7 @@ void SongMenuScene::draw(sf::RenderWindow& window) {
     songList.draw(window);
 
     float spacing = 50.f;  // 각 난이도 텍스트 사이의 공간
-    float currentPositionX = 100.f;  // 첫 번째 난이도 텍스트 시작점
+    float currentPositionX = 30.f;  // 첫 번째 난이도 텍스트 시작점
     // 난이도 목록
     for (const auto& difficulty : songInfos[selectedItemIndex].difficultiesExist) {
         sf::Text difficultyText;
@@ -81,16 +80,16 @@ void SongMenuScene::draw(sf::RenderWindow& window) {
         switch (difficulty)
         {
         case 0:
-            currentPositionX = 50.f;
+            currentPositionX = 35.f;
             break;
         case 1:
-            currentPositionX = 127.f;
+            currentPositionX = 112.f;
             break;
         case 2:
-            currentPositionX = 182.f;
+            currentPositionX = 167.f;
             break;
         }
-        difficultyText.setPosition(sf::Vector2f(currentPositionX, 260));
+        difficultyText.setPosition(sf::Vector2f(currentPositionX, 250));
         difficultyText.setCharacterSize(20);
 
         if (difficulty == songInfos[selectedItemIndex].difficultiesExist[selectedDifficultyIndex]) {
