@@ -8,6 +8,7 @@
 
 #include "scoresPannel.h"
 #include "playResult.h"
+#include "VerticalList.h"
 
 #include <filesystem>
 #include <vector>
@@ -19,6 +20,7 @@ private:
     sf::Font font;
 
     AudioManager& am;
+    VerticalList songList;
 
     std::vector<SongInfo> songInfos;
     std::map<std::string, ResultData> song_results;
@@ -46,5 +48,6 @@ public:
     void MoveRight();
     void MoveLeft();
 
+    void updateSelectedItem();
     int GetPressedItem() { return selectedItemIndex; }
 };

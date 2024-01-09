@@ -1,12 +1,11 @@
 #include "SongMenuScene.h"
 #include <SFML/Audio.hpp>
 #include <algorithm>
-// tmep max num
-#define MAX_NUM 15
 
 std::string difficulties[3] = { "Normal", "Hard", "Expert" };
 
-SongMenuScene::SongMenuScene(float width, float height) :am(AudioManager::Instance()) {
+SongMenuScene::SongMenuScene(float width, float height) 
+    :am(AudioManager::Instance()), songList(VerticalList(width, height)) {
     this->width = width;
     this->height = height;
     if (!font.loadFromFile("fonts\\arial.ttf")) {
@@ -49,15 +48,14 @@ SongMenuScene::SongMenuScene(float width, float height) :am(AudioManager::Instan
                         std::sort(songInfo.difficultiesExist.begin(), songInfo.difficultiesExist.end());
                     }
                 }
-
                 songInfos.push_back(songInfo);
-
+                songList.addItem(songInfo.songNameStr);
                 i++;
             }
         }
     }
-
-    albumImage = std::make_unique<AlbumArt>(sf::Vector2f(150, 150), sf::Vector2f(100, 100), songInfos[selectedItemIndex].imagePath);
+    selectedItemIndex = songList.getCurrentIndex();
+    albumImage = std::make_unique<AlbumArt>(sf::Vector2f(200, 200), sf::Vector2f(50, 50), songInfos[selectedItemIndex].imagePath);
     region_highscore = std::make_unique<HighscorePannel>(50,290, font);
 }
 
@@ -68,22 +66,7 @@ SongMenuScene::~SongMenuScene() {
 
 void SongMenuScene::draw(sf::RenderWindow& window) {
     //곡 목록 표시
-    for (int i = 0; i < songInfos.size(); i++)
-    {
-        sf::Text songName;
-        songName.setFont(font);
-        songName.setString(songInfos[i].songNameStr);
-        songName.setPosition(sf::Vector2f(width / 2, height / (MAX_NUM + 1) * (i + 1)));
-
-        if (i == selectedItemIndex) {// 선택된 곡은 붉은 색으로
-            songName.setFillColor(sf::Color::Red);
-        }
-        else {
-            songName.setFillColor(sf::Color::White);
-        }
-
-        window.draw(songName);
-    }
+    songList.draw(window);
 
     float spacing = 50.f;  // 각 난이도 텍스트 사이의 공간
     float currentPositionX = 100.f;  // 첫 번째 난이도 텍스트 시작점
@@ -127,43 +110,30 @@ void SongMenuScene::draw(sf::RenderWindow& window) {
 }
 
 void SongMenuScene::MoveUp() {
-    if (selectedItemIndex - 1 >= 0) {
-        selectedItemIndex--;
-
-        am.PlayEventSound("menu_select");
-        selectedDifficultyIndex = 0;
-
-        // music switch
-        am.StopMusic(songInfos[selectedItemIndex + 1].songNameStr);
-        am.PlayMusic(songInfos[selectedItemIndex].songNameStr);
-
-        albumImage->setTexturePath(songInfos[selectedItemIndex].imagePath);
-
-        // result load
-        Results results = SaveResult::loadFromDirectory(get_appdata_roaming_path().append("\\perfectRail\\").append(songInfos[selectedItemIndex].songNameStr));
-        region_highscore->setScores(results);
-    }
+    songList.MoveUp();
+    updateSelectedItem();
+    am.PlayEventSound("menu_select");
 }
 
 void SongMenuScene::MoveDown() {
-    if (selectedItemIndex + 1 < songInfos.size()) {
-        selectedItemIndex++;
-
-        am.PlayEventSound("menu_select");
-        selectedDifficultyIndex = 0;
-
-        // music switch
-        am.StopMusic(songInfos[selectedItemIndex - 1].songNameStr);
-        am.PlayMusic(songInfos[selectedItemIndex].songNameStr);
-
-        albumImage->setTexturePath(songInfos[selectedItemIndex].imagePath);
-
-        // result load
-        Results results = SaveResult::loadFromDirectory(get_appdata_roaming_path().append("\\perfectRail\\").append(songInfos[selectedItemIndex].songNameStr));
-        region_highscore->setScores(results);
-    }
+    songList.MoveDown();
+    updateSelectedItem();
+    am.PlayEventSound("menu_select");
 }
 
+void SongMenuScene::updateSelectedItem() {
+    selectedItemIndex = songList.getCurrentIndex();
+
+    // 현재 선택된 곡의 정보를 업데이트합니다.
+    const SongInfo& currentSong = songInfos[selectedItemIndex];
+    am.StopMusic(currentSong.songNameStr); // 이전에 재생 중이던 음악을 정지합니다.
+    am.PlayMusic(currentSong.songNameStr); // 새로운 곡을 재생합니다.
+
+    // 앨범 이미지와 고득점 패널 업데이트
+    albumImage->setTexturePath(currentSong.imagePath);
+    Results results = SaveResult::loadFromDirectory(get_appdata_roaming_path().append("\\perfectRail\\").append(currentSong.songNameStr));
+    region_highscore->setScores(results);
+}
 
 void SongMenuScene::MoveLeft() {
     if (selectedDifficultyIndex > 0) {
@@ -213,6 +183,7 @@ void SongMenuScene::update(float dt) {
 }
 
 void SongMenuScene::onActivate() {
+    selectedItemIndex = songList.getCurrentIndex();
     if (songInfos.size() > 0) {
         am.PlayMusic(songInfos[selectedItemIndex].songNameStr);
     }

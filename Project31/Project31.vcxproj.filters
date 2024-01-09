@@ -135,6 +135,9 @@
     <ClCompile Include="KeySettingModal.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="VerticalList.cpp">
+      <Filter>소스 파일\inGame\obj</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="signal.h">
@@ -220,6 +223,9 @@
     </ClInclude>
     <ClInclude Include="KeySettingModal.h">
       <Filter>헤더 파일\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="VerticalList.h">
+      <Filter>헤더 파일\inGame\obj</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
