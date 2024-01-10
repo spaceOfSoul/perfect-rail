@@ -48,7 +48,7 @@ void HighscorePannel::setScores(Results& results) {
         
         rank_ss << decideRank(result.accuracy).first;
         text_rank[i].setString(rank_ss.str());
-        text_rank[i].setFillColor(decideRank(result.accuracy).second);
+        text_rank[i].setFillColor(decideRank(result.accuracy).second );
         rank_ss.str("");
         rank_ss.clear();
 

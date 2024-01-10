@@ -7,7 +7,7 @@ VerticalList::VerticalList(float width, float height) {
 		printf("폰트가 없음.\n");
 	}
 
-	currentIndex = MAX_NUM/2;
+	currentIndex = 0;
 
 	for (uint8_t i = 0; i < MAX_NUM; i++) {
 		textItems[i].setFont(font);
