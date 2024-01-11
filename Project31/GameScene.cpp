@@ -12,7 +12,7 @@ GameScene::GameScene(float width, float height)
 , screen_width(width), screen_height(height)
 , input_ui(130, 300, 50, (int)width, (int)height)
 , deadPannel(0,0)
-,ready_txt(400,300,50,font)
+,ready_txt(400,300,80,font)
 {
     for (int i = 0; i < 4; i++) 
         keyPushed[i] = false;
@@ -123,7 +123,7 @@ void GameScene::update(float dt) {
         if (note_time>=(500 * count_factor)) {
             //printf("%d\n", note_time);
             am.PlayEventSound("countdown");
-            ready_txt.setCount();
+            ready_txt.setCount(count_factor);
             count_factor++;
         }
         ready_txt.update(dt);

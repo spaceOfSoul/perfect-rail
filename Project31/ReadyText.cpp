@@ -1,5 +1,5 @@
 #include "ReadyText.h"
-
+#include <string>
 ReadyText::ReadyText(float xPos, float yPos, float initSize, sf::Font font) : scale(1.0f)
 {
     width = initSize;
@@ -12,7 +12,7 @@ ReadyText::ReadyText(float xPos, float yPos, float initSize, sf::Font font) : sc
     fontSize = initSize;
     text.setFont(font);
     text.setCharacterSize(fontSize);
-    text.setString("R U Ready?");
+    text.setString("3");
 
     float centerX_number = pos.x - text.getLocalBounds().width / 2.0f;
     float centerY_number = pos.y - text.getLocalBounds().height / 2.0f;
@@ -31,7 +31,13 @@ void ReadyText::setFont(sf::Font& font) {
     text.setFont(font);
 }
 
-void ReadyText::setCount() {
+void ReadyText::setCount(uint8_t count) {
+    if (count == 3)
+        text.setString("Go!");
+    else 
+        text.setString(std::to_string(3-count));
+    
+
     scale = 1.3f;
     text.setCharacterSize((int)(fontSize * scale));
 

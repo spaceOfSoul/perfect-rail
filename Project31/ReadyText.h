@@ -15,7 +15,7 @@ private:
 public:
 	ReadyText(float xPos, float yPos, float initSize, sf::Font font);
 	void update(float dt);
-	void setCount();
+	void setCount(uint8_t);
 	void setFont(sf::Font&);
 	void setPosition(float x, float y);
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
