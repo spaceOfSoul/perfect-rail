@@ -286,28 +286,32 @@ Signal GameScene::handleInput(sf::Event event, sf::RenderWindow& window) {
         }
         else if (event.key.code == sf::Keyboard::D) {
             if (!keyPushed[0]) {
-                gm.keyDownProcess(0, judgeText, comboText);
+                if((music_note_process & _BV(WAITED)))
+                    gm.keyDownProcess(0, judgeText, comboText);
                 buttons[0].setFillColor(sf::Color(65, 105, 225));
                 keyPushed[0] = true;
             }
         }
         else if (event.key.code == sf::Keyboard::F) {
             if (!keyPushed[1]) {
-                gm.keyDownProcess(1, judgeText, comboText);
+                if ((music_note_process & _BV(WAITED)))
+                    gm.keyDownProcess(1, judgeText, comboText);
                 buttons[1].setFillColor(sf::Color(65, 105, 225));
                 keyPushed[1] = true;
             }
         }
         else if (event.key.code == sf::Keyboard::J) {
             if (!keyPushed[2]) {
-                gm.keyDownProcess(2, judgeText, comboText);
+                if ((music_note_process & _BV(WAITED)))
+                    gm.keyDownProcess(2, judgeText, comboText);
                 buttons[2].setFillColor(sf::Color(65, 105, 225));
                 keyPushed[2] = true;
             }
         }
         else if (event.key.code == sf::Keyboard::K) {
             if (!keyPushed[3]) {
-                gm.keyDownProcess(3, judgeText, comboText);
+                if ((music_note_process & _BV(WAITED)))
+                    gm.keyDownProcess(3, judgeText, comboText);
                 buttons[3].setFillColor(sf::Color(65, 105, 225));
                 keyPushed[3] = true;
             }
