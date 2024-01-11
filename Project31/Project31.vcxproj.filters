@@ -138,6 +138,9 @@
     <ClCompile Include="VerticalList.cpp">
       <Filter>소스 파일\inGame\obj</Filter>
     </ClCompile>
+    <ClCompile Include="ReadyText.cpp">
+      <Filter>소스 파일\inGame\obj</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="signal.h">
@@ -225,6 +228,9 @@
       <Filter>헤더 파일\UI</Filter>
     </ClInclude>
     <ClInclude Include="VerticalList.h">
+      <Filter>헤더 파일\inGame\obj</Filter>
+    </ClInclude>
+    <ClInclude Include="ReadyText.h">
       <Filter>헤더 파일\inGame\obj</Filter>
     </ClInclude>
   </ItemGroup>

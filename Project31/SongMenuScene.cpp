@@ -152,7 +152,6 @@ void SongMenuScene::MoveRight() {
     }
 }
 
-
 Signal SongMenuScene::handleInput(sf::Event event, sf::RenderWindow &window) {
     if (event.type == sf::Event::KeyPressed)
     {

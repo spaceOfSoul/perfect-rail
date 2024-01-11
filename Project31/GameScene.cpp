@@ -12,6 +12,7 @@ GameScene::GameScene(float width, float height)
 , screen_width(width), screen_height(height)
 , input_ui(130, 300, 50, (int)width, (int)height)
 , deadPannel(0,0)
+,ready_txt(400,300,50,font)
 {
     for (int i = 0; i < 4; i++) 
         keyPushed[i] = false;
@@ -22,9 +23,10 @@ GameScene::GameScene(float width, float height)
 
     comboText.setFont(font);
     judgeText.setFont(font);
+    ready_txt.setFont(font);
     am.LoadMusic("Result", "./bgm/Result.wav");
-
-    finish_process = false;
+    
+    music_note_process = 0;
     input_process = 0;
     isAlive = true;
 
@@ -40,10 +42,11 @@ GameScene::~GameScene() {
 void GameScene::onActivate() {
 	SceneManager& scene_manager = SceneManager::getInstance();
 	printf("on Activate\n");
-    musicStarted = false;
+    music_note_process = 0;
     isAlive = true;
     hp = 100;
     input_process = 0;
+    count_factor = 0;
 
     judgeY = 440 - sm.GetJudgeLine_Y();
     
@@ -59,10 +62,11 @@ void GameScene::onActivate() {
 }
 
 void GameScene::initialize() {
-    game_finished = false;
-    finish_process = false;
+    music_note_process &= ~_BV(GAME_FINISHED);
+    music_note_process &= ~_BV(FINISH_PROCESS);
     input_process = 0;
     isAlive = true;
+    count_factor = 0;
 
     hp = 100;
 
@@ -105,27 +109,44 @@ void GameScene::initialize() {
     accurateText.setFillColor(sf::Color(128, 128, 128));
     accurateText.setPosition(accPos);
 
+    // 준비
+    ready_txt.setFont(font);
+    ready_txt.setPosition(400, 300);
+
     judgeY = sm.GetJudgeLine_Y();
 }
 
 void GameScene::update(float dt) {
     // note clock
-    if (!noteClockStarted) {
+    const long long note_time = noteClock.getElapsedTime().asMilliseconds();
+    if (!(music_note_process & _BV(WAITED)) && note_time < 2000) {
+        if (note_time>=(500 * count_factor)) {
+            //printf("%d\n", note_time);
+            am.PlayEventSound("countdown");
+            ready_txt.setCount();
+            count_factor++;
+        }
+        ready_txt.update(dt);
+    }else if(!(music_note_process & _BV(WAITED)) && note_time >= 2000){
         noteClock.restart();
-        noteClockStarted = true;
+        music_note_process |= _BV(WAITED);
+    }
+    else if (!(music_note_process&_BV(NOTE_CLOCK_STARTED))) {
+        noteClock.restart();
+        music_note_process |= _BV(NOTE_CLOCK_STARTED);
     }
 
     // music clock
     // Music click is slower then Note clock.
-    if (!musicStarted && noteClock.getElapsedTime().asSeconds() >= noteTravelTime) {
+    if ((music_note_process & _BV(WAITED)) && !(music_note_process & _BV(MUSIC_STARTED)) && noteClock.getElapsedTime().asSeconds() >= noteTravelTime) {
         am.PlayMusic(songInfo.songNameStr);
-        musicStarted = true;
+        music_note_process |= _BV(MUSIC_STARTED);
     }
 
-    if (musicStarted && am.GetMusicStatus() == sf::Music::Stopped && isAlive) {
-        game_finished = true;
+    if ((music_note_process & _BV(MUSIC_STARTED)) && am.GetMusicStatus() == sf::Music::Stopped && isAlive) {
+        music_note_process |= _BV(GAME_FINISHED);
         input_process |= _BV(0); // sound
-        if (finish_process) {
+        if ((music_note_process & _BV(FINISH_PROCESS))) {
             resultRectangle.setResult(gm.getAccuracy(), gm.getScore(), gm.getMaxCombo(), gm.getTargetPass(), false);
             am.StopMusic(songInfo.songNameStr);
             am.PlayMusic("Result");
@@ -156,14 +177,13 @@ void GameScene::update(float dt) {
     }
 
     // note drawing
-    if (isAlive) {
-        long long noteTime = noteClock.getElapsedTime().asMilliseconds();
+    if (isAlive && (music_note_process & _BV(NOTE_CLOCK_STARTED))) {
 
         for (int lane = 0; lane < 4; lane++) {
             for (int i = processedIndex[lane]; i < song_data.NotePoints[lane].size(); ++i) {
                 long long time = song_data.NotePoints[lane][i].first;
 
-                if (noteTime < time) {
+                if (note_time < time) {
                     break; // 시간이 아직 안됐으면 종료
                 }
 
@@ -177,6 +197,8 @@ void GameScene::update(float dt) {
             }
         }
     }
+
+    
 
     gm.checkMiss(judgeText, comboText);
 
@@ -235,14 +257,17 @@ void GameScene::draw(sf::RenderWindow& window) {
     window.draw(scoreText);
     window.draw(accurateText);
     window.draw(*hp_bar);
+    
+    if (!(music_note_process & _BV(WAITED)))
+        window.draw(ready_txt);
 
     if (!isAlive) {
         window.draw(deadPannel);
         return;
     }
 
-    if (game_finished) {
-        if (!finish_process) { // 이름 입력
+    if ((music_note_process & _BV(GAME_FINISHED))) {
+        if (!(music_note_process & _BV(FINISH_PROCESS))) { // 이름 입력
             window.draw(input_ui);
         }
         else { // 결과창 표시
@@ -254,7 +279,7 @@ void GameScene::draw(sf::RenderWindow& window) {
 Signal GameScene::handleInput(sf::Event event, sf::RenderWindow& window) {
     if (event.type == sf::Event::KeyPressed) {
         if (event.key.code == sf::Keyboard::Escape) {
-            if (game_finished && !finish_process) // when running input process
+            if ((music_note_process & _BV(GAME_FINISHED)) && !(music_note_process & _BV(FINISH_PROCESS))) // when running input process
                 return Signal::None;
             onDeactivate();
             return Signal::GoToSongMenu;
@@ -288,19 +313,19 @@ Signal GameScene::handleInput(sf::Event event, sf::RenderWindow& window) {
             }
         }
         else if (event.key.code == sf::Keyboard::Enter) { // enter
-            if (!finish_process) { // get username
+            if (!(music_note_process & _BV(FINISH_PROCESS))) { // get username
                 // get user name
                 username = input_ui.getUserName();
-                if (username.size()>0)
-                    finish_process = true;
+                if (username.size() > 0)
+                    music_note_process |= _BV(FINISH_PROCESS);
             }
-            else if (!isAlive || game_finished) { // go to song menu
+            else if (!isAlive || (music_note_process & _BV(GAME_FINISHED))) { // go to song menu
                 onDeactivate();
                 return Signal::GoToSongMenu;
             }
         }
 
-        if (game_finished) { // 방향키는 여기서만 활성화
+        if ((music_note_process & _BV(GAME_FINISHED))) { // 방향키는 여기서만 활성화
             if (event.key.code == sf::Keyboard::Left) { // 이름 좌우 이동
                 input_ui.setIndex(false);
             }

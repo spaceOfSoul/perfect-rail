@@ -161,6 +161,7 @@
     <ClCompile Include="SongMenuScene.cpp" />
     <ClCompile Include="utils.cpp" />
     <ClCompile Include="VerticalList.cpp" />
+    <ClCompile Include="ReadyText.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AlbumArt.h" />
@@ -192,6 +193,7 @@
     <ClInclude Include="NotePlate.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="VerticalList.h" />
+    <ClInclude Include="ReadyText.h" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="bgm\Result.wav" />

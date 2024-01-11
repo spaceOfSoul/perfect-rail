@@ -15,9 +15,16 @@
 #include "HpBar.h"
 #include "NameInputUI.h"
 #include "deadPannel.h"
+#include "ReadyText.h"
 
 #include <SFML/Graphics.hpp>
 #include <list>
+
+#define NOTE_CLOCK_STARTED 0
+#define FINISH_PROCESS 1
+#define GAME_FINISHED 2
+#define WAITED 3
+#define MUSIC_STARTED 4
 
 class GameScene : public Scene {
 public:
@@ -48,9 +55,6 @@ private:
 
     float screen_width;
     float screen_height;
-
-    bool musicStarted;
-    bool noteClockStarted;
 
     // °î Á¤º¸
     SongInfo songInfo;
@@ -119,15 +123,23 @@ private:
     std::string username;
 
     // Result UI
-    bool game_finished = false;
     ResultUI resultRectangle;
 
     // died UI
     DeadPannel deadPannel;
 
+    // ready UI
+    ReadyText ready_txt;
+
     //states
-    bool finish_process;
     uint8_t input_process;
+    // 0 : noteClockStarted;
+    // 1 : finish_process
+    // 2 : game_finished 
+    // 3 : wiat count
+    // 4 : musicStarted
+    uint8_t music_note_process;
+    uint8_t count_factor;
 
     bool isAlive;
     double hp;
