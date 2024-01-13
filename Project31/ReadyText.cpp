@@ -40,6 +40,7 @@ void ReadyText::setCount(uint8_t count) {
 
     scale = 1.3f;
     text.setCharacterSize((int)(fontSize * scale));
+    //printf("font size : %d\n", (int)(fontSize * scale));
 
     float centerX_number = pos.x - text.getLocalBounds().width / 2.0f;
     //float centerY_number = pos.y - text.getLocalBounds().height / 2.0f;
@@ -48,10 +49,10 @@ void ReadyText::setCount(uint8_t count) {
 
 
 void ReadyText::update(float dt) {
+    scale -= 3.f * dt;
     if (scale <= 1.0f) {
         scale = 1.0f;
     }
-    scale -= 3.f * dt;
     text.setCharacterSize((int)(fontSize * scale));
 
     float centerX_number = pos.x - text.getLocalBounds().width / 2.0f;
