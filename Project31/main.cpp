@@ -37,13 +37,18 @@ int main()
         }
     }
 
+    sf::Font font;
+
+    while(!font.loadFromFile("fonts/arial.ttf")) {
+        printf("No font (in main)\n");
+    }
     //맵 목록
     std::vector<Scene*> scenes;
-    scenes.push_back(new MainMenuScene(window.getSize().x, window.getSize().y));
-    scenes.push_back(new SongMenuScene(window.getSize().x, window.getSize().y));
-    scenes.push_back(new GameScene(window.getSize().x, window.getSize().y));
-    scenes.push_back(new OptionScene(window.getSize().x, window.getSize().y));
-    scenes.push_back(new DebuggingScene(window.getSize().x, window.getSize().y));
+    scenes.push_back(new MainMenuScene(window.getSize().x, window.getSize().y, font));
+    scenes.push_back(new SongMenuScene(window.getSize().x, window.getSize().y, font));
+    scenes.push_back(new GameScene(window.getSize().x, window.getSize().y, font));
+    scenes.push_back(new OptionScene(window.getSize().x, window.getSize().y, font));
+    scenes.push_back(new DebuggingScene(window.getSize().x, window.getSize().y, font));
 
     // 맵 관리자
     SceneManager& scene_manager = SceneManager::getInstance();

@@ -14,6 +14,8 @@
 class OptionScene : public Scene
 {
 private:
+    float width; float height;
+
     AudioManager& am;
     SettingsManager& sm;
 
@@ -26,7 +28,7 @@ private:
     const int fontSize = 24;
 
 public:
-    OptionScene(float width, float height);
+    OptionScene(float width, float height, sf::Font font);
     ~OptionScene();
 
     void update(float dt) override;

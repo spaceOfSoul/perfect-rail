@@ -28,7 +28,7 @@
 
 class GameScene : public Scene {
 public:
-    GameScene(float width, float height);
+    GameScene(float width, float height, sf::Font font);
     ~GameScene();
 
     void initialize();
@@ -46,6 +46,8 @@ private:
     // 오디오 매니저
     AudioManager& am;
     sf::Clock noteClock;
+
+    sf::Font font;
 
     // 게임 매니저
     GameManager gm;
@@ -109,7 +111,6 @@ private:
     double noteTravelTime;
 
     // 화면 그리기에 필요한 멤버 변수들
-    sf::Font font;
     sf::Text scoreText, accurateText;
     sf::RectangleShape scorePannel_outer;
     sf::RectangleShape scorePannel_inner;

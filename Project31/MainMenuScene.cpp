@@ -2,30 +2,10 @@
 
 #include <stdio.h>
 
-MainMenuScene::MainMenuScene(float width, float height) : am(AudioManager::Instance()) {
-    if (!font.loadFromFile("fonts/arial.ttf")) {
-        printf("폰트가 없음\n");
-    }
-
-	// render texts
-	titleText.setFont(font);
-	titleText.setString("Main Menu");
-	titleText.setCharacterSize(fontSize*1.2);
-	titleText.setPosition(sf::Vector2f(200.f, 50.f));
-	titleText.setFillColor(sf::Color::White);
-
-	menu_texts[0].setFont(font);
-	menu_texts[0].setFillColor(sf::Color::Red);
-	menu_texts[0].setString("Play");
-	menu_texts[0].setCharacterSize(fontSize);
-	menu_texts[0].setPosition(sf::Vector2f(width / 2, height / (MAX_OF_ITEM + 1) * 1));
-
-	menu_texts[1].setFont(font);
-	menu_texts[1].setFillColor(sf::Color::White);
-	menu_texts[1].setString("Options");
-	menu_texts[1].setCharacterSize(fontSize);
-	menu_texts[1].setPosition(sf::Vector2f(width / 2, height / (MAX_OF_ITEM + 1) * 2));
-
+MainMenuScene::MainMenuScene(float width, float height, sf::Font font) : am(AudioManager::Instance()) {
+	this->font = font;
+	this->width = width;
+	this->height = height;
 	/*menu_texts[2].setFont(font);
 	menu_texts[2].setFillColor(sf::Color::White);
 	menu_texts[2].setString("Exit");
@@ -132,6 +112,27 @@ void MainMenuScene::update(float dt) {
 }
 
 void MainMenuScene::onActivate() {
+	// render texts
+	titleText.setFont(font);
+	titleText.setString("Main Menu");
+	titleText.setCharacterSize(fontSize * 1.2);
+	titleText.setPosition(sf::Vector2f(200.f, 50.f));
+	titleText.setFillColor(sf::Color::White);
+
+	menu_texts[0].setFont(font);
+	menu_texts[0].setFillColor(sf::Color::Red);
+	menu_texts[0].setString("Play");
+	menu_texts[0].setCharacterSize(fontSize);
+	menu_texts[0].setPosition(sf::Vector2f(width / 2, height / (MAX_OF_ITEM + 1) * 1));
+
+	menu_texts[1].setFont(font);
+	menu_texts[1].setFillColor(sf::Color::White);
+	menu_texts[1].setString("Options");
+	menu_texts[1].setCharacterSize(fontSize);
+	menu_texts[1].setPosition(sf::Vector2f(width / 2, height / (MAX_OF_ITEM + 1) * 2));
+
+	selectedItemIndex = 0;
+
 
 }
 

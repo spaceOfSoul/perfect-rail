@@ -1,5 +1,6 @@
 #include "ResultUI.h"
 ResultUI::ResultUI(float width, float height, sf::Font& font) {
+	this->font = font;
 	new_result = false;
 	accuracy = 100.0;
 	score_num = 0;
@@ -7,7 +8,10 @@ ResultUI::ResultUI(float width, float height, sf::Font& font) {
 	backGround.setPosition(0, 0);
 	backGround.setSize(sf::Vector2f(width, height));
 	backGround.setFillColor(sf::Color::Black);
+}
 
+void ResultUI::setResult(double accuracy, int score, int maxCom, std::array<int, 5> targetPass, bool is_new) {
+#pragma region initializeRegion
 	Title.setFont(font);
 	Title.setPosition(sf::Vector2f(20, 10));
 	Title.setCharacterSize(60);
@@ -30,7 +34,7 @@ ResultUI::ResultUI(float width, float height, sf::Font& font) {
 	newRecord.setPosition(sf::Vector2f(120, 350));
 	newRecord.setCharacterSize(30);
 	newRecord.setString("New Record");
-	newRecord.setFillColor(sf::Color(255, 255,0));
+	newRecord.setFillColor(sf::Color(255, 255, 0));
 
 	acc_txt.setFont(font);
 	acc_txt.setPosition(sf::Vector2f(380, 350));
@@ -62,15 +66,15 @@ ResultUI::ResultUI(float width, float height, sf::Font& font) {
 	maxCombo.setFillColor(sf::Color::White);
 	maxCombo.setString("2048");
 
-	score.setFont(font);
-	score.setPosition(sf::Vector2f(600, 450));
-	score.setCharacterSize(30);
-	score.setFillColor(sf::Color::White);
-	score.setString("5605602");
+	this->score.setFont(font);
+	this->score.setPosition(sf::Vector2f(600, 450));
+	this->score.setCharacterSize(30);
+	this->score.setFillColor(sf::Color::White);
+	this->score.setString("5605602");
 
 	for (int i = 0; i < 5; i++) {
 		judeges_txt[i].setFont(font);
-		judeges_txt[i].setPosition(sf::Vector2f(380, 70+50*i));
+		judeges_txt[i].setPosition(sf::Vector2f(380, 70 + 50 * i));
 		judeges_txt[i].setCharacterSize(30);
 		judeges_txt[i].setFillColor(sf::Color::White);
 		judeges_txt[i].setString(judge_str[i]);
@@ -83,9 +87,8 @@ ResultUI::ResultUI(float width, float height, sf::Font& font) {
 		judeges[i].setFillColor(sf::Color::White);
 		judeges[i].setString(std::to_string(1000));
 	}
-}
+#pragma endregion
 
-void ResultUI::setResult(double accuracy, int score, int maxCom, std::array<int, 5> targetPass, bool is_new) {
 	std::string accurateStr = std::to_string(accuracy);
 	accurateStr = accurateStr.substr(0, accurateStr.find(".") + 3) + "%";
 	acc.setString(accurateStr);

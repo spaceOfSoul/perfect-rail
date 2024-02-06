@@ -1,10 +1,11 @@
 #include "GameScene.h"
 #define _BV(n) (1<<n)
 
-GameScene::GameScene(float width, float height)
+GameScene::GameScene(float width, float height, sf::Font font)
 : am(AudioManager::Instance())
 , gm(GameManager(am, noteInScreen))
 , sm(SettingsManager::Instance())
+, font(font)
 , note_plate(platePosition, 0)
 , comboText(sf::Color(128, 128, 128, 255), width / 2, comboHeight)
 , judgeText(sf::Color(128, 128, 128, 255), width / 2, judgeHeight)
@@ -17,13 +18,8 @@ GameScene::GameScene(float width, float height)
     for (int i = 0; i < 4; i++) 
         keyPushed[i] = false;
     
-    if (!font.loadFromFile("fonts/arial.ttf")) {
-        printf("폰트가 없음!");
-    }
+    this->font = font;
 
-    comboText.setFont(font);
-    judgeText.setFont(font);
-    ready_txt.setFont(font);
     am.LoadMusic("Result", "./bgm/Result.wav");
     
     music_note_process = 0;
@@ -40,8 +36,13 @@ GameScene::~GameScene() {
 }
 
 void GameScene::onActivate() {
-	SceneManager& scene_manager = SceneManager::getInstance();
+    SceneManager& scene_manager = SceneManager::getInstance();
 	printf("on Activate\n");
+
+    comboText.setFont(font);
+    judgeText.setFont(font);
+    ready_txt.setFont(font);
+
     music_note_process = 0;
     isAlive = true;
     hp = 100;

@@ -4,14 +4,11 @@
 
 std::string difficulties[3] = { "Normal", "Hard", "Expert" };
 
-SongMenuScene::SongMenuScene(float width, float height) 
+SongMenuScene::SongMenuScene(float width, float height, sf::Font font)
     :am(AudioManager::Instance()), songList(VerticalList(width, height)) {
     this->width = width;
     this->height = height;
-    if (!font.loadFromFile("fonts/arial.ttf")) {
-        printf("폰트가 없음.\n");
-    }
-
+    this->font = font;
     std::filesystem::path directoryPath("Songs");
 
     if (std::filesystem::exists(directoryPath) && std::filesystem::is_directory(directoryPath))
@@ -54,15 +51,6 @@ SongMenuScene::SongMenuScene(float width, float height)
             }
         }
     }
-    selectedItemIndex = songList.getCurrentIndex();
-    albumImage = std::make_unique<AlbumArt>(sf::Vector2f(250, 250), sf::Vector2f(50, 30), songInfos[selectedItemIndex].imagePath); // size, pos
-
-    difficultyRegionRect.setFillColor(sf::Color(40, 40, 40, 200));
-    difficultyRegionRect.setSize(sf::Vector2f(250,50));
-    difficultyRegionRect.setPosition(sf::Vector2f(50,230));
-
-    region_highscore = std::make_unique<HighscorePannel>(30,290, font);
-    songList.setPos(-60,-30);
 }
 
 
@@ -188,6 +176,14 @@ void SongMenuScene::update(float dt) {
 
 void SongMenuScene::onActivate() {
     selectedItemIndex = songList.getCurrentIndex();
+    albumImage = std::make_unique<AlbumArt>(sf::Vector2f(250, 250), sf::Vector2f(50, 30), songInfos[selectedItemIndex].imagePath); // size, pos
+
+    difficultyRegionRect.setFillColor(sf::Color(40, 40, 40, 200));
+    difficultyRegionRect.setSize(sf::Vector2f(250, 50));
+    difficultyRegionRect.setPosition(sf::Vector2f(50, 230));
+
+    region_highscore = std::make_unique<HighscorePannel>(30, 290, font);
+    songList.setPos(-60, -30);
     if (songInfos.size() > 0) {
         am.PlayMusic(songInfos[selectedItemIndex].songNameStr);
     }

@@ -1,10 +1,20 @@
 #include "OptionScene.h"
 #include <sstream>
 
-OptionScene::OptionScene(float width, float height) : am(AudioManager::Instance()), sm(SettingsManager::Instance()), key_setUI(150, 175, 500, 250) {
-	if (!font.loadFromFile("fonts/arial.ttf")) {
-		printf("폰트가 없음\n");
-	}
+OptionScene::OptionScene(float width, float height, sf::Font font) : am(AudioManager::Instance()), sm(SettingsManager::Instance()), key_setUI(150, 175, 500, 250) {
+	this->width = width;
+	this->height = height;
+	this->font = font;
+
+	selectedItemIndex = 0;
+}
+
+OptionScene::~OptionScene()
+{
+}
+
+void OptionScene::onActivate() {
+	selectedItemIndex = 0;
 
 	// render texts
 	titleText.setFont(font);
@@ -20,14 +30,6 @@ OptionScene::OptionScene(float width, float height) : am(AudioManager::Instance(
 		menus[i].setPosition(sf::Vector2f(width / 2, height / (OPTION_ITEM + 1) * (i + 1)));
 	}
 
-	selectedItemIndex = 0;
-}
-
-OptionScene::~OptionScene()
-{
-}
-
-void OptionScene::onActivate() {
 	std::stringstream ss;
 
 	ss << "Music Volume: " << (int)sm.GetMusicVolume() << "%";

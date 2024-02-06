@@ -13,7 +13,7 @@ private:
     KeySettingModal setting_ui;
 	
 public:
-    DebuggingScene(float width, float height);
+    DebuggingScene(float width, float height, sf::Font font);
     ~DebuggingScene();
 
     void update(float dt) override;

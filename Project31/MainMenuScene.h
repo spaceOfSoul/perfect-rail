@@ -18,6 +18,8 @@ private:
     AudioManager& am;
     int selectedItemIndex = 0;
     const int fontSize = 24;
+    float width;
+    float height;
 
     std::vector<sf::Keyboard::Key> testSceneCommands;
     std::vector<sf::Keyboard::Key> currentInputSequence;
@@ -26,7 +28,7 @@ private:
     bool checkForHiddenCommand(sf::Keyboard::Key keyPressed);
 
 public:
-    MainMenuScene(float width, float height);
+    MainMenuScene(float width, float height, sf::Font font);
     ~MainMenuScene();
 
     void update(float dt) override;
