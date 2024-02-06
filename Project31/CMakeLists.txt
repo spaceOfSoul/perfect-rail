@@ -7,3 +7,8 @@ find_package(SFML 2.5 COMPONENTS graphics audio REQUIRED)
 
 add_executable(PerfectRail main.cpp)
 target_link_libraries(PerfectRail sfml-graphics sfml-audio)
+
+file(COPY ${CMAKE_SOURCE_DIR}/bgm DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY ${CMAKE_SOURCE_DIR}/fonts DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY ${CMAKE_SOURCE_DIR}/Songs DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY ${CMAKE_SOURCE_DIR}/Sounds DESTINATION ${CMAKE_BINARY_DIR})
