@@ -19,9 +19,9 @@ public:
     void update(float dt);
     void draw(sf::RenderWindow& window);
 
-    void setScreen(const std::string sceneName);
+    void setScreen(const int sceneName);
 
-    void registerScenes(std::map<std::string, Scene*> scenes);
+    void registerScenes(std::vector<Scene*>& scenes);
 
     void setGameScene(const SongInfo& songInfo, int difficultyIndex);
 
@@ -37,5 +37,5 @@ public:
 private:
     SceneManager() = default;
     Scene* currentScreen;
-    std::map<std::string, Scene*> scenes;
+    std::vector<Scene*> scenes;
 };

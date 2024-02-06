@@ -188,7 +188,7 @@
     <ClInclude Include="GameManager.h">
       <Filter>헤더 파일\inGame</Filter>
     </ClInclude>
-    <ClInclude Include="judgeText.h">
+    <ClInclude Include="JudgeText.h">
       <Filter>헤더 파일\inGame\obj</Filter>
     </ClInclude>
     <ClInclude Include="ResultUI.h">

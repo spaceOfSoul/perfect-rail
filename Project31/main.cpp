@@ -28,7 +28,7 @@ int main()
     AudioManager& am = AudioManager::Instance(); // 오디오 관리자
 
     // sounds load
-    for (const auto& entry : std::filesystem::directory_iterator("sounds")) {
+    for (const auto& entry : std::filesystem::directory_iterator("Sounds")) {
         std::string path = entry.path().string();
 
         // wav 파일이면 로드함.
@@ -38,18 +38,18 @@ int main()
     }
 
     //맵 목록
-    std::map<std::string, Scene*> scenes;
-    scenes["mainMenu"] = new MainMenuScene(window.getSize().x, window.getSize().y);
-    scenes["songMenu"] = new SongMenuScene(window.getSize().x, window.getSize().y);
-    scenes["gameScene"] = new GameScene(window.getSize().x, window.getSize().y);
-    scenes["optionScene"] = new OptionScene(window.getSize().x, window.getSize().y);
-    scenes["debugScene"] = new DebuggingScene(window.getSize().x, window.getSize().y);
+    std::vector<Scene*> scenes;
+    scenes.push_back(new MainMenuScene(window.getSize().x, window.getSize().y));
+    scenes.push_back(new SongMenuScene(window.getSize().x, window.getSize().y));
+    scenes.push_back(new GameScene(window.getSize().x, window.getSize().y));
+    scenes.push_back(new OptionScene(window.getSize().x, window.getSize().y));
+    scenes.push_back(new DebuggingScene(window.getSize().x, window.getSize().y));
 
     // 맵 관리자
     SceneManager& scene_manager = SceneManager::getInstance();
     scene_manager.registerScenes(scenes);
 
-    scene_manager.setScreen("mainMenu");
+    scene_manager.setScreen(0);
 
     sf::Clock clock;
 

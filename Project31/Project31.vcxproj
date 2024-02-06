@@ -173,7 +173,7 @@
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="HpBar.h" />
-    <ClInclude Include="judgeText.h" />
+    <ClInclude Include="JudgeText.h" />
     <ClInclude Include="KeySettingModal.h" />
     <ClInclude Include="MainMenuScene.h" />
     <ClInclude Include="NameInputUI.h" />

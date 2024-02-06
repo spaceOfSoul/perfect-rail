@@ -1,15 +1,16 @@
 #include "SceneManager.h"
 #include "GameScene.h"
 
-void SceneManager::registerScenes(std::map<std::string, Scene*> scenes) {
+void SceneManager::registerScenes(std::vector<Scene*>& scenes) {
     this->scenes = scenes;
     this->currentScreen = nullptr;
 }
 
-void SceneManager::setScreen(std::string sceneName) {
+void SceneManager::setScreen(int sceneNum) {
     if (this->currentScreen != nullptr)
         this->currentScreen->onDeactivate();
-    this->currentScreen = scenes[sceneName];
+    printf("set %d\n", sceneNum);
+    this->currentScreen = scenes[sceneNum];
     this->currentScreen->onActivate();
 }
 
@@ -20,19 +21,19 @@ void SceneManager::handleInput(sf::Event event, sf::RenderWindow& window) {
     case Signal::None:
         break;
     case Signal::GoToMainMenu:
-        setScreen("mainMenu");
+        setScreen(0);
         break;
     case Signal::GoToSongMenu:
-        setScreen("songMenu");
+        setScreen(1);
         break;
     case Signal::GoToOptionMenu:
-        setScreen("optionScene");
+        setScreen(3);
         break;
     case Signal::GoToPlayScene:
-        setScreen("gameScene");
+        setScreen(2);
         break;
     case Signal::DebugCommandActivated:
-        setScreen("debugScene");
+        setScreen(4);
         break;
     case Signal::Exit:
         window.close();
