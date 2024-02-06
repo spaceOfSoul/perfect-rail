@@ -17,7 +17,7 @@ GameScene::GameScene(float width, float height)
     for (int i = 0; i < 4; i++) 
         keyPushed[i] = false;
     
-    if (!font.loadFromFile("fonts\\arial.ttf")) {
+    if (!font.loadFromFile("fonts/arial.ttf")) {
         printf("폰트가 없음!");
     }
 

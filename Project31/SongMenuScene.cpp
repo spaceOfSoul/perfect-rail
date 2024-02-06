@@ -8,7 +8,7 @@ SongMenuScene::SongMenuScene(float width, float height)
     :am(AudioManager::Instance()), songList(VerticalList(width, height)) {
     this->width = width;
     this->height = height;
-    if (!font.loadFromFile("fonts\\arial.ttf")) {
+    if (!font.loadFromFile("fonts/arial.ttf")) {
         printf("폰트가 없음.\n");
     }
 

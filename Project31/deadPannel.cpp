@@ -7,7 +7,7 @@ DeadPannel::DeadPannel(float x, float y) {
 	height = 600;
 	width = 800;
 
-	if (!font.loadFromFile("fonts\\arial.ttf")) {
+	if (!font.loadFromFile("fonts/arial.ttf")) {
 		printf("폰트가 없음!");
 	}
 

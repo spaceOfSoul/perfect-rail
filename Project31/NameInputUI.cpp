@@ -7,7 +7,7 @@ NameInputUI::NameInputUI(int x, int y, int offset,int width, int height, int cur
 	this->current_chracter = current_chracter;
 	this->character_size = character_size;
 
-	if (!font.loadFromFile("fonts\\arial.ttf")) {
+	if (!font.loadFromFile("fonts/arial.ttf")) {
 		printf("폰트가 없음!");
 	}
 

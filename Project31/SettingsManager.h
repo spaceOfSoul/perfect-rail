@@ -13,7 +13,11 @@ public:
 	static SettingsManager& Instance();
 
 	static inline std::string OPTIONFILE_PATH() {
+#ifdef _WIN32
 		return get_appdata_roaming_path().append("\\perfectRail\\setting.bin");
+#else
+		return get_appdata_roaming_path().append("/perfectRail/setting.bin");
+#endif
 	}
 
 	float GetMusicVolume() const;
