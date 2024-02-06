@@ -129,10 +129,10 @@ void SongMenuScene::MoveDown() {
 void SongMenuScene::updateSelectedItem() {
     selectedItemIndex = songList.getCurrentIndex();
 
-    // 현재 선택된 곡의 정보를 업데이트합니다.
+    // 현재 선택된 곡의 정보를 업데이트.
     const SongInfo& currentSong = songInfos[selectedItemIndex];
-    am.StopMusic(currentSong.songNameStr); // 이전에 재생 중이던 음악을 정지합니다.
-    am.PlayMusic(currentSong.songNameStr); // 새로운 곡을 재생합니다.
+    am.StopMusic(currentSong.songNameStr);
+    am.PlayMusic(currentSong.songNameStr);
 
     // 앨범 이미지와 고득점 패널 업데이트
     albumImage->setTexturePath(currentSong.imagePath);

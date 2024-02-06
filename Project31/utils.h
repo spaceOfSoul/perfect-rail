@@ -1,13 +1,13 @@
 #pragma once
-#ifdef _WIN32  // Windows 환경
+#ifdef _WIN32 // 윈도우
 #include <windows.h>
 #include <shlobj.h>
-#include <string>
-
-std::string get_appdata_roaming_path();
+#else // 리눅스
+#include <unistd.h>
+#include <sys/types.h>
+#include <pwd.h>
 #endif
-// 리눅스는 일단 고려 안함.
 
 #include <filesystem>
-
+std::string get_appdata_roaming_path();
 std::string getDirectoryPath(const std::string& filepath);

@@ -1,7 +1,7 @@
 #include "OptionScene.h"
 #include <sstream>
 
-OptionScene::OptionScene(float width, float height) : am(AudioManager::Instance()), sm(SettingsManager::Instance()) {
+OptionScene::OptionScene(float width, float height) : am(AudioManager::Instance()), sm(SettingsManager::Instance()), key_setUI(150, 175, 500, 250) {
 	if (!font.loadFromFile("fonts\\arial.ttf")) {
 		printf("폰트가 없음\n");
 	}

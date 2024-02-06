@@ -7,6 +7,7 @@
 #include "Scene.h"
 #include "options.h"
 #include "SettingsManager.h"
+#include "KeySettingModal.h"
 
 #define OPTION_ITEM 7
 
@@ -20,6 +21,7 @@ private:
     sf::Text titleText;
     sf::Text menus[OPTION_ITEM];
     sf::RectangleShape startButton;
+    KeySettingModal key_setUI;
     int selectedItemIndex = 0;
     const int fontSize = 24;
 

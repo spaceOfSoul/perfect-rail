@@ -141,6 +141,9 @@
     <ClCompile Include="ReadyText.cpp">
       <Filter>소스 파일\inGame\obj</Filter>
     </ClCompile>
+    <ClCompile Include="VisualEvent.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="signal.h">
@@ -232,6 +235,9 @@
     </ClInclude>
     <ClInclude Include="ReadyText.h">
       <Filter>헤더 파일\inGame\obj</Filter>
+    </ClInclude>
+    <ClInclude Include="VisualEvent.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
