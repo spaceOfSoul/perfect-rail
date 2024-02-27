@@ -66,7 +66,6 @@ int main()
             // game 전반의 이벤트
             if (event.type == sf::Event::Closed)
                 window.close();
-
             // 전체화면 전환
             if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F5)
             {

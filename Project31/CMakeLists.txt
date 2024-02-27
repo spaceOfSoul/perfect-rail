@@ -3,6 +3,12 @@ project(PerfectRail)
 
 set(CMAKE_CXX_STANDARD 17)
 
+#최적화 비활성화
+set(CMAKE_CXX_FLAGS_DEBUG "-g -O0")
+
+#릴리즈 모드(최적화 활성화)
+set(CMAKE_CXX_FLAGS_RELEASE "-O3")
+
 find_package(SFML 2.5 COMPONENTS graphics audio REQUIRED)
 
 file(GLOB SOURCES "*.cpp")
