@@ -34,6 +34,7 @@ public:
     // for play Scene
     SongInfo currentPlaySong;
     int currentDifficultyIndex;
+    int currentSceneNum;
 private:
     SceneManager() = default;
     Scene* currentScreen;

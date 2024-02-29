@@ -54,9 +54,11 @@ int main()
     SceneManager& scene_manager = SceneManager::getInstance();
     scene_manager.registerScenes(scenes);
 
-    scene_manager.setScreen(0);
+    int currentScene = 0;
+    scene_manager.setScreen(currentScene);
 
     sf::Clock clock;
+    sf::Clock delay_clock;
 
     while (window.isOpen())
     {
@@ -82,6 +84,10 @@ int main()
                 }
             }
 
+            // 이벤트 안정화
+            if (delay_clock.getElapsedTime().asSeconds() < 1.0f)
+                continue;
+
             // Scene handle
             scene_manager.handleInput(event, window);
         }
@@ -94,6 +100,11 @@ int main()
         window.clear();
         scene_manager.draw(window);
         window.display();
+
+        if (scene_manager.currentSceneNum != currentScene) {
+            currentScene = scene_manager.currentSceneNum;
+            delay_clock.restart();
+        }
     }
 
     return 0;

@@ -9,9 +9,10 @@ void SceneManager::registerScenes(std::vector<Scene*>& scenes) {
 void SceneManager::setScreen(int sceneNum) {
     if (this->currentScreen != nullptr)
         this->currentScreen->onDeactivate();
-    printf("set %d\n", sceneNum);
+    std::cout << "set "<< sceneNum << std::endl;
     this->currentScreen = scenes[sceneNum];
     this->currentScreen->onActivate();
+    currentSceneNum = sceneNum;
 }
 
 void SceneManager::handleInput(sf::Event event, sf::RenderWindow& window) {
