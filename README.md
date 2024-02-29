@@ -27,3 +27,10 @@ SFML을 활용하여 제작한 건반형 리듬게임.
     ```
     cmake -DCMAKE_BUILD_TYPE=Release ..
     ```
+
+### g++ 빌드
+위 빌드가 잘 먹히지 않는 경우, 아래와 같은 구문을 사용하여 g++ 수동 빌드를 진행할 수 있다.
+- 디버그
+  ```
+  g++ -std=c++17 -g -O0 -o PerfectRail *.cpp -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
+    ```
