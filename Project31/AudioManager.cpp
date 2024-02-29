@@ -1,6 +1,6 @@
 #include "AudioManager.h"
-#include <stdio.h>
 #include <filesystem>
+#include <iostream>
 
 AudioManager::AudioManager():sm(SettingsManager::Instance()) {
     music_volume = sm.GetMusicVolume();
@@ -18,7 +18,7 @@ void AudioManager::LoadSound(const std::string& path) {
         sounds[name] = std::move(sound);
     }
     else {
-        printf("Failed to load sound from %s\n", path.c_str());
+        std::cerr << "Failed to load sound from" << path << std::endl;
     }
 }
 
@@ -31,23 +31,21 @@ void AudioManager::PlayEventSound(const std::string& soundName) {
         sound->play();
     }
     else {
-        printf("Sound %s not found.\n", soundName.c_str());
+        std::cerr << "Sound " << soundName << " not found.\n" << std::endl;
     }
 }
-
 void AudioManager::StopSound(const std::string& soundName) {
     if (sounds.find(soundName) != sounds.end()) {
         sounds[soundName]->stop();
     }
     else {
-        printf("Sound %s not found.\n", soundName.c_str());
+        std::cerr << "Sound " << soundName << " not found.\n";
     }
 }
 
-//music
 void AudioManager::LoadMusic(const std::string& musicName, const std::string& path) {
     if (!std::filesystem::exists(path)) {
-        printf("Failed to load music from %s\n", path.c_str());
+        std::cerr << "Failed to load music from " << path << "\n";
         return;
     }
 
@@ -58,13 +56,13 @@ void AudioManager::PlayMusic(const std::string& musicName) {
     music_volume = sm.GetMusicVolume();
     current_music_name = musicName;
     if (musics.find(musicName) == musics.end()) {
-        printf("Music %s not found. Can't start.\n", musicName.c_str());
+        std::cerr << "Music " << musicName << " not found. Can't start.\n";
         return;
     }
 
     currentMusic = std::make_unique<sf::Music>();
     if (!currentMusic->openFromFile(musics[musicName])) {
-        printf("Failed to open music file %s\n", musics[musicName].c_str());
+        std::cerr << "Failed to open music file " << musics[musicName] << "\n";
         return;
     }
     currentMusic->setVolume(music_volume);
@@ -73,23 +71,23 @@ void AudioManager::PlayMusic(const std::string& musicName) {
 
 void AudioManager::StopMusic(const std::string& musicName) {
     if (musics.find(musicName) == musics.end()) {
-        printf("Music %s not found. Can't stop.\n", musicName.c_str());
+        std::cerr << "Music " << musicName << " not found. Can't stop.\n";
         return;
     }
 
     currentMusic->stop();
 }
 
-// Volume Setting
 void AudioManager::SetSoundVolume(const std::string& soundName, float volume) {
     sound_volume = volume;
     if (sounds.find(soundName) != sounds.end()) {
         sounds[soundName]->setVolume(volume);
     }
     else {
-        printf("Sound %s not found.\n", soundName.c_str());
+        std::cerr << "Sound " << soundName << " not found.\n";
     }
 }
+
 
 void AudioManager::SetMusicVolume(const std::string& musicName, float volume) {
     music_volume = volume;

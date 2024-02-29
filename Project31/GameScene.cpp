@@ -37,7 +37,6 @@ GameScene::~GameScene() {
 
 void GameScene::onActivate() {
     SceneManager& scene_manager = SceneManager::getInstance();
-	printf("on Activate\n");
 
     comboText.setFont(font);
     judgeText.setFont(font);

@@ -1,16 +1,11 @@
 #include "MainMenuScene.h"
 
-#include <stdio.h>
+#include <iostream>
 
 MainMenuScene::MainMenuScene(float width, float height, sf::Font font) : am(AudioManager::Instance()) {
 	this->font = font;
 	this->width = width;
 	this->height = height;
-	/*menu_texts[2].setFont(font);
-	menu_texts[2].setFillColor(sf::Color::White);
-	menu_texts[2].setString("Exit");
-	menu_texts[2].setCharacterSize(fontSize);
-	menu_texts[2].setPosition(sf::Vector2f(width / 2, height / (MAX_OF_ITEM + 1) * 3));*/
 
 	selectedItemIndex = 0;
 
@@ -47,24 +42,34 @@ void MainMenuScene::draw(sf::RenderWindow& window) {
 
 void MainMenuScene::MoveUp()
 {
-	if (selectedItemIndex - 1 >= 0)
+	//printf("up %d \n", selectedItemIndex);
+
+	if (selectedItemIndex > 0)
 	{
 		am.PlayEventSound("menu_select");
 		menu_texts[selectedItemIndex].setFillColor(sf::Color::White);
 		selectedItemIndex--;
+		//printf("%d to %d \n", selectedItemIndex + 1, selectedItemIndex);
+
 		menu_texts[selectedItemIndex].setFillColor(sf::Color::Red);
 	}
+
+	//printf("up %d \n", selectedItemIndex);
 }
 
 void MainMenuScene::MoveDown()
 {
-	if (selectedItemIndex + 1 < MAX_OF_ITEM)
+	//printf("down %d \n", selectedItemIndex);
+
+	if (selectedItemIndex < MAX_OF_ITEM-1)
 	{
 		am.PlayEventSound("menu_select");
 		menu_texts[selectedItemIndex].setFillColor(sf::Color::White);
 		selectedItemIndex++;
+		//printf("%d \n", selectedItemIndex);
 		menu_texts[selectedItemIndex].setFillColor(sf::Color::Red);
 	}
+	//printf("down %d \n", selectedItemIndex);
 }
 
 Signal MainMenuScene::handleInput(sf::Event event, sf::RenderWindow &window) {
@@ -86,22 +91,22 @@ Signal MainMenuScene::handleInput(sf::Event event, sf::RenderWindow &window) {
 		}
 		else if (event.key.code == sf::Keyboard::Return)
 		{
-			int pressedItem = GetPressedItem();
 
-			if (pressedItem == 0)
+			if (selectedItemIndex == 0)
 			{
-				printf("Play button has been pressed\n");
+				//printf("Play button has been pressed\n");
 				return Signal::GoToSongMenu;
 				
 			}
-			else if (pressedItem == 1)
+			else if (selectedItemIndex == 1)
 			{
-				printf("Option button has been pressed\n");
+				//printf("Option button has been pressed\n");
 				return Signal::GoToOptionMenu;
 			}
-			else if (pressedItem == 2) // not working now
+			else if (selectedItemIndex == 2) // not working now
 			{
-				window.close();
+				 //window.close();
+				std::cerr << "pushed";
 			}
 		}
 	}
@@ -114,10 +119,16 @@ void MainMenuScene::update(float dt) {
 void MainMenuScene::onActivate() {
 	// render texts
 	titleText.setFont(font);
-	titleText.setString("Main Menu");
-	titleText.setCharacterSize(fontSize * 1.2);
+	titleText.setString("Perfect Rail");
+	titleText.setCharacterSize(fontSize * 1.5);
 	titleText.setPosition(sf::Vector2f(200.f, 50.f));
 	titleText.setFillColor(sf::Color::White);
+
+	/*menu_texts[2].setFont(font);
+	menu_texts[2].setFillColor(sf::Color::White);
+	menu_texts[2].setString("Test");
+	menu_texts[2].setCharacterSize(fontSize);
+	menu_texts[2].setPosition(sf::Vector2f(width / 2, height / (MAX_OF_ITEM + 1) * 3));*/
 
 	menu_texts[0].setFont(font);
 	menu_texts[0].setFillColor(sf::Color::Red);
@@ -132,8 +143,6 @@ void MainMenuScene::onActivate() {
 	menu_texts[1].setPosition(sf::Vector2f(width / 2, height / (MAX_OF_ITEM + 1) * 2));
 
 	selectedItemIndex = 0;
-
-
 }
 
 void MainMenuScene::onDeactivate() {
