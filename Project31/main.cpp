@@ -32,7 +32,7 @@ int main()
         std::string path = entry.path().string();
 
         // wav 파일이면 로드함.
-        if (entry.path().extension() == ".wav") {
+        if (entry.path().extension() == ".ogg") {
             am.LoadSound(path);
         }
     }
