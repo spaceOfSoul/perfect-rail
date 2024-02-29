@@ -85,7 +85,7 @@ Results SaveResult::loadFromDirectory(const std::string& directory) {
     }
     catch (const std::exception& e)
     {
-        printf("Error while loading file: %s\n", e.what());
+        std::cerr << "Error while loading file: " << e.what() << std::endl;
     }
 
     return loadedResults;

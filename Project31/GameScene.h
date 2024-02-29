@@ -19,6 +19,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <list>
+#include <iostream>
 
 #define NOTE_CLOCK_STARTED 0
 #define FINISH_PROCESS 1

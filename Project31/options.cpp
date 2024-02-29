@@ -1,6 +1,5 @@
 #include "options.h"
 
-#include <filesystem>
 
 void saveOptionFile(const Options& option, const std::string& filename) {
     std::filesystem::path filePath(filename);
@@ -13,7 +12,7 @@ void saveOptionFile(const Options& option, const std::string& filename) {
 
     std::ofstream file(filename, std::ios::binary);
     if (!file) {
-        printf("Failed to open the file for writing.\n");
+        std::cerr << "Failed to open the file for writing." << std:: endl;
         return;
     }
 
@@ -25,16 +24,16 @@ void saveOptionFile(const Options& option, const std::string& filename) {
 
     file.close();
 
-    printf("Successed writing.\n");
+    std::cerr << "Successed writing." << std::endl;
 }
 
 void loadOptionFromFile(Options& option, const std::string& filename) {
     std::ifstream file(filename, std::ios::binary);
     if (!file) {
-        printf("Failed to open file for reading\n");
+        std::cerr << "Failed to open file for reading" << std::endl;
         initOptionSave(option, filename);
     }
-    printf("music volume(세이브 직후) :%f\n", option.music_volume);
+    std::cerr << "music volume(세이브 직후)" << option.music_volume << std::endl;
 
     // 파일 사이즈 체크
     file.seekg(0, std::ios::end); // 포인터를 ios::end, 즉 파일의 끝으로 이동
@@ -47,7 +46,7 @@ void loadOptionFromFile(Options& option, const std::string& filename) {
         remove(filename.c_str());// delete the file
 
         initOptionSave(option, filename);
-        printf("Old setting file. new file create.\n");
+        std::cerr << "Old setting file. new file create." << std::endl;
     }
     else {
         // read the settings
@@ -57,7 +56,7 @@ void loadOptionFromFile(Options& option, const std::string& filename) {
         file.read((char*)(&option.val_y), sizeof(option.val_y));
         file.read((char*)(&option.time_sync), sizeof(option.time_sync));
 
-        printf("Options loaded successfully\n");
+        std::cerr << "Options loaded successfully" << std::endl;
         file.close();
     }
 }

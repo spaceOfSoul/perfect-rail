@@ -210,7 +210,7 @@ void GameScene::update(float dt) {
     if (hp <= 0) {
         am.StopMusic(songInfo.songNameStr);
         if (isAlive) {
-            printf("player dead\n");
+            std::cerr << "player dead" << std::endl;
             am.PlayEventSound("GameOver");
         }
         isAlive = false;
@@ -388,7 +388,7 @@ void GameScene::setSongInfo(const SongInfo &songInfo, int difficulty) {
     int file_opened = LoadMapFile(filePath, song_data);
 
     if (!file_opened)
-        printf("%s open failed!\n",filePath.c_str());
+        std::cerr << filePath << "open failed!" << std::endl;
     else
-        printf("Load %s\n", filePath.c_str());
+        std::cerr << "Load " << filePath << std::endl;
 }

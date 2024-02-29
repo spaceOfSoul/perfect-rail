@@ -31,7 +31,7 @@ SongMenuScene::SongMenuScene(float width, float height, sf::Font font)
                     else if (subEntry.path().extension() == ".mp3" || subEntry.path().extension() == ".ogg") {
                         songInfo.songPath = subEntry.path().string();
                         am.LoadMusic(songInfo.songNameStr,songInfo.songPath);
-                        printf("%s\n", songInfo.songPath.c_str());
+                        std::cerr <<songInfo.songPath << std::endl;
                     }
                     // 채보 파일 경로
                     else if (subEntry.path().extension() == ".osu") {

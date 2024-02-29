@@ -1,9 +1,9 @@
 #pragma once
 
 #include <fstream>
-#include <stdio.h>
 #include <string>
 #include <filesystem>
+#include <iostream>
 
 struct Options {
 	float music_volume;

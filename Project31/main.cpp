@@ -1,5 +1,5 @@
 #include <SFML/Graphics.hpp>
-#include <stdio.h>
+#include <iostream>
 
 #include "MainMenuScene.h"
 #include "SongMenuScene.h"
@@ -18,7 +18,7 @@ int main()
 
     SettingsManager sm = SettingsManager::Instance();
 
-    printf("music volume : %f", sm.GetMusicVolume());
+    std::cerr << "music volume : " << sm.GetMusicVolume() << std::endl;
 
     sf::RenderWindow window(sf::VideoMode(window_width, window_height), "Perfect Rail");
 
@@ -40,7 +40,7 @@ int main()
     sf::Font font;
 
     while(!font.loadFromFile("fonts/arial.ttf")) {
-        printf("No font (in main)\n");
+        std::cerr << "No font (in main)" << std::endl;
     }
     //맵 목록
     std::vector<Scene*> scenes;
