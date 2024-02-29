@@ -372,3 +372,22 @@ pre_installer
 
 #cmake
 /CMakeFiles/
+# CMake generated files and folders
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+
+# Build directories
+build/
+bin/
+lib/
+
+# Editor files and folders
+*.swp
+*.swo
+*~
+
+# Operating System generated files and folders
+.DS_Store
+Thumbs.db

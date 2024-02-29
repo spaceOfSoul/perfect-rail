@@ -14,7 +14,7 @@ int main() {
     sf::Text text("Hello SFML", font, 50);
 
     sf::SoundBuffer buffer;
-    if (!buffer.loadFromFile("Sounds/sound.ogg")) {
+    if (!buffer.loadFromFile("Sounds/applause.ogg")) {
         std::cerr << "Error loading sound\n";
         return 1;
     }
