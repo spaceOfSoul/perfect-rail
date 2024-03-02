@@ -124,7 +124,13 @@ void SongMenuScene::updateSelectedItem() {
 
     // 앨범 이미지와 고득점 패널 업데이트
     albumImage->setTexturePath(currentSong.imagePath);
+    
+#ifdef WIN32
     Results results = SaveResult::loadFromDirectory(get_appdata_roaming_path().append("\\perfectRail\\").append(currentSong.songNameStr));
+#else
+    Results results = SaveResult::loadFromDirectory(get_appdata_roaming_path().append("/perfectRail/").append(currentSong.songNameStr));
+#endif
+
     region_highscore->setScores(results);
 }
 
@@ -187,7 +193,11 @@ void SongMenuScene::onActivate() {
     if (songInfos.size() > 0) {
         am.PlayMusic(songInfos[selectedItemIndex].songNameStr);
     }
+    #ifdef WIN32
     Results results = SaveResult::loadFromDirectory(get_appdata_roaming_path().append("\\perfectRail\\").append(songInfos[selectedItemIndex].songNameStr));
+    #else
+    Results results = SaveResult::loadFromDirectory(get_appdata_roaming_path().append("/perfectRail/").append(songInfos[selectedItemIndex].songNameStr));
+    #endif
     region_highscore->setScores(results);
 }
 

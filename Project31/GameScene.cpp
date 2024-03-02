@@ -153,7 +153,11 @@ void GameScene::update(float dt) {
 
             ResultData data(gm.getAccuracy(), gm.getScore(), gm.getMaxCombo(), gm.getTargetPass(), username); // 현재 결과
 
+#ifdef WIN32
             Results existingResults = SaveResult::loadFromDirectory(get_appdata_roaming_path().append("\\perfectRail\\").append(songInfo.songNameStr));
+#else
+            Results existingResults = SaveResult::loadFromDirectory(get_appdata_roaming_path().append("/perfectRail/").append(songInfo.songNameStr));
+#endif
             existingResults.add(data);
 
             std::sort(existingResults.results.begin(), existingResults.results.end(), [](const ResultData& a, const ResultData& b) {
@@ -164,7 +168,11 @@ void GameScene::update(float dt) {
                 existingResults.results.resize(10);
             }
             // 최종 하이스코어 저장
+#ifdef WIN32
             SaveResult::saveToDirectory(existingResults, get_appdata_roaming_path().append("\\perfectRail\\").append(songInfo.songNameStr));
+#else
+            SaveResult::saveToDirectory(existingResults, get_appdata_roaming_path().append("/perfectRail/").append(songInfo.songNameStr));
+#endif
         }
     }
 
