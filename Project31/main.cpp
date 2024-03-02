@@ -70,6 +70,7 @@ int main()
             // game 전반의 이벤트
             if (event.type == sf::Event::Closed)
                 window.close();
+
             // 전체화면 전환
             if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F5)
             {
@@ -86,6 +87,11 @@ int main()
                 }
             }
 
+            // GainedFocuss event 무시
+            // debian 환경에서 에러 발생
+            if (event.type == sf::Event::GainedFocus)
+                continue;
+            
             // 이벤트 안정화 (input을 씬에 넘기지 않음)
             /*if (delay_clock.getElapsedTime().asSeconds() < 0.5f) {
                 get_input = false;
