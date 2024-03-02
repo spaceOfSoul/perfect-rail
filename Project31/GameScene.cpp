@@ -44,7 +44,6 @@ void GameScene::onActivate() {
 
     music_note_process = 0;
     isAlive = true;
-    hp = 100;
     input_process = 0;
     count_factor = 0;
 
@@ -58,6 +57,7 @@ void GameScene::onActivate() {
     initialize();
 	setSongInfo(scene_manager.currentPlaySong, scene_manager.currentDifficultyIndex);
     gm.init(song_data);
+    hp = gm.getHP();
     noteClock.restart();
 }
 

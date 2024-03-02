@@ -28,7 +28,7 @@ SongMenuScene::SongMenuScene(float width, float height, sf::Font font)
                         songInfo.imagePath = subEntry.path().string();
                     }
                     // 노래 파일 경로
-                    else if (subEntry.path().extension() == ".mp3" || subEntry.path().extension() == ".ogg") {
+                    else if (subEntry.path().extension() == ".ogg") { // mp3 파일은 공식적으로는 지원되지 않는다고 함.
                         songInfo.songPath = subEntry.path().string();
                         am.LoadMusic(songInfo.songNameStr,songInfo.songPath);
                         std::cerr <<songInfo.songPath << std::endl;

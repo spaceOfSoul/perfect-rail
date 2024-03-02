@@ -25,6 +25,8 @@ int main()
     bool fullscreen = false;
     int screen_num = 0;
 
+    //bool get_input = true;
+
     AudioManager& am = AudioManager::Instance(); // 오디오 관리자
 
     // sounds load
@@ -84,9 +86,11 @@ int main()
                 }
             }
 
-            // 이벤트 안정화
-            if (delay_clock.getElapsedTime().asSeconds() < 1.0f)
+            // 이벤트 안정화 (input을 씬에 넘기지 않음)
+            /*if (delay_clock.getElapsedTime().asSeconds() < 0.5f) {
+                get_input = false;
                 continue;
+            }*/
 
             // Scene handle
             scene_manager.handleInput(event, window);
@@ -99,6 +103,12 @@ int main()
         //Draw the scene
         window.clear();
         scene_manager.draw(window);
+
+        /*if (get_input)
+            scene_manager.draw(window);
+        else {
+
+        }*/
         window.display();
 
         if (scene_manager.currentSceneNum != currentScene) {
