@@ -8,48 +8,6 @@ SongMenuScene::SongMenuScene(float width, float height, sf::Font& font)
     :am(AudioManager::Instance()), songList(VerticalList(width, height)), font(font) {
     this->width = width;
     this->height = height;
-    std::filesystem::path directoryPath("Songs");
-
-    if (std::filesystem::exists(directoryPath) && std::filesystem::is_directory(directoryPath))
-    {
-        int i = 0;
-        for (const auto& entry : std::filesystem::directory_iterator(directoryPath))
-        {
-            if (std::filesystem::is_directory(entry))
-            {
-                SongInfo songInfo;
-
-                songInfo.songNameStr = entry.path().filename().string();
-
-                for (const auto& subEntry : std::filesystem::directory_iterator(entry.path())) {
-                    // 앨범 이미지 경로 찾기
-                    if (subEntry.path().filename() == "image.jpg" || subEntry.path().filename() == "image.png") {
-                        songInfo.imagePath = subEntry.path().string();
-                    }
-                    // 노래 파일 경로
-                    else if (subEntry.path().extension() == ".ogg") { // mp3 파일은 공식적으로는 지원되지 않는다고 함.
-                        songInfo.songPath = subEntry.path().string();
-                        am.LoadMusic(songInfo.songNameStr,songInfo.songPath);
-                        std::cerr <<songInfo.songPath << std::endl;
-                    }
-                    // 채보 파일 경로
-                    else if (subEntry.path().extension() == ".osu") {
-                        // 난이도 존재 유무.
-                        for (int i = 0; i < 3; i++) {
-                            if (subEntry.path().filename().string().find(difficulties[i]) != std::string::npos) {
-                                songInfo.difficultiesExist.push_back(i);
-                                break;
-                            }
-                        }
-                        std::sort(songInfo.difficultiesExist.begin(), songInfo.difficultiesExist.end());
-                    }
-                }
-                songInfos.push_back(songInfo);
-                songList.addItem(songInfo.songNameStr);
-                i++;
-            }
-        }
-    }
 }
 
 
@@ -180,6 +138,50 @@ void SongMenuScene::update(float dt) {
 }
 
 void SongMenuScene::onActivate() {
+    std::filesystem::path directoryPath("Songs");
+
+    // 노래 목록
+    if (std::filesystem::exists(directoryPath) && std::filesystem::is_directory(directoryPath))
+    {
+        int i = 0;
+        for (const auto& entry : std::filesystem::directory_iterator(directoryPath))
+        {
+            if (std::filesystem::is_directory(entry))
+            {
+                SongInfo songInfo;
+
+                songInfo.songNameStr = entry.path().filename().string();
+
+                for (const auto& subEntry : std::filesystem::directory_iterator(entry.path())) {
+                    // 앨범 이미지 경로 찾기
+                    if (subEntry.path().filename() == "image.jpg" || subEntry.path().filename() == "image.png") {
+                        songInfo.imagePath = subEntry.path().string();
+                    }
+                    // 노래 파일 경로
+                    else if (subEntry.path().extension() == ".ogg") { // mp3 파일은 공식적으로는 지원되지 않는다고 함.
+                        songInfo.songPath = subEntry.path().string();
+                        am.LoadMusic(songInfo.songNameStr, songInfo.songPath);
+                        std::cerr << songInfo.songPath << std::endl;
+                    }
+                    // 채보 파일 경로
+                    else if (subEntry.path().extension() == ".osu") {
+                        // 난이도 존재 유무.
+                        for (int i = 0; i < 3; i++) {
+                            if (subEntry.path().filename().string().find(difficulties[i]) != std::string::npos) {
+                                songInfo.difficultiesExist.push_back(i);
+                                break;
+                            }
+                        }
+                        std::sort(songInfo.difficultiesExist.begin(), songInfo.difficultiesExist.end());
+                    }
+                }
+                songInfos.push_back(songInfo);
+                songList.addItem(songInfo.songNameStr);
+                i++;
+            }
+        }
+    }
+
     selectedItemIndex = songList.getCurrentIndex();
     albumImage = std::make_unique<AlbumArt>(sf::Vector2f(250, 250), sf::Vector2f(50, 30), songInfos[selectedItemIndex].imagePath); // size, pos
 

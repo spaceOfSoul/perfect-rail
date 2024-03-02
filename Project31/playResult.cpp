@@ -70,13 +70,21 @@ void SaveResult::saveToDirectory(const Results& results, const std::string& dire
         std::filesystem::create_directories(dir);
     }
 
+#ifdef WIN32
     std::string filepath = directory + "\\data.bin";
+#else
+    std::string filepath = directory + "/data.bin";
+#endif
     results_serialize(results, filepath);
 }
 
 // 기록 로드
 Results SaveResult::loadFromDirectory(const std::string& directory) {
+    #ifdef WIN32
     std::string filepath = directory + "\\data.bin";
+    #else
+    std::string filepath = directory + "/data.bin";
+    #endif
 
     Results loadedResults;
     try
