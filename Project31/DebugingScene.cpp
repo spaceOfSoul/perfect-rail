@@ -1,9 +1,8 @@
 #include "DebugingScene.h"
 
-DebuggingScene::DebuggingScene(float width, float height, sf::Font font) : setting_ui(150, 175, 500, 250) {
+DebuggingScene::DebuggingScene(float width, float height, sf::Font& font) : setting_ui(150, 175, 500, 250), font(font) {
     this->width = width;
     this->height = height;
-    this->font = font;
 }
 
 DebuggingScene::~DebuggingScene() {

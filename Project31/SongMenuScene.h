@@ -34,7 +34,7 @@ private:
     float height;
 
 public:
-    SongMenuScene(float width, float height, sf::Font font);
+    SongMenuScene(float width, float height, sf::Font& font);
     ~SongMenuScene();
 
     void update(float dt) override;

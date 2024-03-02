@@ -1,10 +1,9 @@
 #include "OptionScene.h"
 #include <sstream>
 
-OptionScene::OptionScene(float width, float height, sf::Font font) : am(AudioManager::Instance()), sm(SettingsManager::Instance()), key_setUI(150, 175, 500, 250) {
+OptionScene::OptionScene(float width, float height, sf::Font& font) : am(AudioManager::Instance()), sm(SettingsManager::Instance()), key_setUI(150, 175, 500, 250), font(font) {
 	this->width = width;
 	this->height = height;
-	this->font = font;
 
 	selectedItemIndex = 0;
 }

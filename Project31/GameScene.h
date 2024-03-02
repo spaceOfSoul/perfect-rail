@@ -29,7 +29,7 @@
 
 class GameScene : public Scene {
 public:
-    GameScene(float width, float height, sf::Font font);
+    GameScene(float width, float height, sf::Font& font);
     ~GameScene();
 
     void initialize();

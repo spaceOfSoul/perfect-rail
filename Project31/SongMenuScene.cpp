@@ -4,11 +4,10 @@
 
 std::string difficulties[3] = { "Normal", "Hard", "Expert" };
 
-SongMenuScene::SongMenuScene(float width, float height, sf::Font font)
-    :am(AudioManager::Instance()), songList(VerticalList(width, height)) {
+SongMenuScene::SongMenuScene(float width, float height, sf::Font& font)
+    :am(AudioManager::Instance()), songList(VerticalList(width, height)), font(font) {
     this->width = width;
     this->height = height;
-    this->font = font;
     std::filesystem::path directoryPath("Songs");
 
     if (std::filesystem::exists(directoryPath) && std::filesystem::is_directory(directoryPath))

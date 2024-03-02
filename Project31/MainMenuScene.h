@@ -28,7 +28,7 @@ private:
     bool checkForHiddenCommand(sf::Keyboard::Key keyPressed);
 
 public:
-    MainMenuScene(float width, float height, sf::Font font);
+    MainMenuScene(float width, float height, sf::Font& font);
     ~MainMenuScene();
 
     void update(float dt) override;

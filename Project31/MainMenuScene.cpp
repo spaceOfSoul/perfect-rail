@@ -2,8 +2,7 @@
 
 #include <iostream>
 
-MainMenuScene::MainMenuScene(float width, float height, sf::Font font) : am(AudioManager::Instance()) {
-	this->font = font;
+MainMenuScene::MainMenuScene(float width, float height, sf::Font& font) : am(AudioManager::Instance()), font(font) {
 	this->width = width;
 	this->height = height;
 
@@ -84,10 +83,12 @@ Signal MainMenuScene::handleInput(sf::Event event, sf::RenderWindow &window) {
 		if (event.key.code == sf::Keyboard::Up)
 		{
 			MoveUp();
+			return Signal::None;
 		}
 		else if (event.key.code == sf::Keyboard::Down)
 		{
 			MoveDown();
+			return Signal::None;
 		}
 		else if (event.key.code == sf::Keyboard::Return)
 		{
@@ -108,8 +109,10 @@ Signal MainMenuScene::handleInput(sf::Event event, sf::RenderWindow &window) {
 				 //window.close();
 				std::cerr << "pushed";
 			}
+			return Signal::None;
 		}
 	}
+	return Signal::None;
 }
 
 void MainMenuScene::update(float dt) {

@@ -1,7 +1,7 @@
 #include "GameScene.h"
 #define _BV(n) (1<<n)
 
-GameScene::GameScene(float width, float height, sf::Font font)
+GameScene::GameScene(float width, float height, sf::Font& font)
 : am(AudioManager::Instance())
 , gm(GameManager(am, noteInScreen))
 , sm(SettingsManager::Instance())

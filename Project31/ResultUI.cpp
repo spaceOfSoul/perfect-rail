@@ -1,6 +1,5 @@
 #include "ResultUI.h"
-ResultUI::ResultUI(float width, float height, sf::Font& font) {
-	this->font = font;
+ResultUI::ResultUI(float width, float height, sf::Font& font) : font(font) {
 	new_result = false;
 	accuracy = 100.0;
 	score_num = 0;

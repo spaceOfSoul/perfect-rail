@@ -28,7 +28,7 @@ private:
     const int fontSize = 24;
 
 public:
-    OptionScene(float width, float height, sf::Font font);
+    OptionScene(float width, float height, sf::Font& font);
     ~OptionScene();
 
     void update(float dt) override;
