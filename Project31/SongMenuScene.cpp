@@ -4,10 +4,14 @@
 
 std::string difficulties[3] = { "Normal", "Hard", "Expert" };
 
-SongMenuScene::SongMenuScene(float width, float height, sf::Font& font)
-    :am(AudioManager::Instance()), songList(VerticalList(width, height)), font(font) {
+SongMenuScene::SongMenuScene(float width, float height)
+    :am(AudioManager::Instance()), songList(VerticalList(width, height)) {
     this->width = width;
     this->height = height;
+
+    if (!font.loadFromFile("fonts/arial.ttf")) {
+        printf("폰트가 없음!");
+    }
 }
 
 
@@ -138,6 +142,10 @@ void SongMenuScene::update(float dt) {
 }
 
 void SongMenuScene::onActivate() {
+    if (!font.loadFromFile("fonts/arial.ttf")) {
+        printf("폰트가 없음!");
+    }
+
     std::filesystem::path directoryPath("Songs");
 
     // 노래 목록
@@ -164,7 +172,7 @@ void SongMenuScene::onActivate() {
                         std::cerr << songInfo.songPath << std::endl;
                     }
                     // 채보 파일 경로
-                    else if (subEntry.path().extension() == ".osu") {
+                    else if (subEntry.path().extension() == ".ptr") {
                         // 난이도 존재 유무.
                         for (int i = 0; i < 3; i++) {
                             if (subEntry.path().filename().string().find(difficulties[i]) != std::string::npos) {

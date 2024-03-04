@@ -380,7 +380,7 @@ void reset() {
 
 std::string GameScene::generateFilePath(const SongInfo& songInfo, int difficultyIndex) {
 	std::string difficulties[3] = { "Normal", "Hard", "Expert" };
-	std::string filePath = "Songs/" + songInfo.songNameStr + "/" + difficulties[songInfo.difficultiesExist[difficultyIndex]] + ".osu";
+	std::string filePath = "Songs/" + songInfo.songNameStr + "/" + difficulties[songInfo.difficultiesExist[difficultyIndex]] + ".ptr";
 	return filePath;
 }
 

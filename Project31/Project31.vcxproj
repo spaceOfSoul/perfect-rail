@@ -138,6 +138,7 @@
   <ItemGroup>
     <ClCompile Include="AlbumArt.cpp" />
     <ClCompile Include="AudioManager.cpp" />
+    <ClCompile Include="AudioVisualizer.cpp" />
     <ClCompile Include="ComboText.cpp" />
     <ClCompile Include="deadPannel.cpp" />
     <ClCompile Include="DebugingScene.cpp" />
@@ -167,6 +168,7 @@
   <ItemGroup>
     <ClInclude Include="AlbumArt.h" />
     <ClInclude Include="AudioManager.h" />
+    <ClInclude Include="AudioVisualizer.h" />
     <ClInclude Include="ComboText.h" />
     <ClInclude Include="deadPannel.h" />
     <ClInclude Include="DebugingScene.h" />

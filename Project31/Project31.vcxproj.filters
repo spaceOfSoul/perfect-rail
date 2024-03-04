@@ -144,6 +144,9 @@
     <ClCompile Include="VisualEvent.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="AudioVisualizer.cpp">
+      <Filter>소스 파일\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="signal.h">
@@ -238,6 +241,9 @@
     </ClInclude>
     <ClInclude Include="VisualEvent.h">
       <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioVisualizer.h">
+      <Filter>헤더 파일\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
