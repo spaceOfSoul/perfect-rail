@@ -4,14 +4,11 @@
 
 std::string difficulties[3] = { "Normal", "Hard", "Expert" };
 
-SongMenuScene::SongMenuScene(float width, float height)
-    :am(AudioManager::Instance()), songList(VerticalList(width, height)) {
+SongMenuScene::SongMenuScene(float width, float height, sf::Font& font)
+    :am(AudioManager::Instance()), songList(VerticalList(width, height)), font(font) {
     this->width = width;
     this->height = height;
 
-    if (!font.loadFromFile("fonts/arial.ttf")) {
-        printf("폰트가 없음!");
-    }
 }
 
 
@@ -142,10 +139,6 @@ void SongMenuScene::update(float dt) {
 }
 
 void SongMenuScene::onActivate() {
-    if (!font.loadFromFile("fonts/arial.ttf")) {
-        printf("폰트가 없음!");
-    }
-
     std::filesystem::path directoryPath("Songs");
 
     // 노래 목록

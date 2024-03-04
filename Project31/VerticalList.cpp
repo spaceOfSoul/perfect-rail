@@ -3,7 +3,7 @@
 VerticalList::VerticalList(float width, float height) {
 	this->width = width;
 	this->height = height;
-	if (!font.loadFromFile("fonts\\arial.ttf")) {
+	if (!font.loadFromFile("fonts/arial.ttf")) {
 		printf("폰트가 없음.\n");
 	}
 
