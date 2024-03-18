@@ -27,6 +27,9 @@ private:
     std::unique_ptr<AlbumArt> albumImage;
     sf::RectangleShape difficultyRegionRect;
     std::unique_ptr<HighscorePannel> region_highscore;
+    sf::RectangleShape backPlate;
+    sf::RectangleShape seletedPlate;
+    sf::RectangleShape listPlate;
     int selectedItemIndex = 0;
     int selectedDifficultyIndex = 0;
 

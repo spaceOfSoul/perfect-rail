@@ -17,6 +17,13 @@ SongMenuScene::~SongMenuScene() {
 }
 
 void SongMenuScene::draw(sf::RenderWindow& window) {
+
+    //// 곡 목록 배경
+    //window.draw(backPlate);
+
+    //// 목록 배경
+    //window.draw(listPlate);
+
     //곡 목록 표시
     songList.draw(window);
 
@@ -54,6 +61,9 @@ void SongMenuScene::draw(sf::RenderWindow& window) {
 
         window.draw(difficultyText);
     }
+
+    // 곡 목록 살짝 위를 가림..
+    //window.draw(seletedPlate);
 
     window.draw(*region_highscore);
 }
@@ -135,13 +145,21 @@ Signal SongMenuScene::handleInput(sf::Event event, sf::RenderWindow &window) {
 }
 
 void SongMenuScene::update(float dt) {
-	// 구현부
+	// segment music play
+    try {
+        sf::Music& music = am.getMusic();
+        if (music.getPlayingOffset().asMilliseconds() >= 20000)
+            am.SetMusicTime(sf::seconds(0));
+    }
+    catch (const std::runtime_error& e) {
+        std::cerr << "Error: " << e.what() << std::endl;
+    }
 }
 
 void SongMenuScene::onActivate() {
+    // song list
     std::filesystem::path directoryPath("Songs");
 
-    // 노래 목록
     if (std::filesystem::exists(directoryPath) && std::filesystem::is_directory(directoryPath))
     {
         int i = 0;
@@ -182,25 +200,46 @@ void SongMenuScene::onActivate() {
             }
         }
     }
+    songList.setPos(-60, -30);
 
+    // album image
     selectedItemIndex = songList.getCurrentIndex();
     albumImage = std::make_unique<AlbumArt>(sf::Vector2f(250, 250), sf::Vector2f(50, 30), songInfos[selectedItemIndex].imagePath); // size, pos
 
+    // difficulty
     difficultyRegionRect.setFillColor(sf::Color(40, 40, 40, 200));
     difficultyRegionRect.setSize(sf::Vector2f(250, 50));
     difficultyRegionRect.setPosition(sf::Vector2f(50, 230));
 
+    // before score region
     region_highscore = std::make_unique<HighscorePannel>(30, 290, font);
-    songList.setPos(-60, -30);
-    if (songInfos.size() > 0) {
-        am.PlayMusic(songInfos[selectedItemIndex].songNameStr);
-    }
+
     #ifdef WIN32
     Results results = SaveResult::loadFromDirectory(get_appdata_roaming_path().append("\\perfectRail\\").append(songInfos[selectedItemIndex].songNameStr));
     #else
     Results results = SaveResult::loadFromDirectory(get_appdata_roaming_path().append("/perfectRail/").append(songInfos[selectedItemIndex].songNameStr));
     #endif
     region_highscore->setScores(results);
+
+    // play music
+    if (songInfos.size() > 0) {
+        am.PlayMusic(songInfos[selectedItemIndex].songNameStr);
+    }
+
+    //// back plate
+    //backPlate.setPosition(0,0);
+    //backPlate.setFillColor(sf::Color(204,204,204));
+    //backPlate.setSize(sf::Vector2f(width, height));
+
+    //// selected plate
+    //seletedPlate.setPosition(330, 0);
+    //seletedPlate.setFillColor(sf::Color(204, 204, 204));
+    //seletedPlate.setSize(sf::Vector2f(470, 40));
+
+    //// list plate
+    //listPlate.setPosition(330, 30);
+    //listPlate.setFillColor(sf::Color(0, 0, 0));
+    //listPlate.setSize(sf::Vector2f(500, 550));
 }
 
 void SongMenuScene::onDeactivate() {

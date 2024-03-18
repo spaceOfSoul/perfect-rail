@@ -2,9 +2,10 @@
 #include <filesystem>
 #include <iostream>
 
-AudioManager::AudioManager():sm(SettingsManager::Instance()) {
+AudioManager::AudioManager() :sm(SettingsManager::Instance()) {
     music_volume = sm.GetMusicVolume();
     sound_volume = sm.GetSoundVolume();
+    audio_flag = 0x00;
 }
 
 //sound
@@ -55,6 +56,7 @@ void AudioManager::LoadMusic(const std::string& musicName, const std::string& pa
 void AudioManager::PlayMusic(const std::string& musicName) {
     music_volume = sm.GetMusicVolume();
     current_music_name = musicName;
+
     if (musics.find(musicName) == musics.end()) {
         std::cerr << "Music " << musicName << " not found. Can't start.\n";
         return;
@@ -67,6 +69,8 @@ void AudioManager::PlayMusic(const std::string& musicName) {
     }
     currentMusic->setVolume(music_volume);
     currentMusic->play();
+
+    audio_flag = 0x01; // 나중에 bit oper로 변경
 }
 
 void AudioManager::StopMusic(const std::string& musicName) {
@@ -76,6 +80,10 @@ void AudioManager::StopMusic(const std::string& musicName) {
     }
 
     currentMusic->stop();
+}
+
+void AudioManager::SetMusicTime(sf::Time offset) {
+    currentMusic->setPlayingOffset(offset);
 }
 
 void AudioManager::SetSoundVolume(const std::string& soundName, float volume) {
@@ -97,6 +105,8 @@ void AudioManager::SetMusicVolume(const std::string& musicName, float volume) {
 }
 
 sf::Music& AudioManager::getMusic() {
+    if (audio_flag == 0x00)
+        throw std::runtime_error("music is not loaded");
     return *currentMusic;
 }
 

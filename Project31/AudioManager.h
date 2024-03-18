@@ -20,10 +20,11 @@ public:
     void LoadMusic(const std::string& musicName, const std::string& path);
     void PlayMusic(const std::string& musicName);
     void StopMusic(const std::string& musicName);
-    void PlaySegmentMusic(const std::string& musicName, sf::Time start, sf::Time end);
 
     void SetSoundVolume(const std::string& soundName, float volume);
     void SetMusicVolume(const std::string& musicName, float volume);
+
+    void SetMusicTime(sf::Time offsetTime);
 
     sf::SoundSource::Status GetMusicStatus() const;
     sf::Music& getMusic();
@@ -44,4 +45,10 @@ private:
 
     float music_volume;
     float sound_volume;
+    /*
+        0 : music set
+        1 : current music is exsist
+        2 : sound play
+    */
+    uint8_t audio_flag;
 };
