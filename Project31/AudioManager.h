@@ -22,7 +22,7 @@ public:
     void StopMusic(const std::string& musicName);
 
     void SetSoundVolume(const std::string& soundName, float volume);
-    void SetMusicVolume(const std::string& musicName, float volume);
+    void SetMusicVolume(float volume);
 
     void SetMusicTime(sf::Time offsetTime);
 

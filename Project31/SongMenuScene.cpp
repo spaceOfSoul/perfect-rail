@@ -5,7 +5,7 @@
 std::string difficulties[3] = { "Normal", "Hard", "Expert" };
 
 SongMenuScene::SongMenuScene(float width, float height, sf::Font& font)
-    :am(AudioManager::Instance()), songList(VerticalList(width, height)), font(font) {
+    :am(AudioManager::Instance()), songList(VerticalList(width, height)), font(font), sm(SettingsManager::Instance()) {
     this->width = width;
     this->height = height;
 
@@ -148,8 +148,19 @@ void SongMenuScene::update(float dt) {
 	// segment music play
     try {
         sf::Music& music = am.getMusic();
-        if (music.getPlayingOffset().asMilliseconds() >= 20000)
+        sf::Int32 current_music_time = music.getPlayingOffset().asMilliseconds();
+        if (current_music_time >= 20000)
             am.SetMusicTime(sf::seconds(0));
+        else if (current_music_time >= 15000) {
+            float time_left = 20000 - current_music_time;
+            float volume_factor = time_left / 5000.0f;
+            currentVolume = sm.GetMusicVolume() * volume_factor;
+            am.SetMusicVolume(currentVolume);
+        }
+        else{
+            currentVolume = sm.GetMusicVolume();
+            am.SetMusicVolume(currentVolume);
+        }
     }
     catch (const std::runtime_error& e) {
         std::cerr << "Error: " << e.what() << std::endl;
@@ -221,6 +232,7 @@ void SongMenuScene::onActivate() {
     #endif
     region_highscore->setScores(results);
 
+    currentVolume = sm.GetMusicVolume();
     // play music
     if (songInfos.size() > 0) {
         am.PlayMusic(songInfos[selectedItemIndex].songNameStr);

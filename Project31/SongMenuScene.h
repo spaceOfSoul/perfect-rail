@@ -20,6 +20,7 @@ private:
     sf::Font font;
 
     AudioManager& am;
+    SettingsManager& sm;
     VerticalList songList;
 
     std::vector<SongInfo> songInfos;
@@ -35,6 +36,8 @@ private:
 
     float width;
     float height;
+
+    float currentVolume;
 
 public:
     SongMenuScene(float width, float height, sf::Font& font);

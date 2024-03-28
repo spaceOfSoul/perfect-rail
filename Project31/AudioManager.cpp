@@ -97,7 +97,7 @@ void AudioManager::SetSoundVolume(const std::string& soundName, float volume) {
 }
 
 
-void AudioManager::SetMusicVolume(const std::string& musicName, float volume) {
+void AudioManager::SetMusicVolume(float volume) {
     music_volume = volume;
     if (currentMusic) {
         currentMusic->setVolume(volume);
