@@ -15,6 +15,12 @@ GameScene::GameScene(float width, float height, sf::Font& font)
 , deadPannel(0,0)
 ,ready_txt(400,300,80,font)
 {
+    for (int i = 0; i < 9; i++) {
+        if (!cat_texture[i].loadFromFile(cat_path[i]))
+            printf("Cat texture %d load failed\n", i);
+        printf("%s load.\n", cat_path[i].c_str());
+    }
+
     for (int i = 0; i < 4; i++) 
         keyPushed[i] = false;
     
@@ -62,6 +68,16 @@ void GameScene::onActivate() {
 }
 
 void GameScene::initialize() {
+    cat.setTexture(cat_texture[0]);
+    cat.setScale(0.2f, 0.2f);
+
+    leftPaw.setTexture(cat_texture[7]);
+    leftPaw.setScale(0.2f, 0.2f);
+
+    rightPaw.setTexture(cat_texture[8]);
+    rightPaw.setScale(0.2f, 0.2f);
+    
+
     music_note_process &= ~_BV(GAME_FINISHED);
     music_note_process &= ~_BV(FINISH_PROCESS);
     input_process = 0;
@@ -85,6 +101,15 @@ void GameScene::initialize() {
         buttons[i].setPosition(start_pos + bt_distance * i, buttonY);
     }
 
+    // 고양이
+    cat.setPosition(sf::Vector2f(590, 450));
+    leftPaw.setPosition(sf::Vector2f(590, 450));
+    rightPaw.setPosition(sf::Vector2f(590, 450));
+
+    cat_under.setFillColor(sf::Color::White);
+    cat_under.setPosition(sf::Vector2f(590, 580));
+    cat_under.setSize(sf::Vector2f(210,20));
+    // 판정선
     judgeLine.setSize(sf::Vector2f(350, 20));
     judgeLine.setPosition(225, judgeY);
     judgeLine.setFillColor(sf::Color(128, 128, 128));
@@ -243,6 +268,40 @@ void GameScene::onDeactivate() {
 }
 
 void GameScene::draw(sf::RenderWindow& window) {
+    window.draw(cat);
+    window.draw(cat_under);
+    int temp = (keyPushed[0] * 10) + keyPushed[1];
+    switch (temp) {
+    case 10:
+        leftPaw.setTexture(cat_texture[1]);
+        break;
+    case 11:
+        leftPaw.setTexture(cat_texture[2]);
+        break;
+    case 01:
+        leftPaw.setTexture(cat_texture[3]);
+        break;
+    case 0:
+        leftPaw.setTexture(cat_texture[7]);
+    }
+
+    temp = (keyPushed[3] * 10) + keyPushed[2];
+    switch (temp) {
+    case 10:
+        rightPaw.setTexture(cat_texture[4]);
+        break;
+    case 11:
+        rightPaw.setTexture(cat_texture[5]);
+        break;
+    case 01:
+        rightPaw.setTexture(cat_texture[6]);
+        break;
+    case 0:
+        rightPaw.setTexture(cat_texture[8]);
+    }
+    window.draw(leftPaw);
+    window.draw(rightPaw);
+
     window.draw(judgeLine);
 
     for (const Note& note : noteInScreen)

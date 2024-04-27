@@ -111,13 +111,29 @@ private:
 
     double noteTravelTime;
 
-    // 화면 그리기에 필요한 멤버 변수들
+    // 인게임 기본
     sf::Text scoreText, accurateText;
     sf::RectangleShape scorePannel_outer;
     sf::RectangleShape scorePannel_inner;
     NotePlate note_plate;
     sf::RectangleShape judgeLine;
     HpBar *hp_bar;
+
+    // 고양이
+    std::string cat_path[9] = {
+        "sprites/base.png",
+        "sprites/base_1000.png",
+        "sprites/base_1100.png",
+        "sprites/base_0100.png",
+        "sprites/base_0001.png",
+        "sprites/base_0011.png",
+        "sprites/base_0010.png",
+        "sprites/base_left.png",
+        "sprites/base_right.png"
+    };
+    sf::Sprite cat, leftPaw, rightPaw;
+    sf::Texture cat_texture[9];
+    sf::RectangleShape cat_under;
 
     // game finished ui
     // Input UI
