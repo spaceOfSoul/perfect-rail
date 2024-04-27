@@ -27,6 +27,15 @@ private:
 
     bool checkForHiddenCommand(sf::Keyboard::Key keyPressed);
 
+    std::string cat_path[3] = {
+        "sprites/base.png",
+        "sprites/base_left.png",
+        "sprites/base_right.png"
+    };
+    sf::Sprite cat, leftPaw, rightPaw;
+    sf::Texture cat_texture[3];
+    sf::RectangleShape blackLine;
+
 public:
     MainMenuScene(float width, float height, sf::Font& font);
     ~MainMenuScene();
