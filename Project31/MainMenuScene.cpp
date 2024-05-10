@@ -18,16 +18,8 @@ MainMenuScene::MainMenuScene(float width, float height, sf::Font& font) : am(Aud
 		printf("%s load.\n", cat_path[i].c_str());
 	}
 	cat.setTexture(cat_texture[0]);
-	cat.setScale(0.2f, 0.2f);
-	cat.setPosition(100, 250);
-
 	leftPaw.setTexture(cat_texture[1]);
-	leftPaw.setScale(0.2f, 0.2f);
-	leftPaw.setPosition(100, 250);
-
 	rightPaw.setTexture(cat_texture[2]);
-	rightPaw.setScale(0.2f, 0.2f);
-	rightPaw.setPosition(100, 250);
 }
 
 bool MainMenuScene::checkForHiddenCommand(sf::Keyboard::Key keyPressed) {
@@ -141,17 +133,27 @@ void MainMenuScene::update(float dt) {
 }
 
 void MainMenuScene::onActivate() {
-	// render texts
+	// render title
 	titleText.setFont(font);
 	titleText.setString("Perfect Rail");
-	titleText.setCharacterSize(fontSize * 1.5);
-	titleText.setPosition(sf::Vector2f(100.f, 150.f));
+	titleText.setCharacterSize(fontSize * 1.7);
+	titleText.setPosition(sf::Vector2f(80.f, 120.f));
 	titleText.setFillColor(sf::Color::White);
 
 	blackLine.setFillColor(sf::Color::Black);
 	blackLine.setSize(sf::Vector2f(50,200));
-	blackLine.setPosition(sf::Vector2f(290, 200));
+	blackLine.setPosition(sf::Vector2f(290, 150));
 
+	cat.setScale(0.2f, 0.2f);
+	cat.setPosition(100, 200);
+
+	leftPaw.setScale(0.2f, 0.2f);
+	leftPaw.setPosition(100, 200);
+
+	rightPaw.setScale(0.2f, 0.2f);
+	rightPaw.setPosition(100, 200);
+
+	// render menu
 	/*menu_texts[2].setFont(font);
 	menu_texts[2].setFillColor(sf::Color::White);
 	menu_texts[2].setString("Test");

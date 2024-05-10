@@ -23,7 +23,7 @@ void GameManager::removeNote(int selected_time) {
     }
 }
 
-void GameManager::keyDownProcess(int keyIndex, JudgeText& judgeText, ComboText& comboText) {
+void GameManager::keyDownProcess(int keyIndex, JudgeText& judgeText, ComboText& comboText, uint8_t& lightIndex) {
     //printf("pushed\n");
     for (int i = judgeIndex[keyIndex]; i < song_data.NotePoints[keyIndex].size(); ++i) {
         int time = song_data.NotePoints[keyIndex][i].first;
@@ -47,6 +47,8 @@ void GameManager::keyDownProcess(int keyIndex, JudgeText& judgeText, ComboText& 
 
             judgeText.setJudgement(4);
             comboText.setCombo(combo);
+            lightIndex |= 0x80;
+
             calAccuracy();
             removeNote(time);
 
@@ -72,6 +74,8 @@ void GameManager::keyDownProcess(int keyIndex, JudgeText& judgeText, ComboText& 
 
             judgeText.setJudgement(3);
             comboText.setCombo(combo);
+            lightIndex |= 0x80;
+
             calAccuracy();
             removeNote(time);
 
@@ -97,6 +101,8 @@ void GameManager::keyDownProcess(int keyIndex, JudgeText& judgeText, ComboText& 
 
             judgeText.setJudgement(2);
             comboText.setCombo(combo);
+            lightIndex |= 0x80;
+
             calAccuracy();
             removeNote(time);
 
@@ -112,12 +118,13 @@ void GameManager::keyDownProcess(int keyIndex, JudgeText& judgeText, ComboText& 
             combo++;
             if (combo >= maxCombo)
                 maxCombo = combo;
-            hp -=3;
+            hp -= bad_constant();
             hpDownRate *= 1.1;
             score += 15 * rate;
 
             judgeText.setJudgement(1);
             comboText.setCombo(combo);
+
             calAccuracy();
             removeNote(time);
 
@@ -130,7 +137,7 @@ void GameManager::keyDownProcess(int keyIndex, JudgeText& judgeText, ComboText& 
             targetPass[0]++;// miss
             lastJudge = 0;
             combo = 0;
-            hp -= 10 * hpDownRate;
+            hp -= miss_constant() * hpDownRate;
             hpDownRate *= 1.2;
             hpUpRate = 1.0;
 
@@ -160,7 +167,7 @@ void GameManager::checkMiss(JudgeText& judgeText, ComboText& comboText) {
                    targetPass[0]++; // MISS 증가
                    lastJudge = 0;
                    combo = 0;
-                   hp -= 10 * hpDownRate; //hp 차감
+                   hp -= miss_constant() * hpDownRate; //hp 차감
                    hpDownRate *= 1.2; //hp 감소 가중치 증가
                    hpUpRate = 1.0; //hp 상승 가중치 
 

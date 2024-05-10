@@ -74,7 +74,7 @@ private:
     bool keyPushed[4];
 
     float plateWidth = 400;
-    float platePosition = 200;;
+    float platePosition = 200;
 
     ComboText comboText;
     float comboHeight = 50;
@@ -134,6 +134,44 @@ private:
     sf::Sprite cat, leftPaw, rightPaw;
     sf::Texture cat_texture[9];
     sf::RectangleShape cat_under;
+
+    // lighting
+    std::string lightning_path[30] = {
+        "sprites/lightingL-0.png",
+        "sprites/lightingL-1.png",
+        "sprites/lightingL-2.png",
+        "sprites/lightingL-3.png",
+        "sprites/lightingL-4.png",
+        "sprites/lightingL-5.png",
+        "sprites/lightingL-6.png",
+        "sprites/lightingL-7.png",
+        "sprites/lightingL-8.png",
+        "sprites/lightingL-9.png",
+        "sprites/lightingL-10.png",
+        "sprites/lightingL-11.png",
+        "sprites/lightingL-12.png",
+        "sprites/lightingL-13.png",
+        "sprites/lightingL-14.png",
+        "sprites/lightingL-15.png",
+        "sprites/lightingL-16.png",
+        "sprites/lightingL-17.png",
+        "sprites/lightingL-18.png",
+        "sprites/lightingL-19.png",
+        "sprites/lightingL-20.png",
+        "sprites/lightingL-21.png",
+        "sprites/lightingL-22.png",
+        "sprites/lightingL-23.png",
+        "sprites/lightingL-24.png",
+        "sprites/lightingL-25.png",
+        "sprites/lightingL-26.png",
+        "sprites/lightingL-27.png",
+        "sprites/lightingL-28.png",
+        "sprites/lightingL-29.png",
+    };
+    sf::Texture light_texture[30];
+    uint8_t lightning_index[4];
+    sf::Sprite lightning[4];
+    float light_animation_interval[4];
 
     // game finished ui
     // Input UI

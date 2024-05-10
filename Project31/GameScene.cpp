@@ -21,9 +21,16 @@ GameScene::GameScene(float width, float height, sf::Font& font)
         printf("%s load.\n", cat_path[i].c_str());
     }
 
-    for (int i = 0; i < 4; i++) 
+    for (int i = 0; i < 30; i++) {
+        if (!light_texture[i].loadFromFile(lightning_path[i]))
+            printf("light texture %d load failed\n", i);
+        printf("%s load.\n", lightning_path[i].c_str());
+    }
+
+    for (int i = 0; i < 4; i++) {
         keyPushed[i] = false;
-    
+        lightning_index[i] = 0;
+    }
     this->font = font;
 
     am.LoadMusic("Result", "./bgm/Result.wav");
@@ -55,8 +62,10 @@ void GameScene::onActivate() {
 
     judgeY = 440 - sm.GetJudgeLine_Y();
     
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < 4; i++) {
         processedIndex[i] = 0;
+        lightning_index[i] = 0;
+    }
 
     note_speed = sm.GetNoteSpeed();
     input_ui.initInput();
@@ -68,6 +77,7 @@ void GameScene::onActivate() {
 }
 
 void GameScene::initialize() {
+    // cat
     cat.setTexture(cat_texture[0]);
     cat.setScale(0.2f, 0.2f);
 
@@ -76,7 +86,6 @@ void GameScene::initialize() {
 
     rightPaw.setTexture(cat_texture[8]);
     rightPaw.setScale(0.2f, 0.2f);
-    
 
     music_note_process &= ~_BV(GAME_FINISHED);
     music_note_process &= ~_BV(FINISH_PROCESS);
@@ -99,6 +108,10 @@ void GameScene::initialize() {
         buttons[i].setSize(sf::Vector2f(50, 50));
         buttons[i].setFillColor(sf::Color(128, 128, 128));
         buttons[i].setPosition(start_pos + bt_distance * i, buttonY);
+
+        // add : lightning index initialize
+        lightning_index[i] = 0;
+        light_animation_interval[i] = 0;
     }
 
     // 고양이
@@ -109,10 +122,19 @@ void GameScene::initialize() {
     cat_under.setFillColor(sf::Color::White);
     cat_under.setPosition(sf::Vector2f(590, 580));
     cat_under.setSize(sf::Vector2f(210,20));
+
     // 판정선
     judgeLine.setSize(sf::Vector2f(350, 20));
     judgeLine.setPosition(225, judgeY);
     judgeLine.setFillColor(sf::Color(128, 128, 128));
+
+    // light
+    for (int i = 0; i < 4; i++) {
+        lightning[i].setTexture(light_texture[0]);
+        lightning[i].setPosition(240 + bt_distance * i, judgeY-30);
+        lightning[i].setScale(0.4f, 0.4f);
+        lightning[i].setColor(sf::Color(255, 255, 255, 0));
+    }
 
     // 콤보
     comboText.setPosition(400, comboHeight);
@@ -231,14 +253,36 @@ void GameScene::update(float dt) {
         }
     }
 
-    
-
+    // miss check
     gm.checkMiss(judgeText, comboText);
 
+    // combo, judge animation
     comboText.animation(dt);
     judgeText.animation(dt);
+
+    // hp presentation
     hp = gm.getHP();
     hp_bar->setHP(hp);
+
+    for (int i = 0; i < 4; i++) {
+        if (lightning_index[i] & 0x80) {
+            lightning[i].setColor(sf::Color(255, 255, 255, 255));
+
+            if (light_animation_interval[i] >= 0.005f) { // 10ms
+                light_animation_interval[i] = 0.0f;
+                lightning[i].setTexture(light_texture[lightning_index[i] & 0x1F]);
+
+                if ((lightning_index[i] & 0x1F) < 29)
+                    lightning_index[i]++;
+                else {
+                    lightning_index[i] = 0;
+                    lightning[i].setColor(sf::Color(255, 255, 255, 0));
+                }
+            }
+
+            light_animation_interval[i] += dt;
+        }
+    }
 
     if (hp <= 0) {
         am.StopMusic(songInfo.songNameStr);
@@ -309,8 +353,11 @@ void GameScene::draw(sf::RenderWindow& window) {
 
     window.draw(note_plate);
 
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < 4; i++) {
+        window.draw(lightning[i]);
+
         window.draw(buttons[i]);
+    }
 
     window.draw(comboText);
     window.draw(judgeText);
@@ -354,7 +401,7 @@ Signal GameScene::handleInput(sf::Event event, sf::RenderWindow& window) {
         else if (event.key.code == sf::Keyboard::D) {
             if (!keyPushed[0]) {
                 if((music_note_process & _BV(WAITED)))
-                    gm.keyDownProcess(0, judgeText, comboText);
+                    gm.keyDownProcess(0, judgeText, comboText, lightning_index[0]);
                 buttons[0].setFillColor(sf::Color(65, 105, 225));
                 keyPushed[0] = true;
             }
@@ -362,7 +409,7 @@ Signal GameScene::handleInput(sf::Event event, sf::RenderWindow& window) {
         else if (event.key.code == sf::Keyboard::F) {
             if (!keyPushed[1]) {
                 if ((music_note_process & _BV(WAITED)))
-                    gm.keyDownProcess(1, judgeText, comboText);
+                    gm.keyDownProcess(1, judgeText, comboText, lightning_index[1]);
                 buttons[1].setFillColor(sf::Color(65, 105, 225));
                 keyPushed[1] = true;
             }
@@ -370,7 +417,7 @@ Signal GameScene::handleInput(sf::Event event, sf::RenderWindow& window) {
         else if (event.key.code == sf::Keyboard::J) {
             if (!keyPushed[2]) {
                 if ((music_note_process & _BV(WAITED)))
-                    gm.keyDownProcess(2, judgeText, comboText);
+                    gm.keyDownProcess(2, judgeText, comboText, lightning_index[2]);
                 buttons[2].setFillColor(sf::Color(65, 105, 225));
                 keyPushed[2] = true;
             }
@@ -378,7 +425,7 @@ Signal GameScene::handleInput(sf::Event event, sf::RenderWindow& window) {
         else if (event.key.code == sf::Keyboard::K) {
             if (!keyPushed[3]) {
                 if ((music_note_process & _BV(WAITED)))
-                    gm.keyDownProcess(3, judgeText, comboText);
+                    gm.keyDownProcess(3, judgeText, comboText, lightning_index[3]);
                 buttons[3].setFillColor(sf::Color(65, 105, 225));
                 keyPushed[3] = true;
             }

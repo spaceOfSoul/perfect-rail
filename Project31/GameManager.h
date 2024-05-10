@@ -16,7 +16,7 @@ public:
         targetPass.fill(0);
     }
 
-    void keyDownProcess(int keyIndex, JudgeText& judgeText, ComboText& comboText);
+    void keyDownProcess(int keyIndex, JudgeText& judgeText, ComboText& comboText, uint8_t& lightIndex);
     void checkMiss(JudgeText& judgeText, ComboText& comboText);
 
     void calAccuracy();
@@ -56,4 +56,9 @@ private:
     double hpUpRate;
     double hpDownRate;
     double rate;
+
+    const double judge_range[4] = {25,41.3, 78.5, 120};
+
+    inline double bad_constant() { return 3; }
+    inline double miss_constant() { return 6; }
 };
