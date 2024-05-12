@@ -27,9 +27,13 @@ GameScene::GameScene(float width, float height, sf::Font& font)
         printf("%s load.\n", lightning_path[i].c_str());
     }
 
+    if (!laneLight_texture.loadFromFile("sprites/lane_light.png"))
+        printf("lane light texture load failed\n");
+
     for (int i = 0; i < 4; i++) {
         keyPushed[i] = false;
         lightning_index[i] = 0;
+        laneLight[i].setTexture(laneLight_texture);
     }
     this->font = font;
 
@@ -109,6 +113,10 @@ void GameScene::initialize() {
         buttons[i].setFillColor(sf::Color(128, 128, 128));
         buttons[i].setPosition(start_pos + bt_distance * i, buttonY);
 
+        laneLight[i].setScale(sf::Vector2f(note_size/laneLight[i].getTexture()->getSize().x, 0.5f));
+        laneLight[i].setPosition(note_startPos_X + note_distance * i, 180);
+        laneLight[i].setColor(sf::Color(255,255,255,0));
+
         // add : lightning index initialize
         lightning_index[i] = 0;
         light_animation_interval[i] = 0;
@@ -131,8 +139,8 @@ void GameScene::initialize() {
     // light
     for (int i = 0; i < 4; i++) {
         lightning[i].setTexture(light_texture[0]);
-        lightning[i].setPosition(240 + bt_distance * i, judgeY-30);
-        lightning[i].setScale(0.4f, 0.4f);
+        lightning[i].setPosition(220 + bt_distance * i, judgeY-50);
+        lightning[i].setScale(0.6f, 0.6f);
         lightning[i].setColor(sf::Color(255, 255, 255, 0));
     }
 
@@ -243,7 +251,7 @@ void GameScene::update(float dt) {
                 }
 
                 int xPosition = note_startPos_X + note_distance * lane;
-                sf::Color color = sf::Color::Green;
+                sf::Color color = sf::Color(153, 255, 51);
 
                 // Generate Note
                 Note note(lane, xPosition, note_startPos_Y, note_size, color, time, false);
@@ -351,12 +359,14 @@ void GameScene::draw(sf::RenderWindow& window) {
     for (const Note& note : noteInScreen)
         window.draw(note);
 
+    for(int i=0; i<4; i++)
+        window.draw(lightning[i]);
+
     window.draw(note_plate);
 
     for (int i = 0; i < 4; i++) {
-        window.draw(lightning[i]);
-
         window.draw(buttons[i]);
+        window.draw(laneLight[i]);
     }
 
     window.draw(comboText);
@@ -403,6 +413,7 @@ Signal GameScene::handleInput(sf::Event event, sf::RenderWindow& window) {
                 if((music_note_process & _BV(WAITED)))
                     gm.keyDownProcess(0, judgeText, comboText, lightning_index[0]);
                 buttons[0].setFillColor(sf::Color(65, 105, 225));
+                laneLight[0].setColor(sf::Color(255,255,255,120));
                 keyPushed[0] = true;
             }
         }
@@ -411,6 +422,7 @@ Signal GameScene::handleInput(sf::Event event, sf::RenderWindow& window) {
                 if ((music_note_process & _BV(WAITED)))
                     gm.keyDownProcess(1, judgeText, comboText, lightning_index[1]);
                 buttons[1].setFillColor(sf::Color(65, 105, 225));
+                laneLight[1].setColor(sf::Color(255, 255, 255, 120));
                 keyPushed[1] = true;
             }
         }
@@ -419,6 +431,7 @@ Signal GameScene::handleInput(sf::Event event, sf::RenderWindow& window) {
                 if ((music_note_process & _BV(WAITED)))
                     gm.keyDownProcess(2, judgeText, comboText, lightning_index[2]);
                 buttons[2].setFillColor(sf::Color(65, 105, 225));
+                laneLight[2].setColor(sf::Color(255, 255, 255, 120));
                 keyPushed[2] = true;
             }
         }
@@ -427,6 +440,7 @@ Signal GameScene::handleInput(sf::Event event, sf::RenderWindow& window) {
                 if ((music_note_process & _BV(WAITED)))
                     gm.keyDownProcess(3, judgeText, comboText, lightning_index[3]);
                 buttons[3].setFillColor(sf::Color(65, 105, 225));
+                laneLight[3].setColor(sf::Color(255, 255, 255, 120));
                 keyPushed[3] = true;
             }
         }
@@ -462,18 +476,22 @@ Signal GameScene::handleInput(sf::Event event, sf::RenderWindow& window) {
         if (event.key.code == sf::Keyboard::D) {
             keyPushed[0] = false;
             buttons[0].setFillColor(sf::Color(128, 128, 128));
+            laneLight[0].setColor(sf::Color(255, 255, 255, 0));
         }
         else if (event.key.code == sf::Keyboard::F) {
             keyPushed[1] = false;
             buttons[1].setFillColor(sf::Color(128, 128, 128));
+            laneLight[1].setColor(sf::Color(255, 255, 255, 0));
         }
         else if (event.key.code == sf::Keyboard::J) {
             keyPushed[2] = false;
             buttons[2].setFillColor(sf::Color(128, 128, 128));
+            laneLight[2].setColor(sf::Color(255, 255, 255, 0));
         }
         else if (event.key.code == sf::Keyboard::K) {
             keyPushed[3] = false;
             buttons[3].setFillColor(sf::Color(128, 128, 128));
+            laneLight[3].setColor(sf::Color(255, 255, 255, 0));
         }
     }
 

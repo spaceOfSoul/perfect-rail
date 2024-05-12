@@ -41,7 +41,7 @@ void GameManager::keyDownProcess(int keyIndex, JudgeText& judgeText, ComboText& 
                 hp += (2.5 * hpUpRate);
             else
                 hp = 100;
-            hpUpRate *= 1.15;
+            hpUpRate = 1.15;
             hpDownRate = 1.0;
             score += 55 * rate;
 
@@ -68,7 +68,7 @@ void GameManager::keyDownProcess(int keyIndex, JudgeText& judgeText, ComboText& 
                 hp += (2 * hpUpRate);
             else
                 hp = 100;
-            hpUpRate *= 1.1;
+            hpUpRate = 1.1;
             hpDownRate = 1.0;
             score += 50 * rate;
 
@@ -95,7 +95,7 @@ void GameManager::keyDownProcess(int keyIndex, JudgeText& judgeText, ComboText& 
                 hp += (1 * hpUpRate);
             else
                 hp = 100;
-            hpUpRate *= 1.05;
+            hpUpRate = 1.05;
             hpDownRate = 1.0;
             score += 35 * rate;
 

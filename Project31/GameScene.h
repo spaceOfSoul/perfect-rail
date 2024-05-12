@@ -135,6 +135,10 @@ private:
     sf::Texture cat_texture[9];
     sf::RectangleShape cat_under;
 
+    // lang light
+    sf::Sprite laneLight[4];
+    sf::Texture laneLight_texture;
+
     // lighting
     std::string lightning_path[30] = {
         "sprites/lightingL-0.png",
