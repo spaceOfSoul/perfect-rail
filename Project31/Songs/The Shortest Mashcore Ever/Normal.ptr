@@ -1,52 +1,3 @@
-osu file format v14
-
-[General]
-AudioFilename: audio.mp3
-AudioLeadIn: 0
-PreviewTime: 7830
-Countdown: 0
-SampleSet: Normal
-StackLeniency: 0.7
-Mode: 3
-LetterboxInBreaks: 0
-SpecialStyle: 0
-WidescreenStoryboard: 0
-
-[Editor]
-DistanceSpacing: 0.5
-BeatDivisor: 4
-GridSize: 4
-TimelineZoom: 1.5
-
-[Metadata]
-Title:The Shortest Mashcore Ever
-TitleUnicode:The Shortest Mashcore Ever
-Artist:odaxelagnia
-ArtistUnicode:odaxelagnia
-Creator:Hydria
-Version:Normal
-Source:
-Tags:Caramell caramelldansen mario bros Koji Kondo Imogen Heap Hide And Seek Speedcore
-BeatmapID:1217397
-BeatmapSetID:574811
-
-[Difficulty]
-HPDrainRate:7
-CircleSize:4
-OverallDifficulty:7
-ApproachRate:5
-SliderMultiplier:1.4
-SliderTickRate:1
-
-[Events]
-//Background and Video events
-0,0,"odaxelagnia_-_The_Shortest_Mashcore_Ever.jpg",0,0
-//Break Periods
-//Storyboard Layer 0 (Background)
-//Storyboard Layer 1 (Fail)
-//Storyboard Layer 2 (Pass)
-//Storyboard Layer 3 (Foreground)
-//Storyboard Sound Samples
 
 [TimingPoints]
 150,240.963855421687,4,1,1,40,1,0
@@ -55,18 +6,18 @@ SliderTickRate:1
 
 
 [HitObjects]
-192,192,150,128,2,390:0:0:0:0:
-64,192,390,128,0,631:0:0:0:0:
-448,192,631,128,0,1113:0:0:0:0:
-192,192,1113,128,0,1354:0:0:0:0:
-320,192,1595,128,0,1836:0:0:0:0:
-64,192,1836,128,0,2077:0:0:0:0:
-448,192,2077,128,2,2318:0:0:0:0:
-192,192,2318,128,2,2559:0:0:0:0:
-320,192,2559,128,2,3282:0:0:0:0:
+192,192,150,1,2,0
+64,192,390,1,0,0
+448,192,631,1,0,0
+192,192,1113,1,0,0
+320,192,1595,1,0,0
+64,192,1836,1,0,0
+448,192,2077,1,2,0
+192,192,2318,1,2,0
+320,192,2559,1,2,0
 64,192,2800,1,2,0:0:0:0:
 64,192,3041,1,2,0:0:0:0:
-192,192,3282,128,0,3523:0:0:0:0:
+192,192,3282,1,0,0
 448,192,3523,1,8,0:0:0:0:
 320,192,3643,1,8,0:0:0:0:
 192,192,3764,1,8,0:0:0:0:
@@ -86,7 +37,7 @@ SliderTickRate:1
 64,192,6415,1,2,0:0:0:0:
 192,192,6535,1,2,0:0:0:0:
 320,192,6656,1,2,0:0:0:0:
-64,192,6896,128,8,7137:0:0:0:0:
+64,192,6896,1,8,0
 448,192,7137,1,2,0:0:0:0:
 320,192,7378,1,8,0:0:0:0:
 64,192,7619,1,2,0:0:0:0:
@@ -208,5 +159,5 @@ SliderTickRate:1
 448,192,30029,1,2,0:0:0:0:
 192,192,30150,1,8,0:0:0:0:
 192,192,30390,1,8,0:0:0:0:
-320,192,30511,128,10,30752:0:0:0:0:
+320,192,30511,1,10,0
 192,192,30752,1,8,0:0:0:0:

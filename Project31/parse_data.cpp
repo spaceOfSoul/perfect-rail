@@ -243,8 +243,6 @@ void ReadProperty_TimingPoint(std::string str, SongData &data)
 	data.TPoint_array_section++;
 }
 
-
-
 // ------------------------------------------------------------------------------------------
 // 구역구별
 void ReadLine_Check(std::string str, int section, SongData& data) {

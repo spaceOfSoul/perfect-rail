@@ -31,6 +31,11 @@ int SettingsManager::GetTimeSync() const {
 	return options.time_sync;
 }
 
+sf::Keyboard::Key SettingsManager::GetKey(int index) const {
+	return options.keys[index];
+}
+
+
 // Setters
 void SettingsManager::SetMusicVolume(float vol) {
 	options.music_volume = vol;
@@ -50,6 +55,10 @@ void SettingsManager::SetJudgeLine_Y(int y) {
 
 void SettingsManager::SetTimeSync(int sync) {
 	options.time_sync = sync;
+}
+
+void SettingsManager::SetKey(int index, sf::Keyboard::Key key){
+	options.keys[index] = key;
 }
 
 void SettingsManager::saveOption() {

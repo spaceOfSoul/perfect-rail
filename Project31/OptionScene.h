@@ -8,6 +8,7 @@
 #include "options.h"
 #include "SettingsManager.h"
 #include "KeySettingModal.h"
+#include "input_utils.h"
 
 #define OPTION_ITEM 7
 
@@ -26,6 +27,11 @@ private:
     KeySettingModal key_setUI;
     int selectedItemIndex = 0;
     const int fontSize = 24;
+
+    // for key set mode (key mapping)
+    bool isKeySetMode = false;
+    int selectedKeyIndex = 0;
+    bool isWaitForKey = false;
 
 public:
     OptionScene(float width, float height, sf::Font& font);

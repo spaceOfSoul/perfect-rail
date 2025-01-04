@@ -1,112 +1,3 @@
-osu file format v14
-
-[General]
-AudioFilename: audio.mp3
-AudioLeadIn: 0
-PreviewTime: 87691
-Countdown: 0
-SampleSet: Soft
-StackLeniency: 0.7
-Mode: 3
-LetterboxInBreaks: 0
-SpecialStyle: 0
-WidescreenStoryboard: 0
-
-[Editor]
-DistanceSpacing: 1.4
-BeatDivisor: 4
-GridSize: 8
-TimelineZoom: 1.3
-
-[Metadata]
-Title:Amazing Mirage
-TitleUnicode:Amazing Mirage
-Artist:lapix
-ArtistUnicode:lapix
-Creator:Spy
-Version:Another
-Source:beatmania IIDX 24 SINOBUZ
-Tags:BEMANI KONAMI Hi-TECH FULLON Kuo Kyoka
-BeatmapID:1111350
-BeatmapSetID:523457
-
-[Difficulty]
-HPDrainRate:8
-CircleSize:4
-OverallDifficulty:8
-ApproachRate:5
-SliderMultiplier:1.4
-SliderTickRate:1
-
-[Events]
-//Background and Video events
-0,0,"BG.png",0,0
-Video,-335,"BGA.mp4"
-//Break Periods
-//Storyboard Layer 0 (Background)
-//Storyboard Layer 1 (Fail)
-//Storyboard Layer 2 (Pass)
-//Storyboard Layer 3 (Foreground)
-//Storyboard Sound Samples
-Sample,12397,0,"drum.wav",40
-Sample,18083,0,"drum.wav",40
-Sample,18182,0,"drum.wav",40
-Sample,26319,0,"drum.wav",30
-Sample,27103,0,"hihat.wav",40
-Sample,27887,0,"drum.wav",30
-Sample,28280,0,"hihat.wav",40
-Sample,40829,0,"hihat.wav",40
-Sample,51417,0,"hihat.wav",40
-Sample,52593,0,"hihat.wav",40
-Sample,53770,0,"bass.wav",50
-Sample,54554,0,"hihat.wav",40
-Sample,61025,0,"Cymbal.wav",50
-Sample,61025,0,"bass.wav",50
-Sample,61221,0,"drum.wav",40
-Sample,61417,0,"drum.wav",40
-Sample,61613,0,"drum.wav",40
-Sample,61858,0,"drum.wav",40
-Sample,61956,0,"drum.wav",40
-Sample,62054,0,"drum.wav",40
-Sample,62152,0,"drum.wav",40
-Sample,62250,0,"drum.wav",40
-Sample,62348,0,"drum.wav",40
-Sample,62446,0,"drum.wav",40
-Sample,62544,0,"drum.wav",40
-Sample,72789,0,"drum.wav",40
-Sample,73868,0,"drum.wav",40
-Sample,74064,0,"drum.wav",40
-Sample,79064,0,"bass.wav",50
-Sample,82250,0,"bass.wav",50
-Sample,88476,0,"boom.wav",70
-Sample,91417,0,"bass.wav",50
-Sample,97691,0,"bass.wav",50
-Sample,99750,0,"drum.wav",40
-Sample,99848,0,"bass.wav",50
-Sample,103966,0,"bass.wav",50
-Sample,110534,0,"bass.wav",50
-Sample,110731,0,"bass.wav",50
-Sample,111417,0,"hihat.wav",40
-Sample,111711,0,"bass.wav",50
-Sample,111809,0,"hihat.wav",40
-Sample,112070,0,"bass.wav",50
-Sample,112136,0,"bass.wav",50
-Sample,112266,0,"bass.wav",50
-Sample,112332,0,"bass.wav",50
-Sample,112463,0,"bass.wav",50
-Sample,112528,0,"bass.wav",50
-Sample,112593,0,"bass.wav",50
-Sample,112659,0,"bass.wav",50
-Sample,112724,0,"bass.wav",50
-Sample,112855,0,"bass.wav",50
-Sample,112920,0,"bass.wav",50
-Sample,112985,0,"bass.wav",50
-Sample,113051,0,"bass.wav",50
-Sample,113116,0,"bass.wav",50
-Sample,113247,0,"bass.wav",50
-Sample,113312,0,"bass.wav",50
-Sample,113443,0,"bass.wav",50
-Sample,113508,0,"bass.wav",50
 
 [TimingPoints]
 633,392.156862745098,4,2,1,50,1,0
@@ -327,10 +218,10 @@ Sample,113508,0,"bass.wav",50
 320,192,24750,1,0,0:0:0:40:drum.wav
 448,192,24848,1,0,0:0:0:40:drum.wav
 64,192,24946,1,0,0:0:0:40:drum.wav
-320,192,24946,128,0,25338:0:0:0:50:bass.wav
-192,192,24946,128,0,25338:0:0:0:0:
-448,192,25338,128,0,25731:0:0:0:40:drum.wav
-64,192,25338,128,0,25731:0:0:0:0:
+320,192,24946,1,0,0
+192,192,24946,1,0,0
+448,192,25338,1,0,0
+64,192,25338,1,0,0
 192,192,25731,1,0,0:0:0:50:Cymbal.wav
 320,192,25731,1,0,0:0:0:50:bass.wav
 192,192,25927,1,0,0:0:0:40:hihat.wav
@@ -470,7 +361,7 @@ Sample,113508,0,"bass.wav",50
 448,192,37495,1,0,0:0:0:0:
 64,192,37495,1,0,0:0:0:0:
 192,192,37691,1,0,0:0:0:0:
-448,192,37887,128,0,38280:0:0:0:0:
+448,192,37887,1,0,0
 64,192,38280,1,0,0:0:0:50:bass.wav
 320,192,38280,1,0,0:0:0:50:Cymbal.wav
 192,192,38476,1,0,0:0:0:40:hihat.wav
@@ -583,9 +474,9 @@ Sample,113508,0,"bass.wav",50
 320,192,47201,1,0,0:0:0:50:bass.wav
 64,192,47201,1,0,0:0:0:0:
 192,192,47397,1,0,0:0:0:50:bass.wav
-448,192,47397,128,0,47691:0:0:0:0:
+448,192,47397,1,0,0
 320,192,47691,1,0,0:0:0:50:bass.wav
-64,192,47691,128,0,49260:0:0:0:50:Cymbal.wav
+64,192,47691,1,0,0
 192,192,48083,1,0,0:0:0:0:
 448,192,48476,1,0,0:0:0:50:bass.wav
 320,192,48541,1,0,0:0:0:50:bass.wav
@@ -695,8 +586,8 @@ Sample,113508,0,"bass.wav",50
 320,192,57103,1,0,0:0:0:0:
 448,192,57201,1,0,0:0:0:0:
 320,192,57299,1,0,0:0:0:40:hihat.wav
-64,192,57495,128,0,57691:0:0:0:50:bass.wav
-448,192,57495,128,0,57691:0:0:0:0:
+64,192,57495,1,0,0
+448,192,57495,1,0,0
 320,192,57887,1,0,0:0:0:50:Cymbal.wav
 64,192,57887,1,0,0:0:0:50:bass.wav
 448,192,57887,1,0,0:0:0:0:
@@ -1226,13 +1117,13 @@ Sample,113508,0,"bass.wav",50
 64,192,99456,1,0,0:0:0:50:Cymbal.wav
 192,192,99456,1,0,0:0:0:50:bass.wav
 448,192,99456,1,0,0:0:0:0:
-448,192,99652,128,0,99848:0:0:0:40:drum.wav
-64,192,99652,128,0,99848:0:0:0:0:
+448,192,99652,1,0,0
+64,192,99652,1,0,0
 192,192,99848,1,0,0:0:0:50:Cymbal.wav
 320,192,99848,1,0,0:0:0:40:drum.wav
 64,192,99946,1,0,0:0:0:50:bass.wav
-192,192,100044,128,0,100240:0:0:0:50:bass.wav
-320,192,100044,128,0,100240:0:0:0:0:
+192,192,100044,1,0,0
+320,192,100044,1,0,0
 448,192,100240,1,0,0:0:0:50:Cymbal.wav
 64,192,100240,1,0,0:0:0:50:bass.wav
 320,192,100338,1,0,0:0:0:50:bass.wav

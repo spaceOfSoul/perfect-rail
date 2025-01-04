@@ -1,7 +1,11 @@
 #include "OptionScene.h"
 #include <sstream>
 
-OptionScene::OptionScene(float width, float height, sf::Font& font) : am(AudioManager::Instance()), sm(SettingsManager::Instance()), key_setUI(150, 175, 500, 250), font(font) {
+OptionScene::OptionScene(float width, float height, sf::Font& font) : 
+	am(AudioManager::Instance()),
+	sm(SettingsManager::Instance()),
+	key_setUI(150, 175, 500, 250),
+	font(font) {
 	this->width = width;
 	this->height = height;
 
@@ -14,6 +18,8 @@ OptionScene::~OptionScene()
 
 void OptionScene::onActivate() {
 	selectedItemIndex = 0;
+	isWaitForKey = false;
+	isKeySetMode = false;
 
 	// render texts
 	titleText.setFont(font);
@@ -73,6 +79,10 @@ void OptionScene::draw(sf::RenderWindow& window) {
 	for (int i = 0; i < OPTION_ITEM; i++)
 	{
 		window.draw(menus[i]);
+	}
+
+	if (isKeySetMode) {
+		window.draw(key_setUI);
 	}
 }
 
@@ -235,28 +245,73 @@ void OptionScene::MoveRight() {
 Signal OptionScene::handleInput(sf::Event event, sf::RenderWindow& window) {
 	if (event.type == sf::Event::KeyPressed)
 	{
-		if (event.key.code == sf::Keyboard::Up)
-		{
-			MoveUp();
+		// key set mode
+		if (isKeySetMode) {
+			if (isKeySetMode) {
+				if (!isWaitForKey) {
+					if (event.key.code == sf::Keyboard::Left) {
+						selectedKeyIndex = (selectedKeyIndex + 3) % 4;
+						printf("selected %d.\n", selectedKeyIndex);
+					}
+					else if (event.key.code == sf::Keyboard::Right) {
+						selectedKeyIndex = (selectedKeyIndex + 1) % 4; 
+						printf("selected %d.\n", selectedKeyIndex);
+					}
+					else if (event.key.code == sf::Keyboard::Enter) {
+						isWaitForKey = true;
+						printf("waiting for new key for %d.\n", selectedKeyIndex);
+					}
+					else if (event.key.code == sf::Keyboard::Escape) {
+						isKeySetMode = false;
+						printf("exited key set mode.\n");
+					}
+				}
+				else { // 엔터 눌러서 대기에 온 후
+					if (selectedKeyIndex >= 0 && selectedKeyIndex < 4) {
+						sf::Keyboard::Key newKey = event.key.code; // 현재 입력된 키
+						sm.SetKey(selectedKeyIndex, newKey);
+						printf("key %d set to %s\n", selectedKeyIndex, KeyToString(newKey).c_str());
+
+						isWaitForKey = false;
+					}
+					else {
+						printf("Invalid key index %d.\n", selectedKeyIndex);
+					}
+				}
+			}
+
 		}
-		else if (event.key.code == sf::Keyboard::Down)
-		{
-			MoveDown();
-		}
-		else if (event.key.code == sf::Keyboard::Left) {
-			MoveLeft();
-		}
-		else if (event.key.code == sf::Keyboard::Right) {
-			MoveRight();
-		}
-		else if (event.key.code == sf::Keyboard::Escape)
-		{
-			onDeactivate();
-			return Signal::GoToMainMenu;
-		}
-		else if (event.key.code == sf::Keyboard::Enter) {
-			if (selectedItemIndex == 5) {
-				printf("key binding is pushed.\n");
+		else { // is not key set mode (general option)
+			if (event.key.code == sf::Keyboard::Up)
+			{
+				MoveUp();
+			}
+			else if (event.key.code == sf::Keyboard::Down)
+			{
+				MoveDown();
+			}
+			else if (event.key.code == sf::Keyboard::Left) {
+				MoveLeft();
+			}
+			else if (event.key.code == sf::Keyboard::Right) {
+				MoveRight();
+			}
+			else if (event.key.code == sf::Keyboard::Escape)
+			{
+				onDeactivate();
+				return Signal::GoToMainMenu;
+			}
+			else if (event.key.code == sf::Keyboard::Enter) {
+				if (selectedItemIndex == 5) {
+					printf("key binding is pushed.\n");
+					isKeySetMode = true;
+					selectedKeyIndex = 0;
+				}
+				else if (selectedItemIndex == 6) {
+					printf("pushed Exited");
+					onDeactivate();
+					return Signal::GoToMainMenu;
+				}
 			}
 		}
 	}

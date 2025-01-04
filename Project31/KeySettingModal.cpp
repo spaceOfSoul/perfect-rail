@@ -43,7 +43,6 @@ KeySettingModal::KeySettingModal(float x, float y, float width, float height) {
 	// point ea
 	cursur.setPointCount(3);
 
-	float cur_size = 20;  // 삼각형의 크기
 	float triangleX = this->keyRect[0].getPosition().x + (this->keyRect[0].getSize().x - cur_size) / 2;
 	float triangleY = this->keyRect[0].getPosition().y + this->keyRect[0].getSize().y + (cur_size/2);
 	cursur.setPosition(triangleX, triangleY);
@@ -77,4 +76,15 @@ void KeySettingModal::draw(sf::RenderTarget& target, sf::RenderStates states) co
 	}
 	target.draw(Title, states);
 	target.draw(cursur, states);
+}
+
+void KeySettingModal::setKeyCursor(uint8_t index) { // index는 0~3사이에서 올거임 (옵션씬에서 조정해주기)
+	this->select_index = index;
+
+	float triangleX = this->keyRect[index].getPosition().x +
+		(this->keyRect[index].getSize().x - cur_size) / 2;
+	float triangleY = this->keyRect[index].getPosition().y +
+		this->keyRect[index].getSize().y + (cur_size / 2);
+	cursur.setPosition(triangleX, triangleY);
+	
 }

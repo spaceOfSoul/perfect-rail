@@ -56,6 +56,8 @@ private:
     // 사용자 세팅
     SettingsManager& sm;
 
+    sf::Keyboard::Key laneKeys[4];
+
     float screen_width;
     float screen_height;
 

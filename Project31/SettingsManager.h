@@ -1,6 +1,7 @@
 #pragma once
 #include "options.h"
 #include "utils.h"
+//#include <vector>
 
 class SettingsManager
 {
@@ -25,12 +26,14 @@ public:
 	float GetNoteSpeed() const;
 	int GetJudgeLine_Y() const;
 	int GetTimeSync() const;
+	sf::Keyboard::Key GetKey(int index) const;
 
 	void SetMusicVolume(float vol);
 	void SetSoundVolume(float vol);
 	void SetNoteSpeed(float speed);
 	void SetJudgeLine_Y(int y);
 	void SetTimeSync(int sync); 
+	void SetKey(int index, sf::Keyboard::Key);
 
 	void saveOption();
 };

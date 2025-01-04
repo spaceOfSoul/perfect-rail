@@ -69,6 +69,7 @@ void GameScene::onActivate() {
     for (int i = 0; i < 4; i++) {
         processedIndex[i] = 0;
         lightning_index[i] = 0;
+        laneKeys[i] = sm.GetKey(i);
     }
 
     note_speed = sm.GetNoteSpeed();
@@ -408,7 +409,7 @@ Signal GameScene::handleInput(sf::Event event, sf::RenderWindow& window) {
             onDeactivate();
             return Signal::GoToSongMenu;
         }
-        else if (event.key.code == sf::Keyboard::D) {
+        else if (event.key.code == laneKeys[0]) {
             if (!keyPushed[0]) {
                 if((music_note_process & _BV(WAITED)))
                     gm.keyDownProcess(0, judgeText, comboText, lightning_index[0]);
@@ -417,7 +418,7 @@ Signal GameScene::handleInput(sf::Event event, sf::RenderWindow& window) {
                 keyPushed[0] = true;
             }
         }
-        else if (event.key.code == sf::Keyboard::F) {
+        else if (event.key.code == laneKeys[1]) {
             if (!keyPushed[1]) {
                 if ((music_note_process & _BV(WAITED)))
                     gm.keyDownProcess(1, judgeText, comboText, lightning_index[1]);
@@ -426,7 +427,7 @@ Signal GameScene::handleInput(sf::Event event, sf::RenderWindow& window) {
                 keyPushed[1] = true;
             }
         }
-        else if (event.key.code == sf::Keyboard::J) {
+        else if (event.key.code == laneKeys[2]) {
             if (!keyPushed[2]) {
                 if ((music_note_process & _BV(WAITED)))
                     gm.keyDownProcess(2, judgeText, comboText, lightning_index[2]);
@@ -435,7 +436,7 @@ Signal GameScene::handleInput(sf::Event event, sf::RenderWindow& window) {
                 keyPushed[2] = true;
             }
         }
-        else if (event.key.code == sf::Keyboard::K) {
+        else if (event.key.code == laneKeys[3]) {
             if (!keyPushed[3]) {
                 if ((music_note_process & _BV(WAITED)))
                     gm.keyDownProcess(3, judgeText, comboText, lightning_index[3]);
@@ -445,7 +446,8 @@ Signal GameScene::handleInput(sf::Event event, sf::RenderWindow& window) {
             }
         }
         else if (event.key.code == sf::Keyboard::Enter) { // enter
-            if (!(music_note_process & _BV(FINISH_PROCESS))) { // get username
+            if (!(music_note_process & _BV(FINISH_PROCESS))) {
+                // 아래 유저네임 취득방식은 바꿀 예정 (이제 대동제 전시 안함)
                 // get user name
                 username = input_ui.getUserName();
                 if (username.size() > 0)
@@ -473,22 +475,22 @@ Signal GameScene::handleInput(sf::Event event, sf::RenderWindow& window) {
     }
 
     if (event.type == sf::Event::KeyReleased) {
-        if (event.key.code == sf::Keyboard::D) {
+        if (event.key.code == laneKeys[0]) {
             keyPushed[0] = false;
             buttons[0].setFillColor(sf::Color(128, 128, 128));
             laneLight[0].setColor(sf::Color(255, 255, 255, 0));
         }
-        else if (event.key.code == sf::Keyboard::F) {
+        else if (event.key.code == laneKeys[1]) {
             keyPushed[1] = false;
             buttons[1].setFillColor(sf::Color(128, 128, 128));
             laneLight[1].setColor(sf::Color(255, 255, 255, 0));
         }
-        else if (event.key.code == sf::Keyboard::J) {
+        else if (event.key.code == laneKeys[2]) {
             keyPushed[2] = false;
             buttons[2].setFillColor(sf::Color(128, 128, 128));
             laneLight[2].setColor(sf::Color(255, 255, 255, 0));
         }
-        else if (event.key.code == sf::Keyboard::K) {
+        else if (event.key.code == laneKeys[3]) {
             keyPushed[3] = false;
             buttons[3].setFillColor(sf::Color(128, 128, 128));
             laneLight[3].setColor(sf::Color(255, 255, 255, 0));

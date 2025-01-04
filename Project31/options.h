@@ -4,6 +4,7 @@
 #include <string>
 #include <filesystem>
 #include <iostream>
+#include <SFML/Graphics.hpp>
 
 struct Options {
 	float music_volume;
@@ -11,6 +12,7 @@ struct Options {
 	double note_speed;
 	int val_y;
 	int time_sync;
+	sf::Keyboard::Key keys[4];
 };
 
 void saveOptionFile(const Options& option, const std::string& filename);

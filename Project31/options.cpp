@@ -22,6 +22,11 @@ void saveOptionFile(const Options& option, const std::string& filename) {
     file.write((char*)(&option.val_y), sizeof(option.val_y));
     file.write((char*)(&option.time_sync), sizeof(option.time_sync));
 
+    for (int i = 0; i < 4; i++) {
+        int key = (int)option.keys[i];
+        file.write((char*)(&key), sizeof(key));
+    }
+
     file.close();
 
     std::cerr << "Successed writing." << std::endl;
@@ -56,6 +61,12 @@ void loadOptionFromFile(Options& option, const std::string& filename) {
         file.read((char*)(&option.val_y), sizeof(option.val_y));
         file.read((char*)(&option.time_sync), sizeof(option.time_sync));
 
+        for (int i = 0; i < 4; ++i) {
+            int key;
+            file.read((char*)(&key), sizeof(key));
+            option.keys[i] = (sf::Keyboard::Key)key;
+        }
+
         std::cerr << "Options loaded successfully" << std::endl;
         file.close();
     }
@@ -67,6 +78,11 @@ void initOptionSave(Options& option, const std::string& filename) {
     option.note_speed = 650;
     option.val_y = 0;
     option.time_sync = 0;
+
+    option.keys[0] = sf::Keyboard::S;
+    option.keys[1] = sf::Keyboard::D;
+    option.keys[2] = sf::Keyboard::L;
+    option.keys[3] = sf::Keyboard::SemiColon;
 
     saveOptionFile(option, filename);
 }
