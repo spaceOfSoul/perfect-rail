@@ -5,10 +5,10 @@ class KeySettingModal : public sf::Drawable
 {
 public:
     KeySettingModal(float x, float y, float width, float height);
-    void setKey(uint8_t index, char keys);
+    void setKey(uint8_t index, std::string keys);
     void setAllkey(char *);
     void setKeyCursor(uint8_t index);
-    void setKeyReady();
+    void blink(float dt);
 private:
     sf::RectangleShape OuterRect;
     sf::RectangleShape innerRect;
@@ -25,7 +25,7 @@ private:
     sf::Font font;
 
     // keys
-    char keys[4];
+    std::string keys[4];
     uint8_t select_index;
 
     // modal state
@@ -38,9 +38,6 @@ private:
 
     // for animation
     float blink_timer;
-
-    // animation function
-    void blink(float dt);
 
     // draw
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;

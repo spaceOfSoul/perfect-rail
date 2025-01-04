@@ -23,8 +23,8 @@ private:
     sf::Font font;
     sf::Text titleText;
     sf::Text menus[OPTION_ITEM];
-    sf::RectangleShape startButton;
     KeySettingModal key_setUI;
+    sf::RectangleShape backStageOverlay;
     int selectedItemIndex = 0;
     const int fontSize = 24;
 

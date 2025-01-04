@@ -9,6 +9,10 @@ OptionScene::OptionScene(float width, float height, sf::Font& font) :
 	this->width = width;
 	this->height = height;
 
+	backStageOverlay.setSize(sf::Vector2f(width, height));
+	backStageOverlay.setFillColor(sf::Color(0, 0, 0, 128));
+	backStageOverlay.setPosition(0, 0);
+
 	selectedItemIndex = 0;
 }
 
@@ -20,6 +24,10 @@ void OptionScene::onActivate() {
 	selectedItemIndex = 0;
 	isWaitForKey = false;
 	isKeySetMode = false;
+
+	for (int i = 0; i < 4; i++) {
+		key_setUI.setKey(i, KeyToString(sm.GetKey(i)));
+	}
 
 	// render texts
 	titleText.setFont(font);
@@ -82,12 +90,15 @@ void OptionScene::draw(sf::RenderWindow& window) {
 	}
 
 	if (isKeySetMode) {
+		window.draw(backStageOverlay);
 		window.draw(key_setUI);
 	}
 }
 
 void OptionScene::update(float dt) {
-
+	if (isKeySetMode && isWaitForKey) {
+		key_setUI.blink(dt);
+	}
 }
 
 void OptionScene::MoveUp()
@@ -251,10 +262,12 @@ Signal OptionScene::handleInput(sf::Event event, sf::RenderWindow& window) {
 				if (!isWaitForKey) {
 					if (event.key.code == sf::Keyboard::Left) {
 						selectedKeyIndex = (selectedKeyIndex + 3) % 4;
+						key_setUI.setKeyCursor(selectedKeyIndex);
 						printf("selected %d.\n", selectedKeyIndex);
 					}
 					else if (event.key.code == sf::Keyboard::Right) {
 						selectedKeyIndex = (selectedKeyIndex + 1) % 4; 
+						key_setUI.setKeyCursor(selectedKeyIndex);
 						printf("selected %d.\n", selectedKeyIndex);
 					}
 					else if (event.key.code == sf::Keyboard::Enter) {
@@ -270,12 +283,15 @@ Signal OptionScene::handleInput(sf::Event event, sf::RenderWindow& window) {
 					if (selectedKeyIndex >= 0 && selectedKeyIndex < 4) {
 						sf::Keyboard::Key newKey = event.key.code; // 현재 입력된 키
 						sm.SetKey(selectedKeyIndex, newKey);
+
+						sm.SetKey(selectedKeyIndex, newKey);
+						key_setUI.setKey(selectedKeyIndex, KeyToString(newKey));
 						printf("key %d set to %s\n", selectedKeyIndex, KeyToString(newKey).c_str());
 
 						isWaitForKey = false;
 					}
 					else {
-						printf("Invalid key index %d.\n", selectedKeyIndex);
+						printf("Invalid key index %d.\n", selectedKeyIndex); // 요기로 가는 일은 없어야함.
 					}
 				}
 			}

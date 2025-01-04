@@ -55,10 +55,12 @@ KeySettingModal::KeySettingModal(float x, float y, float width, float height) {
 	select_index = -1;
 }
 
-void KeySettingModal::setKey(uint8_t index, char keys) {
-	this->keys[index] = keys;
-	this->keyText[index].setString(keys);
+void KeySettingModal::setKey(uint8_t index, std::string key) {
+	this->keys[index] = key;
+	this->keyText[index].setString(key);
+	this->keyRect[index].setFillColor(sf::Color(60, 60, 60));
 }
+
 
 void KeySettingModal::setAllkey(char* keys) {
 	for (uint8_t i = 0; i < 4; i++) {
@@ -87,4 +89,14 @@ void KeySettingModal::setKeyCursor(uint8_t index) { // index는 0~3사이에서 올거�
 		this->keyRect[index].getSize().y + (cur_size / 2);
 	cursur.setPosition(triangleX, triangleY);
 	
+}
+
+void KeySettingModal::blink(float dt) {
+	blink_timer += dt;
+	if (blink_timer >= 0.5f) { // 0.5초마다 깜박임
+		sf::Color currentColor = keyRect[select_index].getFillColor();
+		keyRect[select_index].setFillColor(
+			currentColor == sf::Color::Red ? sf::Color(60, 60, 60) : sf::Color::Red);
+		blink_timer = 0;
+	}
 }
