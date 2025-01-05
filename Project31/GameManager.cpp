@@ -23,15 +23,26 @@ void GameManager::removeNote(int selected_time) {
     }
 }
 
-void GameManager::keyDownProcess(int keyIndex, JudgeText& judgeText, ComboText& comboText, uint8_t& lightIndex) {
+void GameManager::keyDownProcess(int keyIndex, JudgeText& judgeText, ComboText& comboText, uint8_t& lightIndex, uint8_t& fasl_state) {
     //printf("pushed\n");
     for (int i = judgeIndex[keyIndex]; i < song_data.NotePoints[keyIndex].size(); ++i) {
         int time = song_data.NotePoints[keyIndex][i].first;
+        int currentOffset = am.getMusic().getPlayingOffset().asMilliseconds();
+        int abs_v = abs(time - currentOffset);
 
-        int abs_v = abs(time - am.getMusic().getPlayingOffset().asMilliseconds());
+        if (time < currentOffset) {
+            fasl_state = 2; // 느림
+        }
+        else if (time > currentOffset) {
+            fasl_state = 1; // 빠름
+        }
+        else {
+            fasl_state = 0; // kool
+        }
 
         //printf("key : %d judge executed\n", keyIndex);
         if (abs_v <= 25) { //kool 범위
+            fasl_state = 0;
             targetPass[4]++; //kool
             lastJudge = 4; //kool
             combo++;
@@ -58,7 +69,7 @@ void GameManager::keyDownProcess(int keyIndex, JudgeText& judgeText, ComboText& 
             judgeIndex[keyIndex] = i + 1;
             break;
         }
-        else if (abs_v <= 41.3) { //cool 범위
+        else if (abs_v <= 40) { //cool 범위
             targetPass[3]++;  //cool
             lastJudge = 3; //cool
             combo++;

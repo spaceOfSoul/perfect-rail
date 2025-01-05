@@ -8,6 +8,7 @@
 #include "ComboText.h"
 #include "JudgeText.h"
 #include "ResultUI.h"
+#include "ui_utils.h"
 
 #include "GameManager.h"
 #include "SettingsManager.h"
@@ -85,6 +86,11 @@ private:
     JudgeText judgeText;
     float judgeHeight = 300;
     unsigned int judgeFontSize = 60;
+
+    sf::Text fastText;
+    sf::Text slowText;
+    float faslHeight = 250;
+    unsigned int faslFontSize = 20;
 
     int start_pos = 255;
     int buttonY = 500;
@@ -202,6 +208,7 @@ private:
     // 4 : musicStarted
     uint8_t music_note_process;
     uint8_t count_factor;
+    uint8_t fasl_state;
 
     bool isAlive;
     double hp;

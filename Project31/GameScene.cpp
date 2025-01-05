@@ -59,6 +59,9 @@ void GameScene::onActivate() {
     judgeText.setFont(font);
     ready_txt.setFont(font);
 
+    fastText.setFont(font);
+    slowText.setFont(font);
+
     music_note_process = 0;
     isAlive = true;
     input_process = 0;
@@ -153,6 +156,17 @@ void GameScene::initialize() {
     judgeText.setPosition(400, judgeHeight);
     judgeText.setJudgement(10);
 
+    // 패슬
+    fastText.setPosition(300, faslHeight);
+    fastText.setCharacterSize(faslFontSize);
+    fastText.setFillColor(sf::Color(0,0,255,0));
+    fastText.setString("FAST");
+
+    slowText.setPosition(450, faslHeight);
+    slowText.setCharacterSize(faslFontSize);
+    slowText.setFillColor(sf::Color(255, 0, 0, 0));
+    slowText.setString("SLOW");
+
     // Score Text
     scoreText.setFont(font);
     scoreText.setCharacterSize(24);
@@ -175,7 +189,7 @@ void GameScene::initialize() {
 void GameScene::update(float dt) {
     // note clock
     const long long note_time = noteClock.getElapsedTime().asMilliseconds();
-    if (!(music_note_process & _BV(WAITED)) && note_time < 2000) {
+    if (!(music_note_process & _BV(WAITED)) && note_time < 2000) { // game 시작 전
         if (note_time>=(500 * count_factor)) {
             //printf("%d\n", note_time);
             am.PlayEventSound("countdown");
@@ -187,9 +201,22 @@ void GameScene::update(float dt) {
         noteClock.restart();
         music_note_process |= _BV(WAITED);
     }
-    else if (!(music_note_process&_BV(NOTE_CLOCK_STARTED))) {
+    else if (!(music_note_process&_BV(NOTE_CLOCK_STARTED))) { // 노트 클락 아직
         noteClock.restart();
         music_note_process |= _BV(NOTE_CLOCK_STARTED);
+    }
+
+    if (music_note_process & _BV(NOTE_CLOCK_STARTED)) {
+        if (fasl_state == 1) { // 빠름
+            fastText.setFillColor(sf::Color(0, 0, 255, 255));
+            fasl_state = 0;
+        }
+        else if (fasl_state == 2) { // 느림
+            slowText.setFillColor(sf::Color(255, 0, 0, 255));
+            fasl_state = 0;
+        }
+        fadeOutText(fastText, dt, 180);
+        fadeOutText(slowText, dt, 180);
     }
 
     // music clock
@@ -378,6 +405,10 @@ void GameScene::draw(sf::RenderWindow& window) {
     accurateStr = accurateStr.substr(0, accurateStr.find(".") + 3) + "%";
     accurateText.setString(accurateStr);
 
+    // 패슬
+    window.draw(fastText);
+    window.draw(slowText);
+
     // 콤보, 스코어, hp 그리기
     window.draw(scoreText);
     window.draw(accurateText);
@@ -412,7 +443,7 @@ Signal GameScene::handleInput(sf::Event event, sf::RenderWindow& window) {
         else if (event.key.code == laneKeys[0]) {
             if (!keyPushed[0]) {
                 if((music_note_process & _BV(WAITED)))
-                    gm.keyDownProcess(0, judgeText, comboText, lightning_index[0]);
+                    gm.keyDownProcess(0, judgeText, comboText, lightning_index[0], fasl_state);
                 buttons[0].setFillColor(sf::Color(65, 105, 225));
                 laneLight[0].setColor(sf::Color(255,255,255,120));
                 keyPushed[0] = true;
@@ -421,7 +452,7 @@ Signal GameScene::handleInput(sf::Event event, sf::RenderWindow& window) {
         else if (event.key.code == laneKeys[1]) {
             if (!keyPushed[1]) {
                 if ((music_note_process & _BV(WAITED)))
-                    gm.keyDownProcess(1, judgeText, comboText, lightning_index[1]);
+                    gm.keyDownProcess(1, judgeText, comboText, lightning_index[1], fasl_state);
                 buttons[1].setFillColor(sf::Color(65, 105, 225));
                 laneLight[1].setColor(sf::Color(255, 255, 255, 120));
                 keyPushed[1] = true;
@@ -430,7 +461,7 @@ Signal GameScene::handleInput(sf::Event event, sf::RenderWindow& window) {
         else if (event.key.code == laneKeys[2]) {
             if (!keyPushed[2]) {
                 if ((music_note_process & _BV(WAITED)))
-                    gm.keyDownProcess(2, judgeText, comboText, lightning_index[2]);
+                    gm.keyDownProcess(2, judgeText, comboText, lightning_index[2], fasl_state);
                 buttons[2].setFillColor(sf::Color(65, 105, 225));
                 laneLight[2].setColor(sf::Color(255, 255, 255, 120));
                 keyPushed[2] = true;
@@ -439,7 +470,7 @@ Signal GameScene::handleInput(sf::Event event, sf::RenderWindow& window) {
         else if (event.key.code == laneKeys[3]) {
             if (!keyPushed[3]) {
                 if ((music_note_process & _BV(WAITED)))
-                    gm.keyDownProcess(3, judgeText, comboText, lightning_index[3]);
+                    gm.keyDownProcess(3, judgeText, comboText, lightning_index[3], fasl_state);
                 buttons[3].setFillColor(sf::Color(65, 105, 225));
                 laneLight[3].setColor(sf::Color(255, 255, 255, 120));
                 keyPushed[3] = true;

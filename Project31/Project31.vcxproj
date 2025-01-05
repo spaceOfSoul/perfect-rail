@@ -161,6 +161,7 @@
     <ClCompile Include="SettingsManager.cpp" />
     <ClCompile Include="socresPannel.cpp" />
     <ClCompile Include="SongMenuScene.cpp" />
+    <ClCompile Include="ui_utils.cpp" />
     <ClCompile Include="utils.cpp" />
     <ClCompile Include="VerticalList.cpp" />
     <ClCompile Include="ReadyText.cpp" />
@@ -196,6 +197,7 @@
     <ClInclude Include="SongInfo.h" />
     <ClInclude Include="SongMenuScene.h" />
     <ClInclude Include="NotePlate.h" />
+    <ClInclude Include="ui_utils.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="VerticalList.h" />
     <ClInclude Include="ReadyText.h" />

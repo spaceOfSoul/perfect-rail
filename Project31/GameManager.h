@@ -16,7 +16,7 @@ public:
         targetPass.fill(0);
     }
 
-    void keyDownProcess(int keyIndex, JudgeText& judgeText, ComboText& comboText, uint8_t& lightIndex);
+    void keyDownProcess(int keyIndex, JudgeText& judgeText, ComboText& comboText, uint8_t& lightIndex, uint8_t& fasl_state);
     void checkMiss(JudgeText& judgeText, ComboText& comboText);
 
     void calAccuracy();

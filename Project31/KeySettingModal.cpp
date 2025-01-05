@@ -1,5 +1,5 @@
 #include "KeySettingModal.h"
-
+#include <httprequestid.h>
 KeySettingModal::KeySettingModal(float x, float y, float width, float height) {
 	this->x = x;
 	this->y = y;
@@ -93,10 +93,13 @@ void KeySettingModal::setKeyCursor(uint8_t index) { // index는 0~3사이에서 올거�
 
 void KeySettingModal::blink(float dt) {
 	blink_timer += dt;
-	if (blink_timer >= 0.5f) { // 0.5초마다 깜박임
+	if (blink_timer >= 0.2f) { // 0.2초마다 깜박임
 		sf::Color currentColor = keyRect[select_index].getFillColor();
+
 		keyRect[select_index].setFillColor(
-			currentColor == sf::Color::Red ? sf::Color(60, 60, 60) : sf::Color::Red);
+			currentColor == sf::Color::Red ? sf::Color(30, 30, 30) : sf::Color::Red
+		);
+
 		blink_timer = 0;
 	}
 }
